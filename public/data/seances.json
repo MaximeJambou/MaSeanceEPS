@@ -1,0 +1,240 @@
+[
+  {
+    "id": "athle-1-courir-sans-sarreter",
+    "cycle": "athletisme-courir-sauter-lancer",
+    "numero": 1,
+    "titre": "Courir sans s'arrêter",
+    "duree": 45,
+    "lieu": "Cour ou stade",
+    "objectif": "Repérer son allure sur six minutes et apprendre à doser son effort.",
+    "critere": "Courir six minutes sans marcher, en gardant la même allure.",
+    "echauffement": {
+      "duree": 10,
+      "titre": "Mise en train progressive",
+      "contenu": "Trottinement autour du terrain, mobilisation des chevilles et des épaules, deux accélérations de 20 m."
+    },
+    "exercices": [
+      {
+        "titre": "Course en boucle repérée",
+        "duree": 20,
+        "description": "Un circuit de 200 m jalonné de plots numérotés. Les élèves courent six minutes ; au signal, chacun retient le numéro du plot atteint.",
+        "organisation": "Deux vagues : une court, l'autre observe et compte les tours.",
+        "variable": "Réduire à quatre minutes pour un premier essai."
+      },
+      {
+        "titre": "Deuxième essai raisonné",
+        "duree": 10,
+        "description": "Nouvelle course de six minutes en essayant d'atteindre au moins le même plot. Comparer les deux résultats.",
+        "organisation": "Inversion des rôles coureur / observateur.",
+        "variable": "Autoriser un partenaire à courir à côté pour réguler l'allure."
+      }
+    ],
+    "retour": { "duree": 5, "contenu": "Marche respirée, puis chacun note ses deux résultats sur sa fiche." },
+    "materiel": ["10 plots numérotés", "1 chronomètre", "Fiches d'observation"],
+    "publiee": true
+  },
+  {
+    "id": "athle-2-reagir-au-signal",
+    "cycle": "athletisme-courir-sauter-lancer",
+    "numero": 2,
+    "titre": "Réagir au signal",
+    "duree": 45,
+    "lieu": "Cour",
+    "objectif": "Partir vite et droit au signal, quelle que soit la position de départ.",
+    "critere": "Partir dès le signal, sans faux départ, sur trois essais sur quatre.",
+    "echauffement": {
+      "duree": 10,
+      "titre": "Jeux de réaction",
+      "contenu": "Déplacements variés, puis jeu des couleurs : au nom d'une couleur annoncée, rejoindre le plot correspondant."
+    },
+    "exercices": [
+      {
+        "titre": "Départs debout et accroupis",
+        "duree": 15,
+        "description": "Sur 15 m, départs au sifflet depuis deux positions au choix. Chaque élève effectue quatre départs.",
+        "organisation": "Quatre couloirs, un élève par couloir, rotation après chaque essai.",
+        "variable": "Varier le signal : sonore, visuel, tactile."
+      },
+      {
+        "titre": "Duels sur 20 m",
+        "duree": 15,
+        "description": "Deux élèves d'allure proche partent ensemble. Le but n'est pas de gagner mais de partir au bon moment.",
+        "organisation": "Binômes constitués par l'enseignant.",
+        "variable": "Décaler le départ du plus rapide de deux mètres."
+      }
+    ],
+    "retour": { "duree": 5, "contenu": "Étirements debout, retour sur ce qui aide à partir vite." },
+    "materiel": ["12 plots", "1 sifflet", "4 cerceaux"],
+    "publiee": true
+  },
+  {
+    "id": "athle-3-courir-vite-courir-droit",
+    "cycle": "athletisme-courir-sauter-lancer",
+    "numero": 3,
+    "titre": "Courir vite, courir droit",
+    "duree": 45,
+    "lieu": "Cour",
+    "objectif": "Maintenir sa trajectoire en ligne droite du départ à l'arrivée.",
+    "critere": "Franchir la ligne sans sortir de son couloir, trois essais sur quatre.",
+    "echauffement": {
+      "duree": 10,
+      "titre": "Déplacements variés",
+      "contenu": "Course lente sur le pourtour, puis au signal : talons-fesses, montées de genoux, pas chassés. Terminer par deux accélérations progressives sur 20 m."
+    },
+    "exercices": [
+      {
+        "titre": "Relais en couloirs",
+        "duree": 15,
+        "description": "Quatre couloirs de 20 m délimités par des plots. Équipes de quatre, chacun parcourt son couloir aller-retour et touche la main du suivant. Trois manches.",
+        "organisation": "Quatre équipes, une par couloir.",
+        "variable": "Élargir les couloirs pour les élèves en difficulté, les rétrécir ensuite."
+      },
+      {
+        "titre": "Départs réactifs",
+        "duree": 15,
+        "description": "Par deux, assis dos à la ligne. Au sifflet, se lever et sprinter 15 m jusqu'au cerceau. Alterner les positions de départ : assis, couché, à genoux.",
+        "organisation": "Un seul binôme par couloir, arrivée dégagée sur 5 m.",
+        "variable": "Ajouter un obstacle bas à mi-parcours."
+      }
+    ],
+    "retour": { "duree": 5, "contenu": "Marche respirée, étirements debout. Chacun note son meilleur temps sur sa fiche d'observation." },
+    "materiel": ["12 plots", "4 cerceaux", "1 chronomètre", "1 sifflet", "Fiches d'observation"],
+    "publiee": true
+  },
+  {
+    "id": "athle-4-lancer-loin-lancer-juste",
+    "cycle": "athletisme-courir-sauter-lancer",
+    "numero": 4,
+    "titre": "Lancer loin, lancer juste",
+    "duree": 45,
+    "lieu": "Terrain stabilisé",
+    "objectif": "Lancer à bras cassé en respectant strictement les règles de sécurité.",
+    "critere": "Lancer et ramasser uniquement au signal, sans exception.",
+    "echauffement": {
+      "duree": 10,
+      "titre": "Épaules et coordination",
+      "contenu": "Rotations d'épaules, lancers à deux mains contre un mur, jeu de passes rapides en cercle."
+    },
+    "exercices": [
+      {
+        "titre": "Zones de lancer",
+        "duree": 15,
+        "description": "Trois zones matérialisées à 5, 10 et 15 m. Chacun annonce sa zone visée puis lance trois balles lestées.",
+        "organisation": "Une seule vague lance, les autres attendent derrière la ligne de sécurité.",
+        "variable": "Rapprocher les zones pour les plus jeunes."
+      },
+      {
+        "titre": "Concours par équipes",
+        "duree": 15,
+        "description": "Chaque équipe cumule les zones atteintes. Mesure au décamètre pour les meilleurs essais.",
+        "organisation": "Quatre équipes, un mesureur désigné par équipe.",
+        "variable": "Compter le meilleur essai plutôt que la somme."
+      }
+    ],
+    "retour": { "duree": 5, "contenu": "Rangement collectif du matériel, rappel des consignes de sécurité." },
+    "materiel": ["8 balles lestées", "1 décamètre", "10 plots", "Craie ou rubalise"],
+    "publiee": true
+  },
+  {
+    "id": "jeux-1-occuper-lespace",
+    "cycle": "jeux-collectifs-attaquer-defendre",
+    "numero": 1,
+    "titre": "Occuper tout l'espace",
+    "duree": 40,
+    "lieu": "Cour ou salle",
+    "objectif": "Comprendre qu'un terrain se joue en largeur autant qu'en longueur.",
+    "critere": "Se placer loin du porteur de ballon pour recevoir.",
+    "echauffement": {
+      "duree": 8,
+      "titre": "Épervier",
+      "contenu": "Jeu de l'épervier sur toute la largeur du terrain, deux manches."
+    },
+    "exercices": [
+      {
+        "titre": "Balle au capitaine",
+        "duree": 16,
+        "description": "Faire parvenir le ballon au capitaine placé dans une zone au fond du terrain, par des passes uniquement.",
+        "organisation": "Deux équipes de six, terrain de 20 × 12 m.",
+        "variable": "Interdire de faire plus de trois pas avec le ballon."
+      },
+      {
+        "titre": "Trois zones",
+        "duree": 12,
+        "description": "Le terrain est divisé en trois couloirs ; le ballon doit passer par chaque couloir avant de marquer.",
+        "organisation": "Mêmes équipes, couloirs marqués aux plots.",
+        "variable": "Deux couloirs seulement pour simplifier."
+      }
+    ],
+    "retour": { "duree": 4, "contenu": "Bilan assis : où étaient les espaces libres ?" },
+    "materiel": ["2 ballons en mousse", "16 plots", "Chasubles de deux couleurs"],
+    "publiee": true
+  },
+  {
+    "id": "jeux-2-se-demarquer",
+    "cycle": "jeux-collectifs-attaquer-defendre",
+    "numero": 2,
+    "titre": "Se démarquer pour recevoir",
+    "duree": 40,
+    "lieu": "Cour ou salle",
+    "objectif": "Se rendre disponible pour un partenaire porteur du ballon.",
+    "critere": "Recevoir au moins une passe par manche sans être couvert par un défenseur.",
+    "echauffement": {
+      "duree": 8,
+      "titre": "Passes en mouvement",
+      "contenu": "Par trois, passes en marchant puis en trottinant, sans faire tomber le ballon."
+    },
+    "exercices": [
+      {
+        "titre": "Dix passes",
+        "duree": 16,
+        "description": "Réaliser dix passes consécutives sans interception. Le compte repart à zéro à chaque perte.",
+        "organisation": "Deux équipes de cinq, zone réduite.",
+        "variable": "Compter cinq passes pour un premier niveau."
+      },
+      {
+        "titre": "Le passeur libre",
+        "duree": 12,
+        "description": "Un joueur neutre joue toujours avec l'équipe qui possède le ballon : il faut lui donner et se replacer.",
+        "organisation": "Un élève neutre désigné par manche.",
+        "variable": "Deux joueurs neutres."
+      }
+    ],
+    "retour": { "duree": 4, "contenu": "Retour au calme et rangement des chasubles." },
+    "materiel": ["2 ballons en mousse", "12 plots", "Chasubles de deux couleurs"],
+    "publiee": true
+  },
+  {
+    "id": "aqua-1-entrer-dans-leau",
+    "cycle": "aisance-aquatique",
+    "numero": 1,
+    "titre": "Entrer dans l'eau",
+    "duree": 30,
+    "lieu": "Bassin d'apprentissage",
+    "objectif": "Entrer dans l'eau de plusieurs façons sans appréhension.",
+    "critere": "Entrer par l'échelle puis assis au bord, sans aide.",
+    "echauffement": {
+      "duree": 6,
+      "titre": "Prise de contact",
+      "contenu": "Assis au bord, battements de jambes, s'asperger le visage, souffler à la surface."
+    },
+    "exercices": [
+      {
+        "titre": "Trois entrées",
+        "duree": 12,
+        "description": "Entrer par l'échelle, puis assis au bord en se laissant glisser, puis debout en se tenant au bord.",
+        "organisation": "Groupes de six avec l'adulte dans l'eau.",
+        "variable": "Entrée accompagnée main dans la main."
+      },
+      {
+        "titre": "Le parcours du bord",
+        "duree": 8,
+        "description": "Se déplacer le long du mur en se tenant à la goulotte, passer sous une frite tenue à la surface.",
+        "organisation": "File indienne le long du bord.",
+        "variable": "Frite relevée pour éviter l'immersion complète."
+      }
+    ],
+    "retour": { "duree": 4, "contenu": "Sortie calme, rappel des règles du bassin." },
+    "materiel": ["6 frites", "4 tapis flottants", "Cerceaux lestés"],
+    "publiee": true
+  }
+]

@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import { lien } from '../../lib/url.js';
+import { ressources } from '../../lib/donnees.js';
+const categories = [...new Set(ressources.map((r) => r.categorie))];
+---
+<Base titre="Ressources" description="Documents à imprimer et repères d'organisation." actif="ressources">
+  <section class="contenu" style="padding-block:44px 12px">
+    <h1 style="font-size:clamp(30px,4vw,44px);font-weight:800">Ressources</h1>
+    <p style="color:var(--gris);font-size:19px;padding-top:10px;max-width:640px">
+      Documents à imprimer et repères d'organisation, classés par thème.
+    </p>
+  </section>
+
+  <section class="contenu" style="padding-bottom:40px;display:flex;flex-direction:column;gap:36px">
+    {categories.map((cat) => (
+      <div class="pile" style="gap:14px">
+        <h2 class="surtitre">{cat}</h2>
+        <div class="grille grille--2">
+          {ressources.filter((r) => r.categorie === cat).map((r) => (
+            <article class="carte pile" style="gap:10px">
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <span class={`icone icone--${r.type}`}>
+                  {r.type === 'pdf' ? (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg>
+                  ) : (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+                  )}
+                </span>
+                <div class="pile" style="gap:4px">
+                  <h3 style="font-size:19px;font-weight:700">{r.titre}</h3>
+                  <p style="color:var(--gris);font-size:15px">{r.description}</p>
+                </div>
+              </div>
+              {r.type === 'article' && r.contenu && <p style="padding-top:2px">{r.contenu}</p>}
+              {r.type === 'pdf' && r.fichier && (
+                <a class="bouton bouton--fantome" style="align-self:flex-start" href={lien(r.fichier)} download>Télécharger le PDF</a>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</Base>
+
+<style>
+  .icone { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--azur-clair); color: var(--azur-fonce); }
+  .icone--article { background: #FFF3D1; color: var(--or-fonce); }
+</style>

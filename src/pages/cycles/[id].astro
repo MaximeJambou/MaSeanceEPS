@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import CarteSeance from '../../components/CarteSeance.astro';
+import { lien } from '../../lib/url.js';
+import { cycles, seancesDuCycle, ressources } from '../../lib/donnees.js';
+
+export function getStaticPaths() {
+  return cycles.map((c) => ({ params: { id: c.id } }));
+}
+
+const cycle = cycles.find((c) => c.id === Astro.params.id);
+const liste = seancesDuCycle(cycle.id);
+const liees = ressources.filter((r) => r.categorie === cycle.sport);
+---
+<Base titre={cycle.titre} description={cycle.resume} actif="cycles">
+  <section class="tete">
+    <div class="contenu" style="padding-block:28px 40px">
+      <nav class="fil sans-impression" aria-label="Fil d'Ariane">
+        <a href={lien('cycles/')}>Cycles</a><span>/</span><span>{cycle.titre}</span>
+      </nav>
+      <div class="tete__grille">
+        <div class="pile" style="gap:14px">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="etiquette etiquette--or">{cycle.sport}</span>
+            <span class="etiquette-claire">{cycle.niveaux}</span>
+            <span class="etiquette-claire">{cycle.periode}</span>
+          </div>
+          <h1>{cycle.titre}</h1>
+          <p class="tete__resume">{cycle.resume}</p>
+        </div>
+        <div class="tete__compteurs">
+          <div><strong>{liste.length}</strong><span>séance{liste.length > 1 ? 's' : ''}</span></div>
+          <div><strong>{cycle.duree}′</strong><span>par séance</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contenu colonnes">
+    <div class="pile" style="gap:20px">
+      <div class="pile" style="gap:8px">
+        <h2 class="surtitre">Objectif du cycle</h2>
+        <p style="font-size:19px">{cycle.objectif}</p>
+      </div>
+
+      <h2 class="surtitre" style="padding-top:10px">La progression</h2>
+      <div class="pile" style="gap:12px">
+        {liste.map((s) => <CarteSeance seance={s} />)}
+        {liste.length === 0 && <p style="color:var(--gris)">Aucune séance publiée pour ce cycle pour l'instant.</p>}
+      </div>
+    </div>
+
+    <aside class="pile" style="gap:16px">
+      <div class="carte pile" style="gap:12px">
+        <h3 class="surtitre">Ce qu'ils apprennent</h3>
+        <ul style="padding-left:18px;display:flex;flex-direction:column;gap:8px">
+          {cycle.apprentissages.map((a) => <li>{a}</li>)}
+        </ul>
+      </div>
+
+      {cycle.remarque && (
+        <div class="encart-materiel pile" style="gap:8px">
+          <h3 class="surtitre" style="color:var(--or-fonce)">Bon à savoir</h3>
+          <p>{cycle.remarque}</p>
+        </div>
+      )}
+
+      {liees.length > 0 && (
+        <div class="carte pile" style="gap:10px">
+          <h3 class="surtitre">Ressources du cycle</h3>
+          {liees.map((r) => <a href={lien('ressources/')} style="font-weight:600">{r.titre}</a>)}
+        </div>
+      )}
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .tete { background: var(--azur-fonce); color: #fff; }
+  .fil { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #9EBEDD; padding-bottom: 18px; }
+  .fil a { color: #9EBEDD; }
+  .tete__grille { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: end; }
+  .tete h1 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 800; }
+  .tete__resume { font-size: 19px; color: #C9DEF4; max-width: 640px; }
+  .etiquette-claire { border: 1px solid rgba(255,255,255,.35); color: #fff; font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+  .tete__compteurs { display: flex; gap: 12px; }
+  .tete__compteurs div { flex-grow: 1; background: rgba(255,255,255,.09); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; }
+  .tete__compteurs strong { font-family: var(--titre); font-size: 28px; font-weight: 800; }
+  .tete__compteurs span { font-size: 14px; color: #9EBEDD; }
+
+  .colonnes { display: grid; grid-template-columns: 1fr 300px; gap: 44px; padding-block: 40px; align-items: start; }
+  @media (max-width: 900px) {
+    .tete__grille, .colonnes { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>

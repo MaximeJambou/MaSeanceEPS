@@ -1,0 +1,143 @@
+---
+import Base from '../../layouts/Base.astro';
+import { lien } from '../../lib/url.js';
+import { seances, cycles, seancesDuCycle } from '../../lib/donnees.js';
+
+export function getStaticPaths() {
+  return seances.map((s) => ({ params: { id: s.id } }));
+}
+
+const seance = seances.find((s) => s.id === Astro.params.id);
+const cycle = cycles.find((c) => c.id === seance.cycle);
+const fratrie = seancesDuCycle(seance.cycle);
+const index = fratrie.findIndex((s) => s.id === seance.id);
+const precedente = index > 0 ? fratrie[index - 1] : null;
+const suivante = index < fratrie.length - 1 ? fratrie[index + 1] : null;
+---
+<Base titre={seance.titre} description={seance.objectif} actif="seances">
+  <section class="tete">
+    <div class="contenu" style="padding-block:24px 32px">
+      <nav class="fil sans-impression" aria-label="Fil d'Ariane">
+        <a href={lien('cycles/')}>Cycles</a><span>/</span>
+        <a href={lien(`cycles/${cycle.id}/`)}>{cycle.titre}</a><span>/</span>
+        <span>Séance {seance.numero}</span>
+      </nav>
+      <div class="tete__grille">
+        <div class="pile" style="gap:10px">
+          <span class="tete__surtitre">{cycle.sport} · {cycle.titre} · {cycle.niveaux}</span>
+          <h1>{seance.titre}</h1>
+        </div>
+        <div class="tete__compteurs">
+          <div><strong>{seance.numero}/{fratrie.length}</strong><span>séance</span></div>
+          <div class="est-or"><strong>{seance.duree}′</strong><span>durée</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <article class="contenu fiche">
+    <div class="grille grille--2">
+      <div class="carte pile" style="gap:5px">
+        <span class="surtitre">Objectif d'apprentissage</span>
+        <span>{seance.objectif}</span>
+      </div>
+      <div class="carte pile" style="gap:5px">
+        <span class="surtitre">Critère de réussite</span>
+        <span>{seance.critere}</span>
+      </div>
+    </div>
+
+    <h2 class="surtitre" style="padding-top:28px">Déroulé</h2>
+
+    <div class="deroule">
+      <div class="etape">
+        <div class="etape__temps">{seance.echauffement.duree}′</div>
+        <div class="etape__corps">
+          <h3>Échauffement — {seance.echauffement.titre}</h3>
+          <p style="color:var(--gris)">{seance.echauffement.contenu}</p>
+        </div>
+      </div>
+
+      {seance.exercices.map((ex, i) => (
+        <div class="etape">
+          <div class="etape__temps">{ex.duree}′</div>
+          <div class="etape__corps">
+            <h3>Exercice {i + 1} — {ex.titre}</h3>
+            <p style="color:var(--gris)">{ex.description}</p>
+            {ex.organisation && <p><strong>Organisation :</strong> {ex.organisation}</p>}
+            {ex.variable && <p><strong>Variable :</strong> {ex.variable}</p>}
+          </div>
+        </div>
+      ))}
+
+      <div class="etape">
+        <div class="etape__temps">{seance.retour.duree}′</div>
+        <div class="etape__corps">
+          <h3>Retour au calme</h3>
+          <p style="color:var(--gris)">{seance.retour.contenu}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="encart-materiel materiel">
+      <div class="pile" style="gap:2px">
+        <span class="surtitre" style="color:var(--or-fonce)">Matériel</span>
+        <span style="font-size:14px;color:var(--or-fonce)">à sortir avant la séance</span>
+      </div>
+      <div class="materiel__liste">
+        {seance.materiel.map((m) => <span class="materiel__item">{m}</span>)}
+      </div>
+    </div>
+
+    <div class="navigation-seance sans-impression">
+      {precedente
+        ? <a class="bouton bouton--fantome" href={lien(`seances/${precedente.id}/`)}>← Séance {precedente.numero}</a>
+        : <span></span>}
+      <button type="button" class="bouton bouton--fantome" id="imprimer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8V4h10v4"></path><rect x="5" y="8" width="14" height="7" rx="1.6"></rect><path d="M7 15h10v5H7z"></path></svg>
+        Imprimer la fiche
+      </button>
+      {suivante
+        ? <a class="bouton" href={lien(`seances/${suivante.id}/`)}>Séance {suivante.numero} →</a>
+        : <span></span>}
+    </div>
+  </article>
+</Base>
+
+<style>
+  .tete { background: var(--azur-fonce); color: #fff; }
+  .fil { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #9EBEDD; padding-bottom: 16px; flex-wrap: wrap; }
+  .fil a { color: #9EBEDD; }
+  .tete__grille { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .tete__surtitre { font-size: 13px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--or); }
+  .tete h1 { font-size: clamp(28px, 4.2vw, 42px); font-weight: 800; }
+  .tete__compteurs { display: flex; gap: 8px; }
+  .tete__compteurs div { background: rgba(255,255,255,.13); border-radius: 8px; padding: 8px 14px; display: flex; flex-direction: column; align-items: center; }
+  .tete__compteurs .est-or { background: var(--or); color: #2A1E00; }
+  .tete__compteurs strong { font-family: var(--titre); font-size: 19px; }
+  .tete__compteurs span { font-size: 12px; color: #A9C6E2; }
+  .tete__compteurs .est-or span { color: #2A1E00; }
+
+  .fiche { padding-block: 32px 20px; }
+  .deroule { display: flex; flex-direction: column; gap: 4px; padding-top: 14px; }
+  .etape { display: flex; gap: 18px; }
+  .etape__temps { width: 56px; flex-shrink: 0; text-align: right; font-family: var(--titre); font-size: 20px; font-weight: 800; color: var(--azur); padding-top: 2px; }
+  .etape__corps { flex-grow: 1; border-left: 2px solid var(--ligne); padding: 0 0 22px 20px; display: flex; flex-direction: column; gap: 6px; }
+  .etape:last-child .etape__corps { border-left-color: transparent; }
+  .etape h3 { font-size: 20px; font-weight: 700; }
+
+  .materiel { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+  .materiel__liste { display: flex; flex-wrap: wrap; gap: 8px; }
+  .materiel__item { background: var(--blanc); border: 1px solid var(--or-bordure); border-radius: 7px; padding: 6px 12px; font-size: 15px; font-weight: 600; }
+
+  .navigation-seance { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 34px; }
+
+  @media (max-width: 600px) {
+    .etape__temps { width: 42px; font-size: 17px; }
+    .etape__corps { padding-left: 14px; }
+  }
+</style>
+
+<script is:inline>
+  document.getElementById('imprimer')?.addEventListener('click', () => window.print());
+</script>

@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import CarteCycle from '../../components/CarteCycle.astro';
+import { cycles, seancesDuCycle } from '../../lib/donnees.js';
+const sports = [...new Set(cycles.map((c) => c.sport))];
+---
+<Base titre="Cycles" description="Tous les cycles disponibles, classés par activité." actif="cycles">
+  <section class="contenu" style="padding-block:44px 12px">
+    <h1 style="font-size:clamp(30px,4vw,44px);font-weight:800">Les cycles</h1>
+    <p style="color:var(--gris);font-size:19px;padding-top:10px;max-width:640px">
+      Chaque cycle regroupe des séances qui se suivent. Choisissez une activité, puis la séance du jour.
+    </p>
+    <div class="filtres sans-impression" role="group" aria-label="Filtrer par activité">
+      <button type="button" class="filtre est-actif" data-sport="tous">Tout</button>
+      {sports.map((s) => <button type="button" class="filtre" data-sport={s}>{s}</button>)}
+    </div>
+  </section>
+
+  <section class="contenu" style="padding-bottom:40px">
+    <div class="grille grille--3" id="liste-cycles">
+      {cycles.map((c) => (
+        <div data-sport={c.sport}>
+          <CarteCycle cycle={c} nbSeances={seancesDuCycle(c.id).length} />
+        </div>
+      ))}
+    </div>
+    <p id="aucun" hidden style="color:var(--gris);padding-top:20px">Aucun cycle pour cette activité.</p>
+  </section>
+</Base>
+
+<style>
+  .filtres { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 24px; }
+  .filtre { min-height: 44px; padding: 8px 16px; border: 1px solid var(--ligne); border-radius: 999px; background: var(--blanc); font-family: var(--texte); font-size: 15px; font-weight: 500; color: var(--gris); cursor: pointer; }
+  .filtre:hover { border-color: var(--azur); color: var(--encre); }
+  .filtre.est-actif { background: var(--azur); border-color: var(--azur); color: #fff; font-weight: 600; }
+</style>
+
+<script is:inline>
+  (function () {
+    const boutons = document.querySelectorAll('.filtre');
+    const cartes = document.querySelectorAll('#liste-cycles > div');
+    const aucun = document.getElementById('aucun');
+    boutons.forEach((b) => {
+      b.addEventListener('click', () => {
+        boutons.forEach((x) => x.classList.remove('est-actif'));
+        b.classList.add('est-actif');
+        const choix = b.dataset.sport;
+        let visibles = 0;
+        cartes.forEach((c) => {
+          const montrer = choix === 'tous' || c.dataset.sport === choix;
+          c.hidden = !montrer;
+          if (montrer) visibles++;
+        });
+        aucun.hidden = visibles > 0;
+      });
+    });
+  })();
+</script>

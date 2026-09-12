@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { lien } from '../lib/url.js';
+---
+<Base titre="Page introuvable">
+  <section class="contenu" style="padding-block:80px;max-width:620px;text-align:center">
+    <p class="surtitre">Erreur 404</p>
+    <h1 style="font-size:clamp(30px,5vw,48px);font-weight:800;padding-top:12px">Cette page n'existe pas</h1>
+    <p style="color:var(--gris);font-size:19px;padding-top:14px">
+      Le lien est peut-être ancien, ou la séance a été renommée.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding-top:26px">
+      <a class="bouton" href={lien('cycles/')}>Voir les cycles</a>
+      <a class="bouton bouton--fantome" href={lien()}>Retour à l'accueil</a>
+    </div>
+  </section>
+</Base>

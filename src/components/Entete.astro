@@ -1,0 +1,55 @@
+---
+import { lien } from '../lib/url.js';
+const { actif = '' } = Astro.props;
+const liens = [
+  { cle: 'cycles', texte: 'Cycles', url: lien('cycles/') },
+  { cle: 'seances', texte: 'Séances', url: lien('seances/') },
+  { cle: 'exercices', texte: 'Exercices', url: lien('exercices/') },
+  { cle: 'ressources', texte: 'Ressources', url: lien('ressources/') },
+  { cle: 'apropos', texte: 'À propos', url: lien('a-propos/') },
+];
+---
+<header class="entete sans-impression">
+  <div class="contenu entete__barre">
+    <a class="marque" href={lien()}>
+      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="9" fill="#0A6FD0"></rect>
+        <path d="M6 23C10 13 17.5 8.5 26 9" stroke="#F2B300" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        <circle cx="10.5" cy="12" r="3" fill="#ffffff"></circle>
+      </svg>
+      <span>MaSéanceEPS</span>
+    </a>
+
+    <input type="checkbox" id="menu-mobile" class="menu-bascule" />
+    <label for="menu-mobile" class="menu-bouton" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M4 7h16M4 12h16M4 17h16"></path>
+      </svg>
+    </label>
+
+    <nav class="navigation" aria-label="Navigation principale">
+      {liens.map((l) => (
+        <a href={l.url} class={actif === l.cle ? 'est-actif' : ''}>{l.texte}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .entete { background: var(--blanc); border-bottom: 1px solid var(--ligne); position: sticky; top: 0; z-index: 20; }
+  .entete__barre { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 16px; flex-wrap: wrap; }
+  .marque { display: flex; align-items: center; gap: 11px; color: var(--encre); font-family: var(--titre); font-weight: 700; font-size: 20px; }
+  .marque:hover { text-decoration: none; color: var(--azur-fonce); }
+  .navigation { display: flex; align-items: center; gap: 28px; font-size: 16px; font-weight: 500; }
+  .navigation a { color: var(--gris); padding-block: 6px; }
+  .navigation a:hover { color: var(--encre); text-decoration: none; }
+  .navigation a.est-actif { color: var(--encre); border-bottom: 2px solid var(--or); }
+  .menu-bascule, .menu-bouton { display: none; }
+
+  @media (max-width: 820px) {
+    .menu-bouton { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 1px solid var(--ligne); border-radius: 10px; color: var(--encre); cursor: pointer; }
+    .navigation { display: none; width: 100%; flex-direction: column; align-items: stretch; gap: 0; padding-bottom: 8px; }
+    .navigation a { padding: 14px 4px; border-top: 1px solid var(--ligne); }
+    .menu-bascule:checked ~ .navigation { display: flex; }
+  }
+</style>

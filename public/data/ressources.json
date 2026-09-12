@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fiche-observation-course",
+    "titre": "Fiche d'observation — course de vitesse",
+    "type": "pdf",
+    "categorie": "Athlétisme",
+    "fichier": "documents/exemple-fiche-observation.pdf",
+    "description": "À imprimer par binôme : temps, zone atteinte, remarques de l'observateur."
+  },
+  {
+    "id": "installer-un-atelier",
+    "titre": "Installer un atelier en cinq minutes",
+    "type": "article",
+    "categorie": "Organisation",
+    "contenu": "Préparer le matériel avant l'arrivée des élèves, marquer les zones à la craie plutôt qu'aux plots quand le sol le permet, et confier le rangement à une équipe différente chaque séance : la mise en place cesse d'être une perte de temps.",
+    "description": "Organisation matérielle : gagner du temps sur chaque séance."
+  },
+  {
+    "id": "regles-securite-lancers",
+    "titre": "Règles de sécurité pour les lancers",
+    "type": "article",
+    "categorie": "Sécurité",
+    "contenu": "Un seul signal autorise le lancer, un seul signal autorise le ramassage. Personne ne franchit la ligne de lancer entre les deux. Les engins sont comptés avant et après la séance.",
+    "description": "Le minimum à rappeler avant toute séance de lancer."
+  }
+]

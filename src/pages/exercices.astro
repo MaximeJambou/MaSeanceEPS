@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import { lien } from '../lib/url.js';
+import { tousLesExercices, cycles } from '../lib/donnees.js';
+const exercices = tousLesExercices();
+---
+<Base titre="Exercices" description="Tous les exercices décrits dans les séances." actif="exercices">
+  <section class="contenu" style="padding-block:44px 12px">
+    <h1 style="font-size:clamp(30px,4vw,44px);font-weight:800">Les exercices</h1>
+    <p style="color:var(--gris);font-size:19px;padding-top:10px;max-width:640px">
+      Tous les exercices des séances publiées, avec leur organisation et leurs variables. Cliquez pour retrouver la séance complète.
+    </p>
+    <div class="sans-impression" style="padding-top:22px;max-width:420px">
+      <label for="recherche-ex">Rechercher un exercice</label>
+      <input type="text" id="recherche-ex" placeholder="Relais, passes, immersion…" />
+    </div>
+  </section>
+
+  <section class="contenu" style="padding-bottom:40px">
+    <div class="grille grille--2" id="liste-ex">
+      {exercices.map((ex) => {
+        const cycle = cycles.find((c) => c.id === ex.seance.cycle);
+        return (
+          <article class="carte pile" style="gap:10px" data-recherche={`${ex.titre} ${ex.description} ${cycle?.sport || ''}`.toLowerCase()}>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <span class="etiquette">{cycle?.sport}</span>
+              <span class="etiquette etiquette--neutre">{ex.duree} min</span>
+            </div>
+            <h2 style="font-size:21px;font-weight:700">{ex.titre}</h2>
+            <p style="color:var(--gris)">{ex.description}</p>
+            {ex.organisation && <p style="font-size:15px"><strong>Organisation :</strong> {ex.organisation}</p>}
+            {ex.variable && <p style="font-size:15px"><strong>Variable :</strong> {ex.variable}</p>}
+            <a href={lien(`seances/${ex.seance.id}/`)} style="font-weight:600;padding-top:4px">Séance « {ex.seance.titre} » →</a>
+          </article>
+        );
+      })}
+    </div>
+    <p id="aucun-ex" hidden style="color:var(--gris);padding-top:20px">Aucun exercice ne correspond.</p>
+  </section>
+</Base>
+
+<script is:inline>
+  (function () {
+    const champ = document.getElementById('recherche-ex');
+    const items = document.querySelectorAll('#liste-ex > article');
+    const aucun = document.getElementById('aucun-ex');
+    if (!champ) return;
+    champ.addEventListener('input', () => {
+      const q = champ.value.trim().toLowerCase();
+      let visibles = 0;
+      items.forEach((i) => {
+        const montrer = !q || i.dataset.recherche.includes(q);
+        i.hidden = !montrer;
+        if (montrer) visibles++;
+      });
+      aucun.hidden = visibles > 0;
+    });
+  })();
+</script>

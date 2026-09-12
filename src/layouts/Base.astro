@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import Entete from '../components/Entete.astro';
+import PiedDePage from '../components/PiedDePage.astro';
+import { lien } from '../lib/url.js';
+
+const {
+  titre,
+  description = 'Cycles, séances, exercices et matériel pour l’éducation physique à l’école.',
+  actif = '',
+  nu = false,
+} = Astro.props;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titre} · MaSéanceEPS</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href={lien('favicon.svg')} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    {!nu && <Entete actif={actif} />}
+    <main>
+      <slot />
+    </main>
+    {!nu && <PiedDePage />}
+  </body>
+</html>

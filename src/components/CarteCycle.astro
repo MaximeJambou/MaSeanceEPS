@@ -1,0 +1,36 @@
+---
+import { lien } from '../lib/url.js';
+const { cycle, nbSeances } = Astro.props;
+const barres = { azur: '#0A6FD0', or: '#F2B300', 'azur-fonce': '#06325E' };
+const barre = barres[cycle.couleur] || '#0A6FD0';
+---
+<article class="carte-cycle">
+  <div class="carte-cycle__filet" style={`background:${barre}`}></div>
+  <div class="carte-cycle__corps">
+    <div class="carte-cycle__etiquettes">
+      <span class="etiquette">{cycle.sport}</span>
+      <span class="etiquette etiquette--neutre">{cycle.niveaux}</span>
+    </div>
+    <h3><a href={lien(`cycles/${cycle.id}/`)}>{cycle.titre}</a></h3>
+    <p class="carte-cycle__resume">{cycle.resume}</p>
+    <div class="carte-cycle__pied">
+      <span><strong>{nbSeances}</strong> séance{nbSeances > 1 ? 's' : ''}</span>
+      <span><strong>{cycle.duree}</strong> min</span>
+      <span>{cycle.periode}</span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .carte-cycle { background: var(--blanc); border: 1px solid var(--ligne); border-radius: var(--rayon); overflow: hidden; display: flex; flex-direction: column; }
+  .carte-cycle:hover { border-color: var(--azur); }
+  .carte-cycle__filet { height: 8px; }
+  .carte-cycle__corps { padding: 22px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1; }
+  .carte-cycle__etiquettes { display: flex; gap: 8px; flex-wrap: wrap; }
+  .carte-cycle h3 { font-size: 22px; font-weight: 700; }
+  .carte-cycle h3 a { color: var(--encre); }
+  .carte-cycle h3 a:hover { color: var(--azur); text-decoration: none; }
+  .carte-cycle__resume { color: var(--gris); font-size: 16px; flex-grow: 1; }
+  .carte-cycle__pied { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--gris); border-top: 1px solid var(--ligne); padding-top: 12px; }
+  .carte-cycle__pied strong { color: var(--encre); }
+</style>

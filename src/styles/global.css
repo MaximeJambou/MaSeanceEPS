@@ -1,0 +1,220 @@
+/* ------------------------------------------------------------------
+   MaSéanceEPS — feuille de style principale
+   Toutes les couleurs, espacements et polices se règlent ici.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* Couleurs — bleu azur et jaune or */
+  --azur:        #0A6FD0;
+  --azur-fonce:  #06325E;
+  --azur-clair:  #E4F0FC;
+  --or:          #F2B300;
+  --or-fonce:    #8A6500;
+  --or-pale:     #FFF7E0;
+  --or-bordure:  #EFDCA2;
+
+  /* Neutres */
+  --encre: #10202E;
+  --gris:  #5B6A78;
+  --fond:  #FBFAF7;
+  --blanc: #FFFFFF;
+  --ligne: #DCE4EC;
+
+  /* Typographie */
+  --titre: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
+  --texte: 'Public Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Mesures */
+  --largeur: 1160px;
+  --rayon: 12px;
+  --gouttiere: 24px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--encre);
+  font-family: var(--texte);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--titre);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-wrap: pretty;
+}
+
+p { margin: 0; }
+ul, ol { margin: 0; }
+
+a { color: var(--azur); text-decoration: none; }
+a:hover { color: var(--azur-fonce); text-decoration: underline; }
+
+img { max-width: 100%; height: auto; }
+
+:focus-visible {
+  outline: 3px solid var(--or);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Blocs réutilisables ---------- */
+
+.contenu {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+.surtitre {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+.etiquette {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--azur-clair);
+  color: var(--azur-fonce);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.etiquette--neutre { background: transparent; border: 1px solid var(--ligne); color: var(--gris); font-weight: 600; }
+.etiquette--or { background: #FFF3D1; color: var(--or-fonce); }
+
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--azur);
+  color: var(--blanc);
+  font-family: var(--texte);
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+.bouton:hover { background: var(--azur-fonce); color: var(--blanc); text-decoration: none; }
+.bouton--or { background: var(--or); color: #2A1E00; }
+.bouton--or:hover { background: #D79E00; color: #2A1E00; }
+.bouton--fantome { background: transparent; color: var(--azur); border: 1.5px solid var(--ligne); }
+.bouton--fantome:hover { background: var(--azur-clair); color: var(--azur-fonce); }
+.bouton[disabled] { opacity: .55; cursor: not-allowed; }
+
+.carte {
+  background: var(--blanc);
+  border: 1px solid var(--ligne);
+  border-radius: var(--rayon);
+  padding: 24px;
+}
+
+.encart-materiel {
+  background: var(--or-pale);
+  border: 1px solid var(--or-bordure);
+  border-radius: var(--rayon);
+  padding: 16px 18px;
+}
+
+.grille { display: grid; gap: var(--gouttiere); }
+.grille--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grille--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.pile { display: flex; flex-direction: column; }
+
+/* ---------- Formulaires ---------- */
+
+label { font-size: 15px; font-weight: 600; display: block; margin-bottom: 6px; }
+
+input[type="text"], input[type="password"], input[type="number"],
+input[type="date"], select, textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--ligne);
+  border-radius: 10px;
+  background: var(--blanc);
+  font-family: var(--texte);
+  font-size: 16px;
+  color: var(--encre);
+}
+textarea { min-height: 96px; line-height: 1.5; resize: vertical; }
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--azur);
+  box-shadow: 0 0 0 4px rgba(10, 111, 208, .13);
+}
+
+/* ---------- Écrans étroits ---------- */
+
+@media (max-width: 900px) {
+  body { font-size: 16px; }
+  .grille--3, .grille--2 { grid-template-columns: 1fr; }
+  .contenu { padding-inline: 18px; }
+}
+
+/* ---------- Impression ---------- */
+
+@media print {
+  body { background: #fff; font-size: 12pt; }
+  .sans-impression { display: none !important; }
+  a { color: #000; text-decoration: none; }
+  .carte, .encart-materiel { break-inside: avoid; }
+}
+
+/* ---------- Animations réduites ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==================================================================
+   Interface d'administration
+   ================================================================== */
+
+.titre-vue { font-size: 30px; font-weight: 800; }
+.titre-vue__barre { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.titre-bloc { font-family: var(--titre); font-size: 19px; font-weight: 700; }
+
+.ligne { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 18px 20px; }
+.ligne__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.ligne__actions .bouton { min-height: 42px; padding: 8px 16px; font-size: 15px; }
+
+.formulaire { display: flex; flex-direction: column; gap: 16px; }
+.formulaire__actions { display: flex; gap: 10px; flex-wrap: wrap; padding-top: 4px; }
+
+.bouton--danger { color: #B3261E; border-color: #E9C4C1; }
+.bouton--danger:hover { background: #FDECEA; color: #8C1D18; }
+
+.compteur { font-family: var(--titre); font-size: 40px; font-weight: 800; color: var(--azur); line-height: 1; }
+.compteur__note { color: var(--gris); padding-top: 4px; }
+
+.exercice { border: 1px solid var(--ligne); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: var(--fond); }
+.exercice + .exercice { margin-top: 12px; }
+.exercice__entete { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.exercice__entete strong { font-family: var(--titre); font-size: 17px; }
+.exercice__entete .bouton { min-height: 38px; padding: 6px 14px; font-size: 14px; }
+
+input[type="file"] { border: 1.5px dashed var(--ligne); background: var(--fond); padding: 14px; cursor: pointer; }

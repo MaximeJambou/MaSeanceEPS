@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import CarteSeance from '../../components/CarteSeance.astro';
+import { seances, cycles } from '../../lib/donnees.js';
+const triees = [...seances].sort((a, b) => a.cycle.localeCompare(b.cycle) || a.numero - b.numero);
+---
+<Base titre="Séances" description="Toutes les séances, tous cycles confondus." actif="seances">
+  <section class="contenu" style="padding-block:44px 12px">
+    <h1 style="font-size:clamp(30px,4vw,44px);font-weight:800">Toutes les séances</h1>
+    <p style="color:var(--gris);font-size:19px;padding-top:10px;max-width:640px">
+      Chaque fiche tient sur une page et s'imprime telle quelle.
+    </p>
+    <div class="sans-impression" style="padding-top:22px;max-width:420px">
+      <label for="recherche">Rechercher une séance</label>
+      <input type="text" id="recherche" placeholder="Course, ballon, matériel…" />
+    </div>
+  </section>
+
+  <section class="contenu" style="padding-bottom:40px">
+    <div class="pile" style="gap:12px" id="liste-seances">
+      {triees.map((s) => (
+        <div data-recherche={`${s.titre} ${s.objectif} ${(s.materiel || []).join(' ')} ${(s.exercices || []).map((e) => e.titre).join(' ')}`.toLowerCase()}>
+          <CarteSeance seance={s} montrerCycle={true} cycle={cycles.find((c) => c.id === s.cycle)} />
+        </div>
+      ))}
+    </div>
+    <p id="aucune" hidden style="color:var(--gris);padding-top:20px">Aucune séance ne correspond.</p>
+  </section>
+</Base>
+
+<script is:inline>
+  (function () {
+    const champ = document.getElementById('recherche');
+    const items = document.querySelectorAll('#liste-seances > div');
+    const aucune = document.getElementById('aucune');
+    if (!champ) return;
+    champ.addEventListener('input', () => {
+      const q = champ.value.trim().toLowerCase();
+      let visibles = 0;
+      items.forEach((i) => {
+        const montrer = !q || i.dataset.recherche.includes(q);
+        i.hidden = !montrer;
+        if (montrer) visibles++;
+      });
+      aucune.hidden = visibles > 0;
+    });
+  })();
+</script>

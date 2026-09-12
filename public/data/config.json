@@ -1,0 +1,18 @@
+{
+  "titre": "MaSéanceEPS",
+  "accroche": "Des séances de sport prêtes à emmener sur le terrain.",
+  "sousTitre": "Chaque cycle est découpé en séances complètes : objectifs, déroulé minute par minute, exercices détaillés et matériel à prévoir. À consulter librement, sans compte.",
+  "depot": { "proprietaire": "MaximeJambou", "nom": "MaSeanceEPS", "branche": "main" },
+  "admin": {
+    "sel": "maseanceeps-v1|",
+    "empreinte": "1e11a9275805d2d22aa4a665321a034b09e427b03fa0ec7e497928b4f73c7a8b"
+  },
+  "sports": [
+    "Athlétisme",
+    "Jeux collectifs",
+    "Activités aquatiques",
+    "Course d'orientation",
+    "Sports de raquette",
+    "Jeux de coopération"
+  ]
+}

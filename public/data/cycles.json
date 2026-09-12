@@ -1,0 +1,56 @@
+[
+  {
+    "id": "athletisme-courir-sauter-lancer",
+    "titre": "Courir, sauter, lancer",
+    "sport": "Athlétisme",
+    "niveaux": "CM1 · CM2",
+    "periode": "Période 3",
+    "duree": 45,
+    "couleur": "azur",
+    "resume": "Construire une course efficace et mesurer ses progrès.",
+    "objectif": "Passer d'une course subie à une course maîtrisée : trouver son allure, réagir au signal, franchir sans ralentir et lancer en sécurité. Chaque séance se termine par une mesure que les élèves notent eux-mêmes.",
+    "apprentissages": [
+      "Adapter son allure à la distance",
+      "Réagir vite à un signal",
+      "Enchaîner course et franchissement",
+      "Lancer en respectant la sécurité"
+    ],
+    "remarque": "Les premières et dernières séances utilisent le même parcours : installez-le une fois, photographiez-le, réinstallez-le à l'identique."
+  },
+  {
+    "id": "jeux-collectifs-attaquer-defendre",
+    "titre": "Attaquer, défendre, se démarquer",
+    "sport": "Jeux collectifs",
+    "niveaux": "CE1 · CE2",
+    "periode": "Période 2",
+    "duree": 40,
+    "couleur": "or",
+    "resume": "Des jeux de ballon simples pour comprendre l'espace et le rôle de chacun.",
+    "objectif": "Comprendre qu'on ne joue pas seul : occuper l'espace, passer, se rendre disponible, et défendre sans arracher le ballon.",
+    "apprentissages": [
+      "Se démarquer pour recevoir",
+      "Passer vers un partenaire libre",
+      "Défendre sans contact",
+      "Respecter une règle commune"
+    ],
+    "remarque": "Constituez les équipes à l'avance et gardez-les tout le cycle : le temps gagné sert au jeu."
+  },
+  {
+    "id": "aisance-aquatique",
+    "titre": "Entrer dans l'eau sans crainte",
+    "sport": "Activités aquatiques",
+    "niveaux": "CP · CE1",
+    "periode": "Période 4",
+    "duree": 30,
+    "couleur": "azur-fonce",
+    "resume": "Aisance aquatique : entrées, immersions, déplacements, en toute sécurité.",
+    "objectif": "Apprivoiser le milieu aquatique : accepter l'eau sur le visage, s'immerger, se déplacer avec puis sans appui.",
+    "apprentissages": [
+      "Entrer dans l'eau de différentes façons",
+      "Souffler sous l'eau",
+      "Se déplacer avec un appui",
+      "Se laisser flotter"
+    ],
+    "remarque": "Effectif réduit obligatoire et surveillance permanente : ces séances se déroulent en présence du personnel du bassin."
+  }
+]
