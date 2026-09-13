@@ -29,8 +29,15 @@
         "variable": "Autoriser un partenaire à courir à côté pour réguler l'allure."
       }
     ],
-    "retour": { "duree": 5, "contenu": "Marche respirée, puis chacun note ses deux résultats sur sa fiche." },
-    "materiel": ["10 plots numérotés", "1 chronomètre", "Fiches d'observation"],
+    "retour": {
+      "duree": 5,
+      "contenu": "Marche respirée, puis chacun note ses deux résultats sur sa fiche."
+    },
+    "materiel": [
+      "10 plots numérotés",
+      "1 chronomètre",
+      "Fiches d'observation"
+    ],
     "publiee": true
   },
   {
@@ -63,8 +70,15 @@
         "variable": "Décaler le départ du plus rapide de deux mètres."
       }
     ],
-    "retour": { "duree": 5, "contenu": "Étirements debout, retour sur ce qui aide à partir vite." },
-    "materiel": ["12 plots", "1 sifflet", "4 cerceaux"],
+    "retour": {
+      "duree": 5,
+      "contenu": "Étirements debout, retour sur ce qui aide à partir vite."
+    },
+    "materiel": [
+      "12 plots",
+      "1 sifflet",
+      "4 cerceaux"
+    ],
     "publiee": true
   },
   {
@@ -97,8 +111,17 @@
         "variable": "Ajouter un obstacle bas à mi-parcours."
       }
     ],
-    "retour": { "duree": 5, "contenu": "Marche respirée, étirements debout. Chacun note son meilleur temps sur sa fiche d'observation." },
-    "materiel": ["12 plots", "4 cerceaux", "1 chronomètre", "1 sifflet", "Fiches d'observation"],
+    "retour": {
+      "duree": 5,
+      "contenu": "Marche respirée, étirements debout. Chacun note son meilleur temps sur sa fiche d'observation."
+    },
+    "materiel": [
+      "12 plots",
+      "4 cerceaux",
+      "1 chronomètre",
+      "1 sifflet",
+      "Fiches d'observation"
+    ],
     "publiee": true
   },
   {
@@ -131,8 +154,16 @@
         "variable": "Compter le meilleur essai plutôt que la somme."
       }
     ],
-    "retour": { "duree": 5, "contenu": "Rangement collectif du matériel, rappel des consignes de sécurité." },
-    "materiel": ["8 balles lestées", "1 décamètre", "10 plots", "Craie ou rubalise"],
+    "retour": {
+      "duree": 5,
+      "contenu": "Rangement collectif du matériel, rappel des consignes de sécurité."
+    },
+    "materiel": [
+      "8 balles lestées",
+      "1 décamètre",
+      "10 plots",
+      "Craie ou rubalise"
+    ],
     "publiee": true
   },
   {
@@ -165,8 +196,15 @@
         "variable": "Deux couloirs seulement pour simplifier."
       }
     ],
-    "retour": { "duree": 4, "contenu": "Bilan assis : où étaient les espaces libres ?" },
-    "materiel": ["2 ballons en mousse", "16 plots", "Chasubles de deux couleurs"],
+    "retour": {
+      "duree": 4,
+      "contenu": "Bilan assis : où étaient les espaces libres ?"
+    },
+    "materiel": [
+      "2 ballons en mousse",
+      "16 plots",
+      "Chasubles de deux couleurs"
+    ],
     "publiee": true
   },
   {
@@ -199,8 +237,15 @@
         "variable": "Deux joueurs neutres."
       }
     ],
-    "retour": { "duree": 4, "contenu": "Retour au calme et rangement des chasubles." },
-    "materiel": ["2 ballons en mousse", "12 plots", "Chasubles de deux couleurs"],
+    "retour": {
+      "duree": 4,
+      "contenu": "Retour au calme et rangement des chasubles."
+    },
+    "materiel": [
+      "2 ballons en mousse",
+      "12 plots",
+      "Chasubles de deux couleurs"
+    ],
     "publiee": true
   },
   {
@@ -233,8 +278,52 @@
         "variable": "Frite relevée pour éviter l'immersion complète."
       }
     ],
-    "retour": { "duree": 4, "contenu": "Sortie calme, rappel des règles du bassin." },
-    "materiel": ["6 frites", "4 tapis flottants", "Cerceaux lestés"],
+    "retour": {
+      "duree": 4,
+      "contenu": "Sortie calme, rappel des règles du bassin."
+    },
+    "materiel": [
+      "6 frites",
+      "4 tapis flottants",
+      "Cerceaux lestés"
+    ],
+    "publiee": true
+  },
+  {
+    "id": "allons-courir",
+    "cycle": "athletisme-courir-sauter-lancer",
+    "numero": 2,
+    "titre": "Allons courir",
+    "duree": 45,
+    "lieu": "Stade",
+    "objectif": "njznhksgmjklqmjrskljhgmjhjdemghsmjhgjk",
+    "critere": "siudfhqiughiuqhdiughuihsduif",
+    "echauffement": {
+      "titre": "dfsg",
+      "duree": 10,
+      "contenu": "dfsgghfhsqskjfklsdjkghsljkgjkfdjkgjksd\nqkjbngkjkjfdjkghk\nfdjkgshbghrsdfggsluuhlhhdksjfhgkhfdkkng"
+    },
+    "exercices": [
+      {
+        "titre": "dfgtsd",
+        "duree": 15,
+        "description": "qdfgbsggsdfgjnsqdfjmgjkhdfjhjskhjgsdkg",
+        "organisation": "dfgiuqhgi",
+        "variable": "iosdfhoiugf"
+      },
+      {
+        "titre": "jnfdkqhkg",
+        "duree": 15,
+        "description": "qdfjhiulhqdfgiuhuigdf",
+        "organisation": "fdgsh",
+        "variable": "dfgsgdf"
+      }
+    ],
+    "retour": {
+      "duree": 5,
+      "contenu": "jkdfgjhgjdfsgjghdfjhjgjfhgjj"
+    },
+    "materiel": [],
     "publiee": true
   }
 ]
