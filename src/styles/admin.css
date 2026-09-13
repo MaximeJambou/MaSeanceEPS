@@ -196,6 +196,25 @@
 .bilan__trop{background:#A8320F}
 
 /* ---------------- exercices ---------------- */
+.f__barre{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.f__barre h3{font-family:var(--chrono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--azur)}
+.f__barre__actions{margin-inline-start:auto;display:flex;gap:7px;flex-wrap:wrap}
+
+/* le grand bouton d'ajout, en bas de la liste : impossible à confondre avec du texte */
+.ajout-exercice{
+  width:100%;margin-top:4px;padding:16px;border-radius:14px;cursor:pointer;
+  border:2.5px dashed var(--azur);background:var(--azur-voile);color:var(--azur);
+  font-family:var(--titre);font-weight:700;font-size:.98rem;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:background .16s,color .16s,border-color .16s;
+}
+.ajout-exercice span{
+  width:26px;height:26px;border-radius:50%;background:var(--azur);color:#fff;
+  display:grid;place-items:center;font-size:1.1rem;line-height:1;flex:none;
+}
+.ajout-exercice:hover{background:var(--azur);color:#fff;border-style:solid}
+.ajout-exercice:hover span{background:#fff;color:var(--azur)}
+
 .ex{border:2px solid var(--encre);border-radius:16px;background:var(--craie);margin-bottom:14px;overflow:hidden}
 .ex__tete{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--papier);border-bottom:2px solid var(--encre)}
 .ex__num{font-family:var(--affiche);font-size:1.2rem;color:var(--azur);flex:none;min-width:22px}

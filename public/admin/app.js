@@ -754,9 +754,17 @@ function formulaireSeance(seance) {
       </div>
 
       <div class="f__bloc">
-        <h3>Exercices</h3>
+        <div class="f__barre">
+          <h3 style="margin:0">Exercices <span id="compte-exercices"></span></h3>
+          <div class="f__barre__actions">
+            <button type="button" class="b b--fin b--trait" id="tout-replier">Tout replier</button>
+            <button type="button" class="b b--fin b--or" id="ajouter-exercice-haut">+ Ajouter un exercice</button>
+          </div>
+        </div>
         <div id="liste-exercices">${(s.exercices || []).map(blocExercice).join('')}</div>
-        <button type="button" class="b b--trait b--large" id="ajouter-exercice" style="margin-top:6px">+ Ajouter un exercice</button>
+        <button type="button" class="ajout-exercice" id="ajouter-exercice">
+          <span>+</span> Ajouter un exercice
+        </button>
       </div>
 
       <div class="f__bloc">
@@ -803,7 +811,7 @@ function formulaireSeance(seance) {
     }
   });
 
-  $('#ajouter-exercice').addEventListener('click', () => {
+  const ajouterExercice = () => {
     const n = $$('#liste-exercices [data-exercice]').length;
     $('#liste-exercices').insertAdjacentHTML('beforeend', blocExercice({}, n));
     const dernier = $('#liste-exercices').lastElementChild;
@@ -812,6 +820,20 @@ function formulaireSeance(seance) {
     brancherExercices();
     recalculerBilan();
     dernier.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const champTitre = dernier.querySelector('[data-ex="titre"]');
+    if (champTitre) champTitre.focus();
+  };
+  $('#ajouter-exercice').addEventListener('click', ajouterExercice);
+  $('#ajouter-exercice-haut').addEventListener('click', ajouterExercice);
+
+  $('#tout-replier').addEventListener('click', (e) => {
+    const blocs = $$('#liste-exercices [data-exercice]');
+    const onReplie = blocs.some((b) => !b.classList.contains('replie'));
+    blocs.forEach((b) => {
+      b.classList.toggle('replie', onReplie);
+      b.querySelector('[data-replier]').textContent = onReplie ? '▸' : '▾';
+    });
+    e.currentTarget.textContent = onReplie ? 'Tout déplier' : 'Tout replier';
   });
 
   $('#annuler-seance').addEventListener('click', () => { $('#formulaire-seance').innerHTML = ''; });
@@ -821,11 +843,16 @@ function formulaireSeance(seance) {
 
 function brancherExercices() {
   const liste = $('#liste-exercices');
-  const renumeroter = () => $$('[data-exercice]', liste).forEach((b, i) => {
-    b.querySelector('.ex__num').textContent = i + 1;
-    b.querySelector('[data-monter]').disabled = i === 0;
-    b.querySelector('[data-descendre]').disabled = i === $$('[data-exercice]', liste).length - 1;
-  });
+  const renumeroter = () => {
+    const blocs = $$('[data-exercice]', liste);
+    blocs.forEach((b, i) => {
+      b.querySelector('.ex__num').textContent = i + 1;
+      b.querySelector('[data-monter]').disabled = i === 0;
+      b.querySelector('[data-descendre]').disabled = i === blocs.length - 1;
+    });
+    const compte = $('#compte-exercices');
+    if (compte) compte.textContent = '· ' + blocs.length;
+  };
 
   $$('[data-exercice]', liste).forEach((b) => {
     b.querySelector('[data-monter]').onclick = () => {
