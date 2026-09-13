@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 // site  = l'adresse du compte GitHub
 // base  = le nom du dépôt (à changer si le dépôt est renommé)
 export default defineConfig({
-  site: 'https://yoanndelaloy.github.io',
+  site: 'https://maximejambou.github.io',
   base: '/MaSeanceEPS',
   trailingSlash: 'always',
   build: { format: 'directory' },

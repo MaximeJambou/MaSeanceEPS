@@ -3,7 +3,7 @@
 Site de partage de séances de sport : cycles, séances, exercices et matériel.
 Site statique construit avec [Astro](https://astro.build), hébergé gratuitement sur GitHub Pages.
 
-Adresse publique une fois en ligne : **https://yoanndelaloy.github.io/MaSeanceEPS/**
+Adresse publique une fois en ligne : **https://maximejambou.github.io/MaSeanceEPS/**
 
 ---
 
