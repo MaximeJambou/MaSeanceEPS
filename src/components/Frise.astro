@@ -1,0 +1,14 @@
+---
+/* Frise du déroulé : chaque bloc occupe sa part réelle du temps de séance. */
+import { blocsDe } from '../lib/donnees.js';
+const { seance } = Astro.props;
+const blocs = blocsDe(seance);
+const total = blocs.reduce((s, b) => s + b.duree, 0) || 1;
+---
+<div class="frise" aria-label="Déroulé de la séance minute par minute">
+  {blocs.map((b) => (
+    <div class={'frise__part frise__part--' + b.genre} style={`flex:${b.duree} 1 0`} title={`${b.titre} — ${b.duree} minutes`}>
+      {b.duree}′ {b.titre}
+    </div>
+  ))}
+</div>

@@ -1,5 +1,671 @@
 [
   {
+    "id": "aqua-1-entrer-dans-leau",
+    "cycle": "aisance-aquatique",
+    "numero": 1,
+    "titre": "Entrer dans l'eau",
+    "duree": 30,
+    "lieu": "Bassin d'apprentissage",
+    "objectif": "Entrer dans l'eau de plusieurs façons sans appréhension.",
+    "critere": "Entrer par l'échelle puis assis au bord, sans aide.",
+    "echauffement": {
+      "duree": 6,
+      "titre": "Prise de contact",
+      "contenu": "Assis au bord, battements de jambes, s'asperger le visage, souffler à la surface."
+    },
+    "exercices": [
+      {
+        "titre": "Trois entrées",
+        "duree": 12,
+        "description": "Entrer par l'échelle, puis assis au bord en se laissant glisser, puis debout en se tenant au bord.",
+        "organisation": "Groupes de six avec l'adulte dans l'eau.",
+        "variable": "Entrée accompagnée main dans la main.",
+        "reussite": "Les trois entrées sont réalisées, la dernière sans se tenir au bord.",
+        "observer": [
+          "Qui retient sa respiration avant même de toucher l'eau.",
+          "Qui garde une main sur le bord tout du long."
+        ],
+        "securite": "Effectif réduit obligatoire, en présence du personnel du bassin. Un seul élève entre à la fois par point d'entrée. Profondeur adaptée à la taille des élèves.",
+        "schema": {
+          "terrain": "bassin",
+          "legende": "Trois points d'entrée le long du grand bord : l'échelle, assis, puis debout en se tenant.",
+          "elements": [
+            {
+              "type": "texte",
+              "x": 11,
+              "y": 63,
+              "texte": "échelle",
+              "ancre": "middle"
+            },
+            {
+              "type": "zone",
+              "x": 24,
+              "y": 56,
+              "l": 18,
+              "h": 4,
+              "texte": "assis",
+              "ton": "or"
+            },
+            {
+              "type": "zone",
+              "x": 56,
+              "y": 56,
+              "l": 18,
+              "h": 4,
+              "texte": "debout",
+              "ton": "or"
+            },
+            {
+              "type": "joueur",
+              "x": 10,
+              "y": 52,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 33,
+              "y": 52,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 65,
+              "y": 52,
+              "ton": "azur",
+              "texte": "3"
+            },
+            {
+              "type": "joueur",
+              "x": 86,
+              "y": 58,
+              "ton": "or",
+              "texte": "M"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                10,
+                50
+              ],
+              "a": [
+                10,
+                40
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                33,
+                50
+              ],
+              "a": [
+                33,
+                40
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                65,
+                50
+              ],
+              "a": [
+                65,
+                40
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "texte",
+              "x": 86,
+              "y": 63,
+              "texte": "encadrant",
+              "ancre": "middle"
+            }
+          ]
+        }
+      },
+      {
+        "titre": "Le parcours du bord",
+        "duree": 8,
+        "description": "Se déplacer le long du mur en se tenant à la goulotte, passer sous une frite tenue à la surface.",
+        "organisation": "File indienne le long du bord.",
+        "variable": "Frite relevée pour éviter l'immersion complète.",
+        "reussite": "Longer tout le mur sans lâcher, puis passer sous la frite une fois.",
+        "observer": [
+          "Qui souffle en passant sous la frite.",
+          "Qui remonte les épaules hors de l'eau."
+        ],
+        "securite": "Le trajet reste sur toute sa longueur dans une profondeur où l'élève a pied. Passage sous la frite un par un.",
+        "schema": {
+          "terrain": "bassin",
+          "legende": "Déplacement le long du mur en se tenant à la goulotte, puis passage sous une frite tenue à la surface.",
+          "elements": [
+            {
+              "type": "courbe",
+              "points": "10,50 30,50 50,50 70,50 88,50",
+              "allure": "course"
+            },
+            {
+              "type": "joueur",
+              "x": 12,
+              "y": 50,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 26,
+              "y": 50,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 40,
+              "y": 50,
+              "ton": "azur",
+              "texte": "3"
+            },
+            {
+              "type": "zone",
+              "x": 58,
+              "y": 44,
+              "l": 10,
+              "h": 12,
+              "texte": "frite",
+              "ton": "or"
+            },
+            {
+              "type": "joueur",
+              "x": 63,
+              "y": 38,
+              "ton": "or",
+              "texte": "M"
+            },
+            {
+              "type": "texte",
+              "x": 50,
+              "y": 62,
+              "texte": "on longe la goulotte, on passe dessous",
+              "ancre": "middle"
+            }
+          ]
+        }
+      }
+    ],
+    "retour": {
+      "duree": 4,
+      "contenu": "Sortie calme, rappel des règles du bassin."
+    },
+    "materiel": [
+      "6 frites",
+      "4 tapis flottants",
+      "Cerceaux lestés"
+    ],
+    "publiee": true
+  },
+  {
+    "id": "aqua-2-la-tete-sous-leau",
+    "cycle": "aisance-aquatique",
+    "numero": 2,
+    "titre": "Mettre la tête sous l'eau",
+    "duree": 30,
+    "lieu": "Petit bain",
+    "objectif": "Accepter l'eau sur le visage, souffler dans l'eau, ouvrir les yeux.",
+    "critere": "Souffler cinq secondes sous l'eau, visage entièrement immergé.",
+    "echauffement": {
+      "titre": "Le visage mouillé",
+      "duree": 6,
+      "contenu": "Debout dans le petit bain, s'asperger le visage, souffler sur l'eau, puis souffler dans l'eau bouche au ras de la surface."
+    },
+    "exercices": [
+      {
+        "titre": "Les bulles comptées",
+        "duree": 10,
+        "description": "Par deux, l'un s'immerge jusqu'aux yeux et souffle ; l'autre compte les secondes à voix haute. On échange à chaque essai.",
+        "organisation": "Binômes face à face, tous alignés le long du mur, encadrant devant le groupe.",
+        "variable": "Commencer bouche seule immergée, puis nez, puis yeux.",
+        "reussite": "Cinq secondes de bulles continues, sans se pincer le nez.",
+        "observer": [
+          "Qui se pince le nez.",
+          "Qui souffle par la bouche et non par le nez.",
+          "Qui remonte avant la fin du compte."
+        ],
+        "securite": "Petit bain uniquement, tous les élèves ont pied. Un encadrant face au groupe, effectif réduit. Personne ne s'immerge pendant que son binôme regarde ailleurs.",
+        "schema": {
+          "terrain": "bassin",
+          "legende": "Binômes alignés le long du mur : l'un souffle, l'autre compte. On échange à chaque essai.",
+          "elements": [
+            {
+              "type": "joueur",
+              "x": 18,
+              "y": 48,
+              "ton": "azur",
+              "texte": "S"
+            },
+            {
+              "type": "joueur",
+              "x": 18,
+              "y": 38,
+              "ton": "or",
+              "texte": "C"
+            },
+            {
+              "type": "joueur",
+              "x": 38,
+              "y": 48,
+              "ton": "azur",
+              "texte": "S"
+            },
+            {
+              "type": "joueur",
+              "x": 38,
+              "y": 38,
+              "ton": "or",
+              "texte": "C"
+            },
+            {
+              "type": "joueur",
+              "x": 58,
+              "y": 48,
+              "ton": "azur",
+              "texte": "S"
+            },
+            {
+              "type": "joueur",
+              "x": 58,
+              "y": 38,
+              "ton": "or",
+              "texte": "C"
+            },
+            {
+              "type": "joueur",
+              "x": 78,
+              "y": 48,
+              "ton": "azur",
+              "texte": "S"
+            },
+            {
+              "type": "joueur",
+              "x": 78,
+              "y": 38,
+              "ton": "or",
+              "texte": "C"
+            },
+            {
+              "type": "joueur",
+              "x": 48,
+              "y": 22,
+              "ton": "blanc",
+              "texte": "M"
+            },
+            {
+              "type": "texte",
+              "x": 86,
+              "y": 15,
+              "texte": "encadrant",
+              "ancre": "middle"
+            },
+            {
+              "type": "texte",
+              "x": 48,
+              "y": 62,
+              "texte": "S : souffle · C : compte",
+              "ancre": "middle"
+            }
+          ]
+        }
+      },
+      {
+        "titre": "Chercher l'anneau",
+        "duree": 9,
+        "description": "Un anneau lesté posé à cinquante centimètres de fond. Aller le chercher à la main, yeux ouverts, et le rapporter au bord.",
+        "organisation": "Un couloir par binôme, passage un par un, l'autre attend au mur.",
+        "variable": "Poser l'anneau sur une marche immergée pour une première réussite.",
+        "reussite": "L'anneau est remonté sans tâtonner, donc yeux ouverts.",
+        "observer": [
+          "Qui ferme les yeux et cherche à l'aveugle.",
+          "Qui expire en descendant."
+        ],
+        "securite": "Profondeur où l'élève a pied debout. Un seul élève immergé par couloir, l'encadrant compte les têtes à chaque rotation.",
+        "schema": {
+          "terrain": "bassin",
+          "legende": "Un anneau lesté par couloir. On descend le chercher yeux ouverts, on le rapporte au bord.",
+          "elements": [
+            {
+              "type": "joueur",
+              "x": 14,
+              "y": 50,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 14,
+              "y": 42,
+              "ton": "or",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 14,
+              "y": 30,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 14,
+              "y": 22,
+              "ton": "or",
+              "texte": "A"
+            },
+            {
+              "type": "plot",
+              "x": 52,
+              "y": 48,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 52,
+              "y": 28,
+              "n": ""
+            },
+            {
+              "type": "fleche",
+              "de": [
+                20,
+                50
+              ],
+              "a": [
+                47,
+                49
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                20,
+                30
+              ],
+              "a": [
+                47,
+                29
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "texte",
+              "x": 66,
+              "y": 40,
+              "texte": "anneau lesté",
+              "ancre": "start"
+            },
+            {
+              "type": "texte",
+              "x": 50,
+              "y": 62,
+              "texte": "A : attend au mur",
+              "ancre": "middle"
+            }
+          ]
+        }
+      }
+    ],
+    "retour": {
+      "titre": "Sortie au calme",
+      "duree": 5,
+      "contenu": "Sortie par l'échelle un par un, comptage des élèves, puis rappel de ce qu'on a réussi aujourd'hui."
+    },
+    "materiel": [
+      "6 anneaux lestés",
+      "4 frites",
+      "Lignes d'eau",
+      "Serviettes"
+    ],
+    "publiee": true
+  },
+  {
+    "id": "aqua-3-se-deplacer-sans-appui",
+    "cycle": "aisance-aquatique",
+    "numero": 3,
+    "titre": "Se déplacer sans appui",
+    "duree": 30,
+    "lieu": "Petit bain",
+    "objectif": "Quitter le mur et se déplacer sur quelques mètres, avec puis sans matériel.",
+    "critere": "Traverser trois mètres sans toucher le fond ni le mur.",
+    "echauffement": {
+      "titre": "Le long du mur, en accéléré",
+      "duree": 6,
+      "contenu": "Déplacement le long de la goulotte de plus en plus vite, puis en lâchant une main, puis les deux le temps de trois pas."
+    },
+    "exercices": [
+      {
+        "titre": "La frite qui rétrécit",
+        "duree": 10,
+        "description": "Traverser trois mètres entre deux lignes, d'abord avec une frite sous les bras, puis avec une frite tenue à bout de bras, puis sans rien.",
+        "organisation": "Trois couloirs, un niveau par couloir. Chacun choisit son couloir et peut en changer.",
+        "variable": "Pour ceux qui bloquent : réduire la distance à un mètre et demi, l'encadrant à mi-parcours.",
+        "reussite": "Une traversée complète sans reposer les pieds.",
+        "observer": [
+          "Qui garde la tête très haute et coule des jambes.",
+          "Qui choisit un couloir trop facile par confort.",
+          "Qui souffle pendant la traversée."
+        ],
+        "securite": "Petit bain, pied partout. Un encadrant dans l'eau à mi-parcours du couloir sans matériel. Un élève à la fois par couloir.",
+        "schema": {
+          "terrain": "bassin",
+          "legende": "Trois couloirs, trois niveaux d'aide. On change de couloir quand on se sent prêt.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 22,
+              "y": 10,
+              "l": 56,
+              "h": 13,
+              "texte": "frite sous les bras",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 22,
+              "y": 25,
+              "l": 56,
+              "h": 13,
+              "texte": "frite à bout de bras",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 22,
+              "y": 40,
+              "l": 56,
+              "h": 13,
+              "texte": "sans rien",
+              "ton": "or"
+            },
+            {
+              "type": "joueur",
+              "x": 26,
+              "y": 16,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 26,
+              "y": 31,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 26,
+              "y": 46,
+              "ton": "azur",
+              "texte": "3"
+            },
+            {
+              "type": "joueur",
+              "x": 50,
+              "y": 46,
+              "ton": "blanc",
+              "texte": "M"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                31,
+                16
+              ],
+              "a": [
+                74,
+                16
+              ],
+              "allure": "course",
+              "texte": "3 m"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                31,
+                31
+              ],
+              "a": [
+                74,
+                31
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                56,
+                46
+              ],
+              "a": [
+                74,
+                46
+              ],
+              "allure": "course"
+            }
+          ]
+        }
+      },
+      {
+        "titre": "L'étoile de mer",
+        "duree": 9,
+        "description": "Sur le dos, bras et jambes écartés, se laisser flotter pendant que le binôme compte. Puis se remettre debout tout seul.",
+        "organisation": "Binômes, un flotte, l'autre tient une main puis la lâche progressivement.",
+        "variable": "Garder une frite sous la nuque pour les premières tentatives.",
+        "reussite": "Cinq secondes de flottaison sans aide, puis se remettre debout sans paniquer.",
+        "observer": [
+          "Qui relève la tête et coule aussitôt.",
+          "Qui sait se remettre debout sans aide.",
+          "Qui retient sa respiration au lieu de respirer calmement."
+        ],
+        "securite": "L'encadrant reste à portée de main du groupe qui flotte. Jamais deux élèves sur le dos sans surveillance directe. Effectif réduit obligatoire.",
+        "schema": {
+          "terrain": "bassin",
+          "legende": "Sur le dos, bras et jambes écartés. Le binôme tient une main, puis la lâche.",
+          "elements": [
+            {
+              "type": "joueur",
+              "x": 26,
+              "y": 26,
+              "ton": "azur",
+              "texte": "F"
+            },
+            {
+              "type": "joueur",
+              "x": 26,
+              "y": 40,
+              "ton": "or",
+              "texte": "B"
+            },
+            {
+              "type": "joueur",
+              "x": 52,
+              "y": 26,
+              "ton": "azur",
+              "texte": "F"
+            },
+            {
+              "type": "joueur",
+              "x": 52,
+              "y": 40,
+              "ton": "or",
+              "texte": "B"
+            },
+            {
+              "type": "joueur",
+              "x": 78,
+              "y": 26,
+              "ton": "azur",
+              "texte": "F"
+            },
+            {
+              "type": "joueur",
+              "x": 78,
+              "y": 40,
+              "ton": "or",
+              "texte": "B"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                26,
+                36
+              ],
+              "a": [
+                26,
+                30
+              ],
+              "allure": "regard"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                52,
+                36
+              ],
+              "a": [
+                52,
+                30
+              ],
+              "allure": "regard"
+            },
+            {
+              "type": "texte",
+              "x": 52,
+              "y": 58,
+              "texte": "F : flotte · B : tient puis lâche",
+              "ancre": "middle"
+            }
+          ]
+        }
+      }
+    ],
+    "retour": {
+      "titre": "Bilan du cycle",
+      "duree": 5,
+      "contenu": "Chacun dit ce qu'il ose faire aujourd'hui et qu'il n'osait pas à la première séance."
+    },
+    "materiel": [
+      "8 frites",
+      "2 lignes d'eau",
+      "Serviettes"
+    ],
+    "publiee": true
+  },
+  {
     "id": "athle-1-courir-sans-sarreter",
     "cycle": "athletisme-courir-sauter-lancer",
     "numero": 1,
@@ -19,14 +685,237 @@
         "duree": 20,
         "description": "Un circuit de 200 m jalonné de plots numérotés. Les élèves courent six minutes ; au signal, chacun retient le numéro du plot atteint.",
         "organisation": "Deux vagues : une court, l'autre observe et compte les tours.",
-        "variable": "Réduire à quatre minutes pour un premier essai."
+        "variable": "Réduire à quatre minutes pour un premier essai.",
+        "reussite": "Le plot atteint est noté par l'élève lui-même, sans hésitation.",
+        "observer": [
+          "Qui part trop vite et marche avant la fin.",
+          "Qui garde la même foulée du début à la fin.",
+          "Qui regarde les plots au lieu de courir."
+        ],
+        "schema": {
+          "terrain": "piste",
+          "legende": "Circuit de 200 m jalonné de huit plots numérotés. Une vague court, l'autre observe depuis le centre.",
+          "elements": [
+            {
+              "type": "plot",
+              "x": 92.0,
+              "y": 31.0,
+              "n": "1"
+            },
+            {
+              "type": "plot",
+              "x": 79.7,
+              "y": 47.3,
+              "n": "2"
+            },
+            {
+              "type": "plot",
+              "x": 50.0,
+              "y": 54.0,
+              "n": "3"
+            },
+            {
+              "type": "plot",
+              "x": 20.3,
+              "y": 47.3,
+              "n": "4"
+            },
+            {
+              "type": "plot",
+              "x": 8.0,
+              "y": 31.0,
+              "n": "5"
+            },
+            {
+              "type": "plot",
+              "x": 20.3,
+              "y": 14.7,
+              "n": "6"
+            },
+            {
+              "type": "plot",
+              "x": 50.0,
+              "y": 8.0,
+              "n": "7"
+            },
+            {
+              "type": "plot",
+              "x": 79.7,
+              "y": 14.7,
+              "n": "8"
+            },
+            {
+              "type": "joueur",
+              "x": 62,
+              "y": 6.5,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 72,
+              "y": 9,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 86,
+              "y": 18,
+              "ton": "azur",
+              "texte": "3"
+            },
+            {
+              "type": "joueur",
+              "x": 36,
+              "y": 30,
+              "ton": "or",
+              "texte": "O"
+            },
+            {
+              "type": "joueur",
+              "x": 50,
+              "y": 30,
+              "ton": "or",
+              "texte": "O"
+            },
+            {
+              "type": "joueur",
+              "x": 64,
+              "y": 30,
+              "ton": "or",
+              "texte": "O"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                22,
+                13
+              ],
+              "a": [
+                40,
+                9
+              ],
+              "allure": "course",
+              "texte": "sens de course"
+            },
+            {
+              "type": "texte",
+              "x": 50,
+              "y": 38,
+              "texte": "observateurs",
+              "ancre": "middle"
+            }
+          ]
+        }
       },
       {
         "titre": "Deuxième essai raisonné",
         "duree": 10,
         "description": "Nouvelle course de six minutes en essayant d'atteindre au moins le même plot. Comparer les deux résultats.",
         "organisation": "Inversion des rôles coureur / observateur.",
-        "variable": "Autoriser un partenaire à courir à côté pour réguler l'allure."
+        "variable": "Autoriser un partenaire à courir à côté pour réguler l'allure.",
+        "reussite": "Atteindre au moins le même plot qu'au premier essai.",
+        "observer": [
+          "Qui ralentit dès qu'il n'est plus observé.",
+          "Qui sait dire, avant de partir, l'allure qu'il vise."
+        ],
+        "schema": {
+          "terrain": "piste",
+          "legende": "Mêmes plots, rôles inversés : les observateurs deviennent coureurs. Le plot du premier essai sert de repère.",
+          "elements": [
+            {
+              "type": "plot",
+              "x": 92.0,
+              "y": 31.0,
+              "n": "1"
+            },
+            {
+              "type": "plot",
+              "x": 79.7,
+              "y": 47.3,
+              "n": "2"
+            },
+            {
+              "type": "plot",
+              "x": 50.0,
+              "y": 54.0,
+              "n": "3"
+            },
+            {
+              "type": "plot",
+              "x": 20.3,
+              "y": 47.3,
+              "n": "4"
+            },
+            {
+              "type": "plot",
+              "x": 8.0,
+              "y": 31.0,
+              "n": "5"
+            },
+            {
+              "type": "plot",
+              "x": 20.3,
+              "y": 14.7,
+              "n": "6"
+            },
+            {
+              "type": "plot",
+              "x": 50.0,
+              "y": 8.0,
+              "n": "7"
+            },
+            {
+              "type": "plot",
+              "x": 79.7,
+              "y": 14.7,
+              "n": "8"
+            },
+            {
+              "type": "joueur",
+              "x": 62,
+              "y": 6.5,
+              "ton": "or",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 74,
+              "y": 9.5,
+              "ton": "or",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 36,
+              "y": 30,
+              "ton": "azur",
+              "texte": "O"
+            },
+            {
+              "type": "joueur",
+              "x": 50,
+              "y": 30,
+              "ton": "azur",
+              "texte": "O"
+            },
+            {
+              "type": "joueur",
+              "x": 64,
+              "y": 30,
+              "ton": "azur",
+              "texte": "O"
+            },
+            {
+              "type": "texte",
+              "x": 50,
+              "y": 38,
+              "texte": "rôles inversés",
+              "ancre": "middle"
+            }
+          ]
+        }
       }
     ],
     "retour": {
@@ -60,14 +949,251 @@
         "duree": 15,
         "description": "Sur 15 m, départs au sifflet depuis deux positions au choix. Chaque élève effectue quatre départs.",
         "organisation": "Quatre couloirs, un élève par couloir, rotation après chaque essai.",
-        "variable": "Varier le signal : sonore, visuel, tactile."
+        "variable": "Varier le signal : sonore, visuel, tactile.",
+        "reussite": "Partir au signal sans anticiper et franchir la ligne sans ralentir.",
+        "observer": [
+          "Qui anticipe le sifflet.",
+          "Qui se relève trop tôt et perd sa poussée.",
+          "Qui ralentit avant la ligne d'arrivée."
+        ],
+        "schema": {
+          "terrain": "libre",
+          "legende": "Deux positions de départ au choix, sur quatre couloirs de 15 m. Quatre départs par élève.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 6,
+              "y": 6,
+              "l": 8,
+              "h": 50,
+              "texte": "Départ",
+              "ton": "or"
+            },
+            {
+              "type": "zone",
+              "x": 80,
+              "y": 6,
+              "l": 14,
+              "h": 50,
+              "texte": "Arrivée",
+              "ton": "azur"
+            },
+            {
+              "type": "plot",
+              "x": 80,
+              "y": 13,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 80,
+              "y": 27,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 80,
+              "y": 41,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 80,
+              "y": 55,
+              "n": ""
+            },
+            {
+              "type": "joueur",
+              "x": 10,
+              "y": 13,
+              "ton": "azur",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 10,
+              "y": 27,
+              "ton": "or",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 10,
+              "y": 41,
+              "ton": "azur",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 10,
+              "y": 55,
+              "ton": "or",
+              "texte": "A"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                13
+              ],
+              "a": [
+                76,
+                13
+              ],
+              "allure": "course",
+              "texte": "15 m"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                27
+              ],
+              "a": [
+                76,
+                27
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                41
+              ],
+              "a": [
+                76,
+                41
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                55
+              ],
+              "a": [
+                76,
+                55
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "texte",
+              "x": 10,
+              "y": 3.5,
+              "texte": "D debout · A accroupi",
+              "ancre": "start"
+            }
+          ]
+        }
       },
       {
         "titre": "Duels sur 20 m",
         "duree": 15,
         "description": "Deux élèves d'allure proche partent ensemble. Le but n'est pas de gagner mais de partir au bon moment.",
         "organisation": "Binômes constitués par l'enseignant.",
-        "variable": "Décaler le départ du plus rapide de deux mètres."
+        "variable": "Décaler le départ du plus rapide de deux mètres.",
+        "reussite": "Les deux partent dans le même dixième de seconde après le signal.",
+        "observer": [
+          "Qui regarde son adversaire au lieu d'écouter le signal.",
+          "Qui dévie de son couloir en fin de course."
+        ],
+        "schema": {
+          "terrain": "libre",
+          "legende": "Deux couloirs voisins, deux élèves d'allure proche. Un troisième donne le signal et observe l'arrivée.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 8,
+              "y": 16,
+              "l": 6,
+              "h": 30,
+              "texte": "",
+              "ton": "or"
+            },
+            {
+              "type": "plot",
+              "x": 86,
+              "y": 24,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 86,
+              "y": 40,
+              "n": ""
+            },
+            {
+              "type": "joueur",
+              "x": 11,
+              "y": 24,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 11,
+              "y": 40,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 11,
+              "y": 6,
+              "ton": "or",
+              "texte": "S"
+            },
+            {
+              "type": "joueur",
+              "x": 90,
+              "y": 32,
+              "ton": "or",
+              "texte": "O"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                24
+              ],
+              "a": [
+                82,
+                24
+              ],
+              "allure": "course",
+              "texte": "20 m"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                40
+              ],
+              "a": [
+                82,
+                40
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "texte",
+              "x": 11,
+              "y": 2.5,
+              "texte": "S : signal",
+              "ancre": "start"
+            },
+            {
+              "type": "texte",
+              "x": 90,
+              "y": 45,
+              "texte": "O : arrivée",
+              "ancre": "middle"
+            }
+          ]
+        }
       }
     ],
     "retour": {
@@ -101,14 +1227,242 @@
         "duree": 15,
         "description": "Quatre couloirs de 20 m délimités par des plots. Équipes de quatre, chacun parcourt son couloir aller-retour et touche la main du suivant. Trois manches.",
         "organisation": "Quatre équipes, une par couloir.",
-        "variable": "Élargir les couloirs pour les élèves en difficulté, les rétrécir ensuite."
+        "variable": "Élargir les couloirs pour les élèves en difficulté, les rétrécir ensuite.",
+        "reussite": "L'équipe termine sans qu'un coureur sorte de son couloir.",
+        "observer": [
+          "Qui coupe sur le couloir du voisin dans le virage de retour.",
+          "Qui part avant d'avoir été touché.",
+          "Quelle équipe s'organise sans qu'on le demande."
+        ],
+        "schema": {
+          "terrain": "libre",
+          "legende": "Quatre couloirs de 20 m délimités par des plots. Aller-retour, on touche le suivant pour le lancer.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 5,
+              "y": 4,
+              "l": 9,
+              "h": 54,
+              "texte": "Relais",
+              "ton": "or"
+            },
+            {
+              "type": "plot",
+              "x": 16,
+              "y": 11,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 88,
+              "y": 11,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 16,
+              "y": 25,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 88,
+              "y": 25,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 16,
+              "y": 39,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 88,
+              "y": 39,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 16,
+              "y": 53,
+              "n": ""
+            },
+            {
+              "type": "plot",
+              "x": 88,
+              "y": 53,
+              "n": ""
+            },
+            {
+              "type": "joueur",
+              "x": 9,
+              "y": 11,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 9,
+              "y": 25,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 9,
+              "y": 39,
+              "ton": "azur",
+              "texte": "3"
+            },
+            {
+              "type": "joueur",
+              "x": 9,
+              "y": 53,
+              "ton": "azur",
+              "texte": "4"
+            },
+            {
+              "type": "courbe",
+              "points": "20,9 84,9 84,13 20,13",
+              "allure": "course"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                20,
+                25
+              ],
+              "a": [
+                84,
+                25
+              ],
+              "allure": "course",
+              "texte": "20 m"
+            },
+            {
+              "type": "texte",
+              "x": 52,
+              "y": 60,
+              "texte": "aller-retour, puis on touche le suivant",
+              "ancre": "middle"
+            }
+          ]
+        }
       },
       {
         "titre": "Départs réactifs",
         "duree": 15,
         "description": "Par deux, assis dos à la ligne. Au sifflet, se lever et sprinter 15 m jusqu'au cerceau. Alterner les positions de départ : assis, couché, à genoux.",
         "organisation": "Un seul binôme par couloir, arrivée dégagée sur 5 m.",
-        "variable": "Ajouter un obstacle bas à mi-parcours."
+        "variable": "Ajouter un obstacle bas à mi-parcours.",
+        "reussite": "Se relever et franchir les 15 m sans regarder derrière soi.",
+        "observer": [
+          "Qui met plus d'une seconde à se relever.",
+          "Qui vise le cerceau plutôt que de courir droit."
+        ],
+        "schema": {
+          "terrain": "libre",
+          "legende": "Assis dos à la ligne. Au sifflet, se lever et sprinter jusqu'au cerceau, 15 m plus loin.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 8,
+              "y": 10,
+              "l": 7,
+              "h": 42,
+              "texte": "Assis",
+              "ton": "or"
+            },
+            {
+              "type": "joueur",
+              "x": 11,
+              "y": 18,
+              "ton": "or",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 11,
+              "y": 31,
+              "ton": "or",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 11,
+              "y": 44,
+              "ton": "or",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 86,
+              "y": 18,
+              "ton": "blanc",
+              "texte": "O"
+            },
+            {
+              "type": "joueur",
+              "x": 86,
+              "y": 31,
+              "ton": "blanc",
+              "texte": "O"
+            },
+            {
+              "type": "joueur",
+              "x": 86,
+              "y": 44,
+              "ton": "blanc",
+              "texte": "O"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                17,
+                18
+              ],
+              "a": [
+                80,
+                18
+              ],
+              "allure": "course",
+              "texte": "15 m"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                17,
+                31
+              ],
+              "a": [
+                80,
+                31
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                17,
+                44
+              ],
+              "a": [
+                80,
+                44
+              ],
+              "allure": "course"
+            },
+            {
+              "type": "texte",
+              "x": 86,
+              "y": 56,
+              "texte": "cerceaux",
+              "ancre": "middle"
+            }
+          ]
+        }
       }
     ],
     "retour": {
@@ -144,14 +1498,198 @@
         "duree": 15,
         "description": "Trois zones matérialisées à 5, 10 et 15 m. Chacun annonce sa zone visée puis lance trois balles lestées.",
         "organisation": "Une seule vague lance, les autres attendent derrière la ligne de sécurité.",
-        "variable": "Rapprocher les zones pour les plus jeunes."
+        "variable": "Rapprocher les zones pour les plus jeunes.",
+        "reussite": "Annoncer sa zone avant de lancer, et l'atteindre au moins une fois sur trois.",
+        "observer": [
+          "Qui lance à bras cassé, coude haut.",
+          "Qui lance en cloche au lieu de lancer loin.",
+          "Qui ramasse avant le signal."
+        ],
+        "securite": "Personne ne dépasse la ligne de lancer tant que le signal de ramassage n'a pas été donné. On ramasse tous ensemble, jamais pendant que quelqu'un lance.",
+        "schema": {
+          "terrain": "libre",
+          "legende": "Trois zones à 5, 10 et 15 m. On lance depuis la ligne, on ramasse tous ensemble au signal.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 4,
+              "y": 4,
+              "l": 9,
+              "h": 54,
+              "texte": "Lancer",
+              "ton": "or"
+            },
+            {
+              "type": "zone",
+              "x": 26,
+              "y": 6,
+              "l": 18,
+              "h": 50,
+              "texte": "5 m",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 48,
+              "y": 6,
+              "l": 18,
+              "h": 50,
+              "texte": "10 m",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 70,
+              "y": 6,
+              "l": 22,
+              "h": 50,
+              "texte": "15 m",
+              "ton": "azur"
+            },
+            {
+              "type": "joueur",
+              "x": 8,
+              "y": 16,
+              "ton": "azur",
+              "texte": "L"
+            },
+            {
+              "type": "joueur",
+              "x": 8,
+              "y": 31,
+              "ton": "azur",
+              "texte": "L"
+            },
+            {
+              "type": "joueur",
+              "x": 8,
+              "y": 46,
+              "ton": "azur",
+              "texte": "L"
+            },
+            {
+              "type": "courbe",
+              "points": "14,16 40,9 62,17",
+              "allure": "passe"
+            },
+            {
+              "type": "courbe",
+              "points": "14,31 46,22 78,32",
+              "allure": "passe"
+            },
+            {
+              "type": "texte",
+              "x": 52,
+              "y": 61,
+              "texte": "ramassage au signal uniquement",
+              "ancre": "middle"
+            }
+          ]
+        }
       },
       {
         "titre": "Concours par équipes",
         "duree": 15,
         "description": "Chaque équipe cumule les zones atteintes. Mesure au décamètre pour les meilleurs essais.",
         "organisation": "Quatre équipes, un mesureur désigné par équipe.",
-        "variable": "Compter le meilleur essai plutôt que la somme."
+        "variable": "Compter le meilleur essai plutôt que la somme.",
+        "reussite": "L'équipe additionne ses zones sans contestation, chacun ayant lancé.",
+        "observer": [
+          "Qui compte pour les autres.",
+          "Qui attend son tour derrière la zone d'attente."
+        ],
+        "securite": "Une seule équipe lance à la fois. Les autres attendent derrière la zone d'attente, jamais sur le côté du couloir de lancer.",
+        "schema": {
+          "terrain": "libre",
+          "legende": "Une équipe lance, les autres attendent derrière. Mesure au décamètre pour les meilleurs essais.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 3,
+              "y": 4,
+              "l": 8,
+              "h": 54,
+              "texte": "Attente",
+              "ton": "or"
+            },
+            {
+              "type": "zone",
+              "x": 14,
+              "y": 4,
+              "l": 7,
+              "h": 54,
+              "texte": "Lancer",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 32,
+              "y": 8,
+              "l": 16,
+              "h": 46,
+              "texte": "5 m",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 52,
+              "y": 8,
+              "l": 16,
+              "h": 46,
+              "texte": "10 m",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 72,
+              "y": 8,
+              "l": 20,
+              "h": 46,
+              "texte": "15 m",
+              "ton": "azur"
+            },
+            {
+              "type": "joueur",
+              "x": 7,
+              "y": 14,
+              "ton": "blanc",
+              "texte": "E2"
+            },
+            {
+              "type": "joueur",
+              "x": 7,
+              "y": 24,
+              "ton": "blanc",
+              "texte": "E2"
+            },
+            {
+              "type": "joueur",
+              "x": 7,
+              "y": 40,
+              "ton": "blanc",
+              "texte": "E3"
+            },
+            {
+              "type": "joueur",
+              "x": 7,
+              "y": 50,
+              "ton": "blanc",
+              "texte": "E3"
+            },
+            {
+              "type": "joueur",
+              "x": 17,
+              "y": 31,
+              "ton": "azur",
+              "texte": "E1"
+            },
+            {
+              "type": "courbe",
+              "points": "22,31 52,20 82,33",
+              "allure": "passe"
+            }
+          ]
+        }
       }
     ],
     "retour": {
@@ -163,6 +1701,176 @@
       "1 décamètre",
       "10 plots",
       "Craie ou rubalise"
+    ],
+    "publiee": true
+  },
+  {
+    "id": "athle-5-le-meme-parcours",
+    "cycle": "athletisme-courir-sauter-lancer",
+    "numero": 5,
+    "titre": "Le même parcours, un mois après",
+    "duree": 45,
+    "lieu": "Cour ou stade",
+    "objectif": "Refaire exactement la course de la première séance et mesurer ce qui a changé.",
+    "critere": "Atteindre un plot plus loin qu'à la séance 1, ou tenir la même allure sans marcher.",
+    "echauffement": {
+      "titre": "Le même échauffement qu'à la séance 1",
+      "duree": 10,
+      "contenu": "Volontairement identique : trottinement, chevilles et épaules, deux accélérations de 20 m. La comparaison n'a de sens que si tout est pareil."
+    },
+    "exercices": [
+      {
+        "titre": "La course de référence, à l'identique",
+        "duree": 20,
+        "description": "Même circuit, mêmes plots, mêmes six minutes. Chacun a sa fiche de la séance 1 sous les yeux et connaît le plot à battre.",
+        "organisation": "Deux vagues comme la première fois, avec le même partenaire observateur.",
+        "variable": "Pour un élève découragé d'avance : viser le plot précédent, puis tenir jusqu'au bout.",
+        "reussite": "Le plot atteint est égal ou supérieur à celui de la séance 1.",
+        "observer": [
+          "Qui part plus vite qu'à la séance 1 et le paie à la fin.",
+          "Qui tient une allure régulière sans qu'on le lui rappelle.",
+          "Qui sait annoncer son plot avant de partir."
+        ],
+        "schema": {
+          "terrain": "piste",
+          "legende": "Le circuit de la séance 1, installé à l'identique. Chacun connaît le plot à battre.",
+          "elements": [
+            {
+              "type": "plot",
+              "x": 92.0,
+              "y": 31.0,
+              "n": "1"
+            },
+            {
+              "type": "plot",
+              "x": 79.7,
+              "y": 47.3,
+              "n": "2"
+            },
+            {
+              "type": "plot",
+              "x": 50.0,
+              "y": 54.0,
+              "n": "3"
+            },
+            {
+              "type": "plot",
+              "x": 20.3,
+              "y": 47.3,
+              "n": "4"
+            },
+            {
+              "type": "plot",
+              "x": 8.0,
+              "y": 31.0,
+              "n": "5"
+            },
+            {
+              "type": "plot",
+              "x": 20.3,
+              "y": 14.7,
+              "n": "6"
+            },
+            {
+              "type": "plot",
+              "x": 50.0,
+              "y": 8.0,
+              "n": "7"
+            },
+            {
+              "type": "plot",
+              "x": 79.7,
+              "y": 14.7,
+              "n": "8"
+            },
+            {
+              "type": "joueur",
+              "x": 62,
+              "y": 6.5,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 74,
+              "y": 9.5,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 85,
+              "y": 17,
+              "ton": "azur",
+              "texte": "3"
+            },
+            {
+              "type": "joueur",
+              "x": 38,
+              "y": 30,
+              "ton": "or",
+              "texte": "O"
+            },
+            {
+              "type": "joueur",
+              "x": 52,
+              "y": 30,
+              "ton": "or",
+              "texte": "O"
+            },
+            {
+              "type": "joueur",
+              "x": 66,
+              "y": 30,
+              "ton": "or",
+              "texte": "O"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                22,
+                13
+              ],
+              "a": [
+                40,
+                9
+              ],
+              "allure": "course",
+              "texte": "même sens"
+            },
+            {
+              "type": "texte",
+              "x": 50,
+              "y": 38,
+              "texte": "même parcours qu'à la séance 1",
+              "ancre": "middle"
+            }
+          ]
+        }
+      },
+      {
+        "titre": "Lire sa propre progression",
+        "duree": 10,
+        "description": "Chacun place ses deux résultats côte à côte sur sa fiche et écrit une phrase : ce qui a changé, et pourquoi.",
+        "organisation": "En binôme, assis au calme. L'observateur relit la phrase de son partenaire.",
+        "variable": "Pour ceux qui n'ont pas progressé : chercher une explication concrète — départ trop rapide, arrêt, chaussures.",
+        "reussite": "La phrase écrite dit quelque chose de précis, pas « j'ai été meilleur ».",
+        "observer": [
+          "Qui compare avec le voisin plutôt qu'avec lui-même.",
+          "Qui sait nommer ce qu'il a changé dans sa façon de courir."
+        ]
+      }
+    ],
+    "retour": {
+      "titre": "Retour au calme",
+      "duree": 5,
+      "contenu": "Marche respirée, puis chacun range sa fiche dans son classeur. Le cycle est fini."
+    },
+    "materiel": [
+      "10 plots numérotés",
+      "1 chronomètre",
+      "Les fiches de la séance 1",
+      "Crayons"
     ],
     "publiee": true
   },
@@ -186,14 +1894,252 @@
         "duree": 16,
         "description": "Faire parvenir le ballon au capitaine placé dans une zone au fond du terrain, par des passes uniquement.",
         "organisation": "Deux équipes de six, terrain de 20 × 12 m.",
-        "variable": "Interdire de faire plus de trois pas avec le ballon."
+        "variable": "Interdire de faire plus de trois pas avec le ballon.",
+        "reussite": "Trois ballons parviennent au capitaine sans qu'un joueur ait couru avec.",
+        "observer": [
+          "Qui reste collé au porteur du ballon.",
+          "Qui occupe la largeur du terrain.",
+          "Qui appelle le ballon à la voix."
+        ],
+        "schema": {
+          "terrain": "rectangle",
+          "legende": "Le capitaine attend dans sa zone au fond. Le ballon n'avance que par des passes, jamais en courant.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 85,
+              "y": 16,
+              "l": 12,
+              "h": 30,
+              "texte": "Capitaine",
+              "ton": "or"
+            },
+            {
+              "type": "joueur",
+              "x": 91,
+              "y": 31,
+              "ton": "or",
+              "texte": "C"
+            },
+            {
+              "type": "joueur",
+              "x": 22,
+              "y": 18,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 40,
+              "y": 40,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 62,
+              "y": 20,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 34,
+              "y": 28,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 56,
+              "y": 38,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 74,
+              "y": 28,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "ballon",
+              "x": 24,
+              "y": 21
+            },
+            {
+              "type": "fleche",
+              "de": [
+                26,
+                20
+              ],
+              "a": [
+                38,
+                38
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                43,
+                39
+              ],
+              "a": [
+                60,
+                22
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                65,
+                21
+              ],
+              "a": [
+                87,
+                30
+              ],
+              "allure": "passe"
+            }
+          ]
+        }
       },
       {
         "titre": "Trois zones",
         "duree": 12,
         "description": "Le terrain est divisé en trois couloirs ; le ballon doit passer par chaque couloir avant de marquer.",
         "organisation": "Mêmes équipes, couloirs marqués aux plots.",
-        "variable": "Deux couloirs seulement pour simplifier."
+        "variable": "Deux couloirs seulement pour simplifier.",
+        "reussite": "Le ballon a touché les trois couloirs avant de finir dans la zone d'en-but.",
+        "observer": [
+          "Qui traverse les couloirs sans ballon pour se rendre disponible.",
+          "Quel couloir reste vide."
+        ],
+        "schema": {
+          "terrain": "rectangle",
+          "legende": "Trois couloirs dans la largeur. Le ballon doit passer par chacun avant de pouvoir marquer.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 3,
+              "y": 3,
+              "l": 94,
+              "h": 18,
+              "texte": "Couloir 1",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 3,
+              "y": 22,
+              "l": 94,
+              "h": 18,
+              "texte": "Couloir 2",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 3,
+              "y": 41,
+              "l": 94,
+              "h": 18,
+              "texte": "Couloir 3",
+              "ton": "azur"
+            },
+            {
+              "type": "joueur",
+              "x": 18,
+              "y": 12,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 40,
+              "y": 31,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 62,
+              "y": 50,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 80,
+              "y": 31,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 30,
+              "y": 24,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 55,
+              "y": 40,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "ballon",
+              "x": 20,
+              "y": 14
+            },
+            {
+              "type": "fleche",
+              "de": [
+                22,
+                13
+              ],
+              "a": [
+                38,
+                30
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                43,
+                32
+              ],
+              "a": [
+                60,
+                49
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                65,
+                49
+              ],
+              "a": [
+                78,
+                33
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "cible",
+              "x": 95,
+              "y": 31,
+              "texte": "But"
+            }
+          ]
+        }
       }
     ],
     "retour": {
@@ -227,14 +2173,221 @@
         "duree": 16,
         "description": "Réaliser dix passes consécutives sans interception. Le compte repart à zéro à chaque perte.",
         "organisation": "Deux équipes de cinq, zone réduite.",
-        "variable": "Compter cinq passes pour un premier niveau."
+        "variable": "Compter cinq passes pour un premier niveau.",
+        "reussite": "Dix passes d'affilée, sans que le ballon touche le sol.",
+        "observer": [
+          "Qui reste derrière son défenseur.",
+          "Qui bouge avant que le porteur ne lève la tête.",
+          "Qui compte à voix haute pour l'équipe."
+        ],
+        "schema": {
+          "terrain": "demi",
+          "legende": "Quatre attaquants contre trois défenseurs sur un demi-terrain. Le compte repart à zéro à chaque perte.",
+          "elements": [
+            {
+              "type": "joueur",
+              "x": 30,
+              "y": 14,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 52,
+              "y": 24,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 38,
+              "y": 46,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 66,
+              "y": 42,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 42,
+              "y": 24,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 54,
+              "y": 40,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 30,
+              "y": 32,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "ballon",
+              "x": 32,
+              "y": 17
+            },
+            {
+              "type": "fleche",
+              "de": [
+                34,
+                16
+              ],
+              "a": [
+                50,
+                23
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                54,
+                27
+              ],
+              "a": [
+                64,
+                40
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                40,
+                42
+              ],
+              "a": [
+                46,
+                32
+              ],
+              "allure": "regard",
+              "texte": "appel"
+            }
+          ]
+        }
       },
       {
         "titre": "Le passeur libre",
         "duree": 12,
         "description": "Un joueur neutre joue toujours avec l'équipe qui possède le ballon : il faut lui donner et se replacer.",
         "organisation": "Un élève neutre désigné par manche.",
-        "variable": "Deux joueurs neutres."
+        "variable": "Deux joueurs neutres.",
+        "reussite": "Le joueur neutre touche le ballon au moins une fois par séquence.",
+        "observer": [
+          "Qui pense au joueur neutre.",
+          "Qui se replace après avoir donné.",
+          "Qui reste immobile après sa passe."
+        ],
+        "schema": {
+          "terrain": "demi",
+          "legende": "Un joueur neutre joue toujours avec l'équipe qui a le ballon : donner, puis se replacer.",
+          "elements": [
+            {
+              "type": "joueur",
+              "x": 28,
+              "y": 18,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 48,
+              "y": 38,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 68,
+              "y": 20,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 38,
+              "y": 30,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 58,
+              "y": 30,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 48,
+              "y": 9,
+              "ton": "or",
+              "texte": "J"
+            },
+            {
+              "type": "ballon",
+              "x": 30,
+              "y": 21
+            },
+            {
+              "type": "fleche",
+              "de": [
+                32,
+                20
+              ],
+              "a": [
+                45,
+                11
+              ],
+              "allure": "passe",
+              "texte": "donner"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                51,
+                11
+              ],
+              "a": [
+                65,
+                19
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                30,
+                24
+              ],
+              "a": [
+                44,
+                37
+              ],
+              "allure": "regard",
+              "texte": "se replacer"
+            },
+            {
+              "type": "texte",
+              "x": 48,
+              "y": 5,
+              "texte": "J : joueur neutre",
+              "ancre": "middle"
+            }
+          ]
+        }
       }
     ],
     "retour": {
@@ -249,81 +2402,392 @@
     "publiee": true
   },
   {
-    "id": "aqua-1-entrer-dans-leau",
-    "cycle": "aisance-aquatique",
-    "numero": 1,
-    "titre": "Entrer dans l'eau",
-    "duree": 30,
-    "lieu": "Bassin d'apprentissage",
-    "objectif": "Entrer dans l'eau de plusieurs façons sans appréhension.",
-    "critere": "Entrer par l'échelle puis assis au bord, sans aide.",
+    "id": "jeux-3-defendre-sans-arracher",
+    "cycle": "jeux-collectifs-attaquer-defendre",
+    "numero": 3,
+    "titre": "Défendre sans arracher",
+    "duree": 40,
+    "lieu": "Salle ou cour",
+    "objectif": "Gêner le porteur du ballon sans contact et sans arracher.",
+    "critere": "Récupérer trois ballons dans la séance, aucun par contact.",
     "echauffement": {
-      "duree": 6,
-      "titre": "Prise de contact",
-      "contenu": "Assis au bord, battements de jambes, s'asperger le visage, souffler à la surface."
+      "titre": "L'épervier des passes",
+      "duree": 8,
+      "contenu": "Deux éperviers au centre tentent de toucher les ballons en vol, jamais les joueurs. On change d'épervier toutes les minutes."
     },
     "exercices": [
       {
-        "titre": "Trois entrées",
-        "duree": 12,
-        "description": "Entrer par l'échelle, puis assis au bord en se laissant glisser, puis debout en se tenant au bord.",
-        "organisation": "Groupes de six avec l'adulte dans l'eau.",
-        "variable": "Entrée accompagnée main dans la main."
+        "titre": "L'ombre",
+        "duree": 14,
+        "description": "Chaque défenseur est l'ombre d'un attaquant : il reste à un bras de distance, entre lui et le but, sans jamais le toucher.",
+        "organisation": "Un défenseur par attaquant, désigné en début de séquence et gardé toute la séquence.",
+        "variable": "Élargir la distance à deux bras pour les élèves qui collent trop.",
+        "reussite": "L'attaquant est gêné mais jamais touché.",
+        "observer": [
+          "Qui touche pour compenser un mauvais placement.",
+          "Qui se place entre l'attaquant et le but.",
+          "Qui suit des yeux le ballon plutôt que son attaquant."
+        ],
+        "schema": {
+          "terrain": "demi",
+          "legende": "Chaque défenseur reste à un bras de son attaquant, entre lui et le but. Aucun contact.",
+          "elements": [
+            {
+              "type": "joueur",
+              "x": 28,
+              "y": 16,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 36,
+              "y": 18,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 44,
+              "y": 38,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 52,
+              "y": 38,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 62,
+              "y": 24,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 70,
+              "y": 25,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "ballon",
+              "x": 30,
+              "y": 19
+            },
+            {
+              "type": "fleche",
+              "de": [
+                36,
+                21
+              ],
+              "a": [
+                36,
+                30
+              ],
+              "allure": "regard",
+              "texte": "un bras"
+            },
+            {
+              "type": "cible",
+              "x": 95,
+              "y": 31,
+              "texte": "But"
+            }
+          ]
+        }
       },
       {
-        "titre": "Le parcours du bord",
-        "duree": 8,
-        "description": "Se déplacer le long du mur en se tenant à la goulotte, passer sous une frite tenue à la surface.",
-        "organisation": "File indienne le long du bord.",
-        "variable": "Frite relevée pour éviter l'immersion complète."
+        "titre": "Interception seulement",
+        "duree": 13,
+        "description": "Le ballon ne se prend que dans les airs. Un ballon touché au sol ou arraché des mains rend la possession à l'autre équipe.",
+        "organisation": "Quatre contre quatre, arbitrage tournant par un élève de la classe.",
+        "variable": "Autoriser une interception au rebond pour relancer le jeu s'il se bloque.",
+        "reussite": "Trois interceptions propres dans la séquence.",
+        "observer": [
+          "Qui anticipe la trajectoire au lieu de suivre le porteur.",
+          "Qui accepte la décision de l'arbitre élève."
+        ],
+        "schema": {
+          "terrain": "rectangle",
+          "legende": "Le ballon ne se récupère qu'en vol. L'arbitre est un élève, placé sur la ligne médiane.",
+          "elements": [
+            {
+              "type": "joueur",
+              "x": 24,
+              "y": 18,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 40,
+              "y": 42,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 66,
+              "y": 22,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "joueur",
+              "x": 34,
+              "y": 30,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 56,
+              "y": 36,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 72,
+              "y": 40,
+              "ton": "blanc",
+              "texte": "D"
+            },
+            {
+              "type": "joueur",
+              "x": 50,
+              "y": 6,
+              "ton": "or",
+              "texte": "Ar"
+            },
+            {
+              "type": "ballon",
+              "x": 26,
+              "y": 21
+            },
+            {
+              "type": "fleche",
+              "de": [
+                28,
+                20
+              ],
+              "a": [
+                38,
+                40
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                44,
+                41
+              ],
+              "a": [
+                64,
+                24
+              ],
+              "allure": "passe",
+              "texte": "interception ?"
+            },
+            {
+              "type": "texte",
+              "x": 50,
+              "y": 3,
+              "texte": "Ar : arbitre élève",
+              "ancre": "middle"
+            }
+          ]
+        }
       }
     ],
     "retour": {
-      "duree": 4,
-      "contenu": "Sortie calme, rappel des règles du bassin."
+      "titre": "Ce qu'on a compris",
+      "duree": 5,
+      "contenu": "Tour de parole : une chose qu'on a réussie en défense, une chose qu'on refera autrement."
     },
     "materiel": [
-      "6 frites",
-      "4 tapis flottants",
-      "Cerceaux lestés"
+      "4 ballons en mousse",
+      "8 chasubles",
+      "6 plots",
+      "1 sifflet"
     ],
     "publiee": true
   },
   {
-    "id": "allons-courir",
-    "cycle": "athletisme-courir-sauter-lancer",
-    "numero": 2,
-    "titre": "Allons courir",
-    "duree": 45,
-    "lieu": "Stade",
-    "objectif": "njznhksgmjklqmjrskljhgmjhjdemghsmjhgjk",
-    "critere": "siudfhqiughiuqhdiughuihsduif",
+    "id": "jeux-4-le-match-avec-ses-regles",
+    "cycle": "jeux-collectifs-attaquer-defendre",
+    "numero": 4,
+    "titre": "Le match, avec des règles à soi",
+    "duree": 40,
+    "lieu": "Salle ou cour",
+    "objectif": "Jouer un vrai match en appliquant les règles construites pendant le cycle.",
+    "critere": "Le match se joue en entier sans arrêt pour contestation.",
     "echauffement": {
-      "titre": "dfsg",
-      "duree": 10,
-      "contenu": "dfsgghfhsqskjfklsdjkghsljkgjkfdjkgjksd\nqkjbngkjkjfdjkghk\nfdjkgshbghrsdfggsluuhlhhdksjfhgkhfdkkng"
+      "titre": "Remise en route",
+      "duree": 8,
+      "contenu": "Passes en mouvement par équipe de trois, puis rappel à voix haute des trois règles retenues pendant le cycle."
     },
     "exercices": [
       {
-        "titre": "dfgtsd",
-        "duree": 15,
-        "description": "qdfgbsggsdfgjnsqdfjmgjkhdfjhjskhjgsdkg",
-        "organisation": "dfgiuqhgi",
-        "variable": "iosdfhoiugf"
+        "titre": "Écrire les règles ensemble",
+        "duree": 8,
+        "description": "Chaque équipe propose une règle issue des séances précédentes. On en garde trois, écrites au tableau ou sur une feuille affichée.",
+        "organisation": "Par équipes de quatre, cinq minutes de discussion, puis vote à main levée.",
+        "variable": "Si aucune règle ne sort, proposer trois règles au choix parmi celles travaillées.",
+        "reussite": "Les trois règles sont écrites et tout le monde peut les redire.",
+        "observer": [
+          "Qui propose une règle qui l'arrange.",
+          "Qui reprend une règle travaillée en séance."
+        ]
       },
       {
-        "titre": "jnfdkqhkg",
-        "duree": 15,
-        "description": "qdfjhiulhqdfgiuhuigdf",
-        "organisation": "fdgsh",
-        "variable": "dfgsgdf"
+        "titre": "Le match",
+        "duree": 19,
+        "description": "Quatre contre quatre sur terrain réduit, trois périodes de six minutes, rotation des équipes. Les élèves arbitrent à tour de rôle.",
+        "organisation": "Trois équipes : deux jouent, la troisième arbitre et tient le score.",
+        "variable": "Réduire à cinq minutes par période si l'attention baisse.",
+        "reussite": "Aucune période interrompue pour désaccord sur une règle.",
+        "observer": [
+          "Qui applique la règle même quand elle le dessert.",
+          "Qui occupe l'espace sans qu'on le lui dise.",
+          "Quelle équipe fait circuler le ballon plutôt que de le garder."
+        ],
+        "schema": {
+          "terrain": "rectangle",
+          "legende": "Quatre contre quatre sur terrain réduit. La troisième équipe arbitre depuis la ligne médiane et tient le score.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 3,
+              "y": 16,
+              "l": 10,
+              "h": 30,
+              "texte": "",
+              "ton": "azur"
+            },
+            {
+              "type": "zone",
+              "x": 87,
+              "y": 16,
+              "l": 10,
+              "h": 30,
+              "texte": "",
+              "ton": "or"
+            },
+            {
+              "type": "joueur",
+              "x": 22,
+              "y": 16,
+              "ton": "azur",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 34,
+              "y": 40,
+              "ton": "azur",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 44,
+              "y": 22,
+              "ton": "azur",
+              "texte": "3"
+            },
+            {
+              "type": "joueur",
+              "x": 18,
+              "y": 34,
+              "ton": "azur",
+              "texte": "4"
+            },
+            {
+              "type": "joueur",
+              "x": 58,
+              "y": 18,
+              "ton": "or",
+              "texte": "1"
+            },
+            {
+              "type": "joueur",
+              "x": 68,
+              "y": 40,
+              "ton": "or",
+              "texte": "2"
+            },
+            {
+              "type": "joueur",
+              "x": 78,
+              "y": 26,
+              "ton": "or",
+              "texte": "3"
+            },
+            {
+              "type": "joueur",
+              "x": 62,
+              "y": 32,
+              "ton": "or",
+              "texte": "4"
+            },
+            {
+              "type": "joueur",
+              "x": 50,
+              "y": 4,
+              "ton": "blanc",
+              "texte": "Ar"
+            },
+            {
+              "type": "ballon",
+              "x": 36,
+              "y": 37
+            },
+            {
+              "type": "fleche",
+              "de": [
+                38,
+                37
+              ],
+              "a": [
+                43,
+                25
+              ],
+              "allure": "passe"
+            },
+            {
+              "type": "cible",
+              "x": 95,
+              "y": 31,
+              "texte": ""
+            },
+            {
+              "type": "cible",
+              "x": 5,
+              "y": 31,
+              "texte": ""
+            }
+          ]
+        }
       }
     ],
     "retour": {
+      "titre": "Bilan du cycle",
       "duree": 5,
-      "contenu": "jkdfgjhgjdfsgjghdfjhjgjfhgjj"
+      "contenu": "Chaque équipe dit une chose qu'elle sait faire aujourd'hui et qu'elle ne savait pas faire à la première séance."
     },
-    "materiel": [],
+    "materiel": [
+      "2 ballons",
+      "12 chasubles (3 couleurs)",
+      "8 plots",
+      "1 feuille de score",
+      "1 sifflet"
+    ],
     "publiee": true
   }
 ]

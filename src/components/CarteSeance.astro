@@ -1,33 +1,23 @@
 ---
 import { lien } from '../lib/url.js';
-const { seance, montrerCycle = false, cycle = null } = Astro.props;
+import { pictoDe } from '../lib/pictos.js';
+import { cycleDe, dureeReelle } from '../lib/donnees.js';
+const { seance } = Astro.props;
+const cycle = cycleDe(seance);
+const { teinte } = pictoDe(cycle ? cycle.sport : '');
+const nbEx = (seance.exercices || []).length;
+const total = dureeReelle(seance);
 ---
-<a class="carte-seance" href={lien(`seances/${seance.id}/`)}>
-  <span class="carte-seance__numero">{seance.numero}</span>
-  <span class="carte-seance__texte">
-    <strong>{seance.titre}</strong>
-    {montrerCycle && cycle && <span class="carte-seance__cycle">{cycle.titre}</span>}
-    <span class="carte-seance__objectif">{seance.objectif}</span>
-    <span class="carte-seance__meta">
-      <span>{seance.duree} min</span>
-      <span>·</span>
-      <span>{seance.lieu}</span>
-      <span>·</span>
-      <span>{(seance.materiel || []).slice(0, 3).join(', ')}</span>
-    </span>
-  </span>
-  <span class="carte-seance__fleche" aria-hidden="true">→</span>
+<a class={'carte ' + teinte} href={lien('seances/' + seance.id + '/')}>
+  <div class="carte__haut">
+    <span class="carte__num">{String(seance.numero || 1).padStart(2, '0')}</span>
+    <span class="badge">{total}′</span>
+  </div>
+  <span class="carte__sport">{cycle ? cycle.sport : 'Séance'}</span>
+  <h3>{seance.titre}</h3>
+  <p>{seance.objectif}</p>
+  <div class="carte__pied">
+    <strong>{nbEx} exercice{nbEx > 1 ? 's' : ''}</strong> · {seance.lieu}
+    <span class="carte__fleche" aria-hidden="true">→</span>
+  </div>
 </a>
-
-<style>
-  .carte-seance { display: flex; gap: 18px; align-items: flex-start; background: var(--blanc); border: 1px solid var(--ligne); border-radius: var(--rayon); padding: 20px; color: inherit; }
-  .carte-seance:hover { border-color: var(--azur); text-decoration: none; }
-  .carte-seance__numero { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--azur-clair); color: var(--azur-fonce); display: flex; align-items: center; justify-content: center; font-family: var(--titre); font-weight: 800; font-size: 19px; }
-  .carte-seance__texte { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
-  .carte-seance__texte strong { font-family: var(--titre); font-size: 20px; font-weight: 700; }
-  .carte-seance__cycle { font-size: 14px; color: var(--azur); font-weight: 600; }
-  .carte-seance__objectif { color: var(--gris); }
-  .carte-seance__meta { display: flex; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--gris); padding-top: 4px; }
-  .carte-seance__fleche { align-self: center; color: var(--gris); font-size: 20px; }
-  @media (max-width: 600px) { .carte-seance__fleche { display: none; } }
-</style>

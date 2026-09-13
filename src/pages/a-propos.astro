@@ -1,43 +1,43 @@
 ---
 import Base from '../layouts/Base.astro';
-import { lien } from '../lib/url.js';
+import { chiffres } from '../lib/donnees.js';
+const n = chiffres();
 ---
-<Base titre="À propos" description="Pourquoi ce site et comment il est fait." actif="apropos">
-  <section class="contenu" style="padding-block:44px;max-width:760px">
-    <h1 style="font-size:clamp(30px,4vw,44px);font-weight:800">À propos</h1>
-
-    <div class="pile" style="gap:20px;padding-top:22px;font-size:18px">
-      <p>
-        Ce site rassemble des séances d'éducation physique construites pour des classes de primaire,
-        et les met à disposition de qui veut s'en servir : enseignants, intervenants, animateurs.
+<Base titre="La démarche" description="Pourquoi ce site existe et ce qu'on y trouve." actif="a-propos">
+  <header class="panneau panneau--court">
+    <div class="panneau__lueur"></div>
+    <p class="eyebrow">La démarche</p>
+    <h1>Partager ce qui marche</h1>
+  </header>
+  <section class="section bande">
+    <div class="dedans dedans--etroit">
+      <p style="font-size:1.2rem;color:var(--encre-douce)">
+        Ce site rassemble des séances d'éducation physique construites pour être utilisées telles quelles :
+        minutées, dessinées, avec le matériel annoncé. Rien d'autre.
       </p>
-      <p>
-        Chaque cycle propose une progression : les séances s'enchaînent, la difficulté monte, et la dernière
-        séance permet de mesurer le chemin parcouru. Une séance se lit en une page — objectifs, déroulé minuté,
-        exercices, organisation du groupe, matériel à prévoir.
-      </p>
-      <p>
-        Toutes les activités y passent : course, sauts, lancers, jeux de ballon, jeux de coopération,
-        activités aquatiques. Rien n'est réservé à un équipement rare : la plupart des séances tiennent
-        dans une cour avec des plots et quelques ballons.
-      </p>
-
-      <h2 style="font-size:26px;font-weight:700;padding-top:14px">Ce que le site ne fait pas</h2>
-      <p>
-        Aucun compte, aucun formulaire, aucun traceur. Le site ne collecte rien et ne contient aucune
-        donnée sur les élèves : ni nom, ni photo, ni résultat individuel. Ce qui est publié ici est
-        du contenu pédagogique, rien d'autre.
-      </p>
-
-      <h2 style="font-size:26px;font-weight:700;padding-top:14px">Réutilisation</h2>
-      <p>
-        Les fiches peuvent être imprimées, modifiées et réutilisées librement dans un cadre scolaire.
-        Si elles vous rendent service, tant mieux.
-      </p>
-
-      <div style="padding-top:18px">
-        <a class="bouton" href={lien('cycles/')}>Voir les cycles</a>
+      <div class="compteurs" style="margin:40px 0">
+        <div><b>{n.cycles}</b><span>cycles</span></div>
+        <div><b>{n.seances}</b><span>séances</span></div>
+        <div><b>{n.exercices}</b><span>exercices</span></div>
+        <div><b>{n.moyenne}′</b><span>en moyenne</span></div>
       </div>
+      <h2 class="surtitre" style="font-size:1.5rem;margin-top:36px">Aucun nom, aucune donnée d'élève</h2>
+      <p style="color:var(--encre-douce);margin-top:12px">
+        Ni le nom de l'intervenant, ni celui d'une école, ni celui d'une commune n'apparaissent ici.
+        Aucun suivi individuel, aucune photo de classe, aucun résultat nominatif n'est publié.
+        Ce qui est partagé, ce sont des situations d'apprentissage.
+      </p>
+      <h2 class="surtitre" style="font-size:1.5rem;margin-top:36px">Consultation libre</h2>
+      <p style="color:var(--encre-douce);margin-top:12px">
+        Pas de compte, pas d'inscription, pas de newsletter. Les fiches s'impriment proprement,
+        une page par séance, et se lisent sur un téléphone au bord d'un terrain.
+      </p>
+      <h2 class="surtitre" style="font-size:1.5rem;margin-top:36px">Les schémas</h2>
+      <p style="color:var(--encre-douce);margin-top:12px">
+        Chaque exercice qui le mérite est accompagné d'un schéma de mise en place : le terrain vu du dessus,
+        les plots numérotés, les zones, les déplacements et les passes. Le but est qu'on puisse installer
+        l'atelier sans avoir lu le texte.
+      </p>
     </div>
   </section>
 </Base>

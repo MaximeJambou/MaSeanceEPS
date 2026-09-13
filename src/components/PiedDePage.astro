@@ -1,176 +1,82 @@
 ---
 import { lien } from '../lib/url.js';
-import { config } from '../lib/donnees.js';
-// L'empreinte du code d'accès est publique : elle ne permet pas de retrouver le code.
-const empreinte = config.admin?.empreinte ?? '';
-const sel = config.admin?.sel ?? '';
+import { config, cycles } from '../lib/donnees.js';
+const activites = [...new Set(cycles.map((c) => c.sport))].slice(0, 5);
 ---
-<footer class="pied sans-impression">
-  <div class="contenu pied__barre">
-    <div class="pile" style="gap:10px">
-      <div class="marque-pied">
-        <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" rx="9" fill="#ffffff" opacity=".14"></rect>
-          <path d="M6 23C10 13 17.5 8.5 26 9" stroke="#F2B300" stroke-width="3" fill="none" stroke-linecap="round"></path>
-          <circle cx="10.5" cy="12" r="3" fill="#ffffff"></circle>
-        </svg>
-        <span>MaSéanceEPS</span>
-      </div>
-      <p class="pied__note">Séances de sport partagées librement. Aucun compte, aucune donnée personnelle collectée.</p>
+<footer class="pied bande">
+  <div class="dedans">
+    <p class="pied__mot">MaSéance<i>EPS</i></p>
+
+    <div class="pied__grille">
+      <nav>
+        <span class="eyebrow">Le site</span>
+        <a href={lien('cycles/')}>Cycles</a>
+        <a href={lien('seances/')}>Séances</a>
+        <a href={lien('exercices/')}>Exercices</a>
+        <a href={lien('ressources/')}>Ressources</a>
+      </nav>
+      <nav>
+        <span class="eyebrow">Activités</span>
+        {activites.map((a) => <a href={lien('cycles/')}>{a}</a>)}
+      </nav>
+      <nav style="max-width:34ch">
+        <span class="eyebrow">La démarche</span>
+        <p style="font-size:.92rem;color:rgba(255,255,255,.6);margin:0">
+          Des séances partagées librement, sans compte et sans nom. Aucune donnée d'élève n'est publiée ici.
+        </p>
+        <a href={lien('a-propos/')} style="margin-top:10px">En savoir plus →</a>
+      </nav>
     </div>
 
-    <nav class="pied__liens" aria-label="Liens de pied de page">
-      <a href={lien('cycles/')}>Cycles</a>
-      <a href={lien('seances/')}>Séances</a>
-      <a href={lien('ressources/')}>Ressources</a>
-      <a href={lien('a-propos/')}>À propos</a>
-    </nav>
-
-    <!-- Entrée de l'espace d'administration : volontairement sans libellé. -->
-    <button type="button" class="bouee" id="ouvrir-admin" aria-label="Ouvrir">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="12" cy="12" r="8.6" stroke="currentColor" stroke-width="2.1"></circle>
-        <circle cx="12" cy="12" r="3.3" stroke="currentColor" stroke-width="2.1"></circle>
-        <path d="M12 3.4v5.3M12 15.3v5.3M3.4 12h5.3M15.3 12h5.3" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"></path>
-      </svg>
-    </button>
+    <div class="pied__bas">
+      <span>Consultation libre · {config.titre}</span>
+      <button class="bouee" id="acces" type="button" aria-label="Espace de gestion" aria-haspopup="dialog">
+        <svg viewBox="0 0 64 64" width="34" height="34"><use href="#p-bouee" /></svg>
+      </button>
+    </div>
   </div>
 </footer>
 
-<div class="voile" id="voile-admin" hidden></div>
+<div class="tiroir" id="tiroir" role="dialog" aria-modal="true" aria-labelledby="tiroir-titre" hidden>
+  <button class="fermer" type="button" id="tiroir-fermer" aria-label="Fermer">×</button>
+  <h2 id="tiroir-titre">Espace de gestion</h2>
+  <p style="color:rgba(255,255,255,.68);font-size:.94rem;margin:0">Réservé à la personne qui alimente le site.</p>
+  <form id="tiroir-form" style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <input type="password" id="tiroir-code" placeholder="Code d'accès" autocomplete="off" aria-label="Code d'accès" />
+    <button class="bouton bouton--or" type="submit" style="justify-content:center">Se connecter</button>
+  </form>
+</div>
 
-<aside class="panneau" id="panneau-admin" aria-hidden="true" aria-label="Accès réservé">
-  <div class="panneau__filet"></div>
-  <div class="panneau__corps">
-    <div class="panneau__entete">
-      <div class="pile" style="gap:4px">
-        <span class="surtitre" style="color:var(--or-fonce)">Accès réservé</span>
-        <h2 style="font-size:26px;font-weight:700">Poste de secours</h2>
-      </div>
-      <button type="button" class="panneau__fermer" id="fermer-admin" aria-label="Fermer">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M6 6l12 12M18 6 6 18"></path>
-        </svg>
-      </button>
-    </div>
-
-    <form id="form-admin" autocomplete="off">
-      <label for="code-admin">Code d'accès</label>
-      <input type="password" id="code-admin" name="code" autocomplete="current-password" spellcheck="false" />
-      <button type="submit" class="bouton" style="width:100%;margin-top:16px">
-        Se connecter
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h13"></path><path d="m12 5 7 7-7 7"></path>
-        </svg>
-      </button>
-    </form>
-
-    <div class="panneau__pied">
-      <p>Cet espace sert uniquement à publier cycles, séances et documents. Les visiteurs n'ont jamais besoin de compte.</p>
-      <p>La publication demande en plus la clé du dépôt, enregistrée sur cet ordinateur.</p>
-    </div>
-  </div>
-</aside>
-
-<style>
-  .pied { background: var(--azur-fonce); color: #fff; margin-top: 80px; }
-  .pied__barre { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-block: 36px; flex-wrap: wrap; }
-  .marque-pied { display: flex; align-items: center; gap: 10px; font-family: var(--titre); font-weight: 700; font-size: 17px; }
-  .pied__note { color: #9EBEDD; font-size: 15px; max-width: 380px; }
-  .pied__liens { display: flex; gap: 24px; font-size: 15px; flex-wrap: wrap; }
-  .pied__liens a { color: #C9DEF4; }
-
-  .bouee {
-    width: 32px; height: 32px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(255,255,255,.22); border-radius: 8px;
-    background: transparent; color: #fff; opacity: .5; cursor: pointer;
-    transition: opacity .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
-  }
-  .bouee:hover { opacity: 1; border-color: var(--or); color: var(--or); background: rgba(242,179,0,.16); }
-
-  .voile { position: fixed; inset: 0; background: rgba(6,24,40,.4); z-index: 40; opacity: 0; transition: opacity .26s ease; }
-  .voile.est-visible { opacity: 1; }
-
-  .panneau {
-    position: fixed; top: 0; right: 0; height: 100%; width: min(392px, 100%);
-    background: var(--blanc); z-index: 50;
-    box-shadow: -24px 0 60px rgba(3,20,38,.30);
-    display: flex; flex-direction: column;
-    transform: translateX(100%);
-    transition: transform .26s cubic-bezier(.22,.61,.36,1);
-    visibility: hidden;
-  }
-  .panneau.est-ouvert { transform: translateX(0); visibility: visible; }
-  .panneau.tremble { animation: tremble .32s ease; }
-  @keyframes tremble {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-9px); }
-    75% { transform: translateX(9px); }
-  }
-  .panneau__filet { height: 5px; background: var(--or); flex-shrink: 0; }
-  .panneau__corps { padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 24px; flex-grow: 1; }
-  .panneau__entete { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-  .panneau__fermer { width: 40px; height: 40px; flex-shrink: 0; border: 1px solid var(--ligne); border-radius: 10px; background: transparent; color: var(--gris); cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .panneau__fermer:hover { background: var(--fond); color: var(--encre); }
-  .panneau__pied { margin-top: auto; border-top: 1px solid var(--ligne); padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
-  .panneau__pied p { font-size: 14px; color: var(--gris); }
-</style>
-
-<script is:inline define:vars={{ empreinte, sel, urlAdmin: lien('administration/') }}>
+<script define:vars={{ empreinte: config.admin.empreinte, sel: config.admin.sel, urlAdmin: lien('administration/') }}>
   (function () {
-    const bouee = document.getElementById('ouvrir-admin');
-    const panneau = document.getElementById('panneau-admin');
-    const voile = document.getElementById('voile-admin');
-    const fermer = document.getElementById('fermer-admin');
-    const form = document.getElementById('form-admin');
-    const champ = document.getElementById('code-admin');
-    if (!bouee || !panneau) return;
+    var bouee = document.getElementById('acces');
+    var tiroir = document.getElementById('tiroir');
+    var champ = document.getElementById('tiroir-code');
+    if (!bouee || !tiroir) return;
 
     function ouvrir() {
-      voile.hidden = false;
-      requestAnimationFrame(() => voile.classList.add('est-visible'));
-      panneau.classList.add('est-ouvert');
-      panneau.setAttribute('aria-hidden', 'false');
-      setTimeout(() => champ && champ.focus(), 180);
+      tiroir.hidden = false;
+      requestAnimationFrame(function () { tiroir.classList.add('ouvert'); champ.focus(); });
     }
-    function refermer() {
-      panneau.classList.remove('est-ouvert');
-      panneau.setAttribute('aria-hidden', 'true');
-      voile.classList.remove('est-visible');
-      setTimeout(() => { voile.hidden = true; }, 260);
-      if (champ) champ.value = '';
+    function fermer() {
+      tiroir.classList.remove('ouvert');
+      champ.value = '';
+      setTimeout(function () { tiroir.hidden = true; }, 260);
     }
+    bouee.addEventListener('click', ouvrir);
+    document.getElementById('tiroir-fermer').addEventListener('click', fermer);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !tiroir.hidden) fermer(); });
 
-    bouee.addEventListener('click', () =>
-      panneau.classList.contains('est-ouvert') ? refermer() : ouvrir()
-    );
-    fermer.addEventListener('click', refermer);
-    voile.addEventListener('click', refermer);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && panneau.classList.contains('est-ouvert')) refermer();
-    });
-
-    async function empreinteDe(texte) {
-      const octets = new TextEncoder().encode(texte);
-      const resume = await crypto.subtle.digest('SHA-256', octets);
-      return Array.from(new Uint8Array(resume))
-        .map((o) => o.toString(16).padStart(2, '0'))
-        .join('');
-    }
-
-    form.addEventListener('submit', async (e) => {
+    document.getElementById('tiroir-form').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const saisie = champ.value || '';
-      let ok = false;
-      try { ok = (await empreinteDe(sel + saisie)) === empreinte; } catch (_) { ok = false; }
-      if (ok) {
+      var octets = new TextEncoder().encode(sel + champ.value);
+      var resume = await crypto.subtle.digest('SHA-256', octets);
+      var hexa = Array.from(new Uint8Array(resume)).map(function (o) { return o.toString(16).padStart(2, '0'); }).join('');
+      if (hexa === empreinte) {
         sessionStorage.setItem('mse-acces', empreinte);
         window.location.href = urlAdmin;
       } else {
-        // Aucun message : rien ne doit confirmer qu'un espace existe.
-        panneau.classList.add('tremble');
-        setTimeout(() => { panneau.classList.remove('tremble'); refermer(); }, 340);
+        fermer();
       }
     });
   })();

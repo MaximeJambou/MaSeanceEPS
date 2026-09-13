@@ -1,7 +1,16 @@
 ---
+/* Polices auto-hébergées : aucun appel à Google Fonts, rien ne fuite, rien ne bloque le rendu. */
+import '@fontsource/anton/400.css';
+import '@fontsource-variable/archivo';
+import '@fontsource/public-sans/400.css';
+import '@fontsource/public-sans/500.css';
+import '@fontsource/public-sans/600.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/ibm-plex-mono/600.css';
 import '../styles/global.css';
 import Entete from '../components/Entete.astro';
 import PiedDePage from '../components/PiedDePage.astro';
+import Pictos from '../components/Pictos.astro';
 import { lien } from '../lib/url.js';
 
 const {
@@ -18,19 +27,68 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{titre} · MaSéanceEPS</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#06325E" />
     <link rel="icon" href={lien('favicon.svg')} type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Public+Sans:wght@400;500;600;700&display=swap"
-    />
   </head>
   <body>
+    <Pictos />
     {!nu && <Entete actif={actif} />}
-    <main>
-      <slot />
-    </main>
+    <slot />
     {!nu && <PiedDePage />}
+
+    <script is:inline>
+      (function () {
+        var doux = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        /* la barre se resserre dès qu'on quitte le haut de page */
+        var bas = null;
+        function auDefilement() {
+          var v = window.scrollY > 40;
+          if (v !== bas) { document.body.classList.toggle('defile', v); bas = v; }
+          if (!doux) parallaxe();
+        }
+
+        /* couches parallaxes du héros */
+        var couches = [].slice.call(document.querySelectorAll('[data-couche]'));
+        var vitesses = { '1': 0.10, '2': 0.20, '3': -0.14, '4': 0.16, '5': -0.09 };
+        var attente = false;
+        function parallaxe() {
+          if (attente || !couches.length) return;
+          attente = true;
+          requestAnimationFrame(function () {
+            var y = window.scrollY;
+            if (y < 1400) couches.forEach(function (c) {
+              c.style.transform = 'translate3d(0,' + (y * (vitesses[c.dataset.couche] || 0)).toFixed(1) + 'px,0)';
+            });
+            attente = false;
+          });
+        }
+        window.addEventListener('scroll', auDefilement, { passive: true });
+        auDefilement();
+
+        /* révélation à l'entrée dans l'écran */
+        var cibles = document.querySelectorAll('.apparait');
+        if (doux || !('IntersectionObserver' in window)) {
+          cibles.forEach(function (e) { e.classList.add('vu'); });
+        } else {
+          var oeil = new IntersectionObserver(function (entrees) {
+            entrees.forEach(function (e) {
+              if (e.isIntersecting) { e.target.classList.add('vu'); oeil.unobserve(e.target); }
+            });
+          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+          cibles.forEach(function (e) { oeil.observe(e); });
+        }
+
+        /* menu compact */
+        var bouton = document.querySelector('.barre__menu');
+        var menu = document.getElementById('menu-principal');
+        if (bouton && menu) {
+          bouton.addEventListener('click', function () {
+            var ouvert = menu.classList.toggle('ouvert');
+            bouton.setAttribute('aria-expanded', String(ouvert));
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

@@ -1,48 +1,65 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CarteSeance from '../../components/CarteSeance.astro';
-import { seances, cycles } from '../../lib/donnees.js';
-const triees = [...seances].sort((a, b) => a.cycle.localeCompare(b.cycle) || a.numero - b.numero);
+import { seances, cycleDe } from '../../lib/donnees.js';
+const liste = [...seances].sort((a, b) => (a.cycle || '').localeCompare(b.cycle || '') || (a.numero || 0) - (b.numero || 0));
+const sports = [...new Set(liste.map((s) => { const c = cycleDe(s); return c ? c.sport : 'Autre'; }))];
 ---
-<Base titre="Séances" description="Toutes les séances, tous cycles confondus." actif="seances">
-  <section class="contenu" style="padding-block:44px 12px">
-    <h1 style="font-size:clamp(30px,4vw,44px);font-weight:800">Toutes les séances</h1>
-    <p style="color:var(--gris);font-size:19px;padding-top:10px;max-width:640px">
-      Chaque fiche tient sur une page et s'imprime telle quelle.
+<Base titre="Séances" description="Toutes les séances, avec leur déroulé minuté et leurs schémas." actif="seances">
+  <header class="panneau panneau--court">
+    <div class="panneau__lueur"></div>
+    <p class="eyebrow">Prêtes à emmener</p>
+    <h1>Séances</h1>
+    <p style="color:rgba(255,255,255,.8);margin-top:20px;max-width:54ch">
+      Chaque fiche tient sur une page imprimée : déroulé minuté, schémas de mise en place, matériel, critère de réussite.
     </p>
-    <div class="sans-impression" style="padding-top:22px;max-width:420px">
-      <label for="recherche">Rechercher une séance</label>
-      <input type="text" id="recherche" placeholder="Course, ballon, matériel…" />
-    </div>
-  </section>
+  </header>
 
-  <section class="contenu" style="padding-bottom:40px">
-    <div class="pile" style="gap:12px" id="liste-seances">
-      {triees.map((s) => (
-        <div data-recherche={`${s.titre} ${s.objectif} ${(s.materiel || []).join(' ')} ${(s.exercices || []).map((e) => e.titre).join(' ')}`.toLowerCase()}>
-          <CarteSeance seance={s} montrerCycle={true} cycle={cycles.find((c) => c.id === s.cycle)} />
-        </div>
-      ))}
+  <section class="section bande">
+    <div class="dedans">
+      <label for="q" class="eyebrow" style="display:block;color:var(--azur);margin-bottom:10px">Chercher</label>
+      <input class="recherche" id="q" type="search" placeholder="course, ballon, eau…" autocomplete="off" />
+      <div class="filtre-barre" role="group" aria-label="Filtrer par activité">
+        <button type="button" data-sport="" aria-pressed="true">Toutes</button>
+        {sports.map((s) => <button type="button" data-sport={s} aria-pressed="false">{s}</button>)}
+      </div>
+      <div class="grille grille--seances" id="liste">
+        {liste.map((s) => {
+          const c = cycleDe(s);
+          return (
+            <div class="apparait" data-sport={c ? c.sport : 'Autre'} data-texte={[s.titre, s.objectif, s.lieu, (s.materiel || []).join(' ')].join(' ').toLowerCase()}>
+              <CarteSeance seance={s} />
+            </div>
+          );
+        })}
+      </div>
+      <p class="vide" id="vide" hidden>Aucune séance ne correspond.</p>
     </div>
-    <p id="aucune" hidden style="color:var(--gris);padding-top:20px">Aucune séance ne correspond.</p>
   </section>
 </Base>
 
 <script is:inline>
   (function () {
-    const champ = document.getElementById('recherche');
-    const items = document.querySelectorAll('#liste-seances > div');
-    const aucune = document.getElementById('aucune');
-    if (!champ) return;
-    champ.addEventListener('input', () => {
-      const q = champ.value.trim().toLowerCase();
-      let visibles = 0;
-      items.forEach((i) => {
-        const montrer = !q || i.dataset.recherche.includes(q);
-        i.hidden = !montrer;
-        if (montrer) visibles++;
+    var q = document.getElementById('q');
+    var items = [].slice.call(document.querySelectorAll('#liste > [data-sport]'));
+    var boutons = [].slice.call(document.querySelectorAll('.filtre-barre button'));
+    var vide = document.getElementById('vide');
+    var sport = '';
+    function filtrer() {
+      var mot = (q.value || '').trim().toLowerCase(); var n = 0;
+      items.forEach(function (i) {
+        var ok = (!sport || i.dataset.sport === sport) && (!mot || i.dataset.texte.indexOf(mot) !== -1);
+        i.hidden = !ok; if (ok) n++;
       });
-      aucune.hidden = visibles > 0;
+      vide.hidden = n > 0;
+    }
+    q.addEventListener('input', filtrer);
+    boutons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        sport = b.dataset.sport;
+        boutons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        filtrer();
+      });
     });
   })();
 </script>

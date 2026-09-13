@@ -432,6 +432,14 @@ function blocExercice(ex = {}, i = 0) {
       <div><label>Description</label><textarea data-ex="description">${echappe(ex.description || '')}</textarea></div>
       <div><label>Organisation</label><input data-ex="organisation" value="${echappe(ex.organisation || '')}"></div>
       <div><label>Variable (adaptation)</label><input data-ex="variable" value="${echappe(ex.variable || '')}"></div>
+      <div><label>Réussi si…</label><input data-ex="reussite" value="${echappe(ex.reussite || '')}"></div>
+      <div><label>Ce qu'on regarde <span style="color:var(--gris);font-weight:400">(une ligne par point)</span></label><textarea data-ex="observer" rows="3">${echappe((ex.observer || []).join('\n'))}</textarea></div>
+      <div><label>Consigne de sécurité <span style="color:var(--gris);font-weight:400">(laisser vide s'il n'y en a pas)</span></label><input data-ex="securite" value="${echappe(ex.securite || '')}"></div>
+      <details style="margin-top:10px">
+        <summary style="cursor:pointer;font-size:.85rem;color:var(--gris)">Schéma de terrain (avancé)</summary>
+        <p style="color:var(--gris);font-size:.82rem;margin:8px 0">Description du schéma en JSON. Laisser vide pour ne pas en afficher. En cas d'erreur de saisie, l'ancien schéma est conservé.</p>
+        <textarea data-ex="schema" rows="6" spellcheck="false" style="font-family:ui-monospace,monospace;font-size:.8rem">${echappe(ex.schema ? JSON.stringify(ex.schema) : '')}</textarea>
+      </details>
     </div>`;
 }
 
@@ -504,15 +512,37 @@ function formulaireSeance(seance) {
   $('#form-seance').addEventListener('submit', async (e) => {
     e.preventDefault();
     const titre = $('#s-titre').value.trim();
-    const exercices = $$('#liste-exercices [data-exercice]').map((bloc) => ({
-      titre: bloc.querySelector('[data-ex="titre"]').value.trim(),
-      duree: Number(bloc.querySelector('[data-ex="duree"]').value) || 10,
-      description: bloc.querySelector('[data-ex="description"]').value.trim(),
-      organisation: bloc.querySelector('[data-ex="organisation"]').value.trim(),
-      variable: bloc.querySelector('[data-ex="variable"]').value.trim(),
-    })).filter((x) => x.titre);
+    const anciens = (seance && seance.exercices) || [];
+    const exercices = $$('#liste-exercices [data-exercice]').map((bloc, i) => {
+      const lu = (nom) => (bloc.querySelector('[data-ex="' + nom + '"]') || {}).value || '';
+      const titre = lu('titre').trim();
+      // on repart de l'ancien exercice pour ne rien perdre de ce que ce formulaire n'édite pas
+      const ancien = anciens.find((a) => a.titre === titre) || anciens[i] || {};
+      const resultat = {
+        ...ancien,
+        titre,
+        duree: Number(lu('duree')) || 10,
+        description: lu('description').trim(),
+        organisation: lu('organisation').trim(),
+        variable: lu('variable').trim(),
+      };
+      const reussite = lu('reussite').trim();
+      if (reussite) resultat.reussite = reussite; else delete resultat.reussite;
+      const observer = lignes(lu('observer'));
+      if (observer.length) resultat.observer = observer; else delete resultat.observer;
+      const securite = lu('securite').trim();
+      if (securite) resultat.securite = securite; else delete resultat.securite;
+      const brut = lu('schema').trim();
+      if (!brut) { delete resultat.schema; }
+      else {
+        try { resultat.schema = JSON.parse(brut); }
+        catch (_) { message('Schéma de « ' + titre + ' » illisible : l’ancien a été conservé.', 'erreur'); }
+      }
+      return resultat;
+    }).filter((x) => x.titre);
 
     const nouvelle = {
+      ...(seance || {}),
       id: seance ? seance.id : identifiant(titre),
       cycle: $('#s-cycle').value,
       numero: Number($('#s-numero').value) || 1,
@@ -528,6 +558,7 @@ function formulaireSeance(seance) {
       },
       exercices,
       retour: {
+        ...((seance && seance.retour) || {}),
         duree: Number($('#s-ret-duree').value) || 5,
         contenu: $('#s-ret-contenu').value.trim(),
       },

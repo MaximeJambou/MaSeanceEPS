@@ -1,59 +1,114 @@
 ---
 import Base from '../layouts/Base.astro';
-import { lien } from '../lib/url.js';
+import SchemaTerrain from '../components/SchemaTerrain.astro';
 import { tousLesExercices, cycles } from '../lib/donnees.js';
-const exercices = tousLesExercices();
----
-<Base titre="Exercices" description="Tous les exercices décrits dans les séances." actif="exercices">
-  <section class="contenu" style="padding-block:44px 12px">
-    <h1 style="font-size:clamp(30px,4vw,44px);font-weight:800">Les exercices</h1>
-    <p style="color:var(--gris);font-size:19px;padding-top:10px;max-width:640px">
-      Tous les exercices des séances publiées, avec leur organisation et leurs variables. Cliquez pour retrouver la séance complète.
-    </p>
-    <div class="sans-impression" style="padding-top:22px;max-width:420px">
-      <label for="recherche-ex">Rechercher un exercice</label>
-      <input type="text" id="recherche-ex" placeholder="Relais, passes, immersion…" />
-    </div>
-  </section>
+import { lien } from '../lib/url.js';
 
-  <section class="contenu" style="padding-bottom:40px">
-    <div class="grille grille--2" id="liste-ex">
-      {exercices.map((ex) => {
-        const cycle = cycles.find((c) => c.id === ex.seance.cycle);
-        return (
-          <article class="carte pile" style="gap:10px" data-recherche={`${ex.titre} ${ex.description} ${cycle?.sport || ''}`.toLowerCase()}>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-              <span class="etiquette">{cycle?.sport}</span>
-              <span class="etiquette etiquette--neutre">{ex.duree} min</span>
-            </div>
-            <h2 style="font-size:21px;font-weight:700">{ex.titre}</h2>
-            <p style="color:var(--gris)">{ex.description}</p>
-            {ex.organisation && <p style="font-size:15px"><strong>Organisation :</strong> {ex.organisation}</p>}
-            {ex.variable && <p style="font-size:15px"><strong>Variable :</strong> {ex.variable}</p>}
-            <a href={lien(`seances/${ex.seance.id}/`)} style="font-weight:600;padding-top:4px">Séance « {ex.seance.titre} » →</a>
-          </article>
-        );
-      })}
+const exercices = tousLesExercices();
+const sports = [...new Set(exercices.map((e) => (e.cycle ? e.cycle.sport : 'Autre')))];
+const avecSchema = exercices.filter((e) => e.schema).length;
+---
+
+<Base titre="Exercices" description="Tous les exercices des séances, avec leur schéma de mise en place, leur organisation et leur variable." actif="exercices">
+  <header class="panneau panneau--court">
+    <div class="panneau__lueur"></div>
+    <p class="eyebrow">La bibliothèque</p>
+    <h1>Exercices</h1>
+    <p style="color:rgba(255,255,255,.8);margin-top:20px;max-width:56ch">
+      Chaque exercice tel qu'il se déroule sur le terrain : la mise en place dessinée, l'organisation du groupe,
+      la variable quand ça coince, et ce qu'il faut regarder pendant que ça tourne.
+    </p>
+    <div class="metas">
+      <span>{exercices.length} exercices</span>
+      <span>{avecSchema} schémas</span>
+      <span>{sports.length} activités</span>
     </div>
-    <p id="aucun-ex" hidden style="color:var(--gris);padding-top:20px">Aucun exercice ne correspond.</p>
+  </header>
+
+  <section class="section bande">
+    <div class="dedans">
+      <label for="q" class="eyebrow" style="display:block;color:var(--azur);margin-bottom:10px">Chercher</label>
+      <input class="recherche" id="q" type="search" placeholder="courir, ballon, plots…" autocomplete="off" />
+
+      <div class="filtre-barre" role="group" aria-label="Filtrer par activité">
+        <button type="button" data-sport="" aria-pressed="true">Toutes</button>
+        {sports.map((s) => <button type="button" data-sport={s} aria-pressed="false">{s}</button>)}
+      </div>
+
+      <div class="grille" id="liste" style="gap:22px">
+        {exercices.map((ex) => (
+          <article class="exercice-carte apparait"
+                   data-sport={ex.cycle ? ex.cycle.sport : ''}
+                   data-texte={[ex.titre, ex.description, ex.organisation, ex.variable, ex.seance.titre].join(' ').toLowerCase()}>
+            <div class="exercice-corps">
+              <div class="exercice-fil">
+                <span class="duree">{ex.duree}′</span>
+                <span class="badge">{ex.cycle ? ex.cycle.sport : 'Exercice'}</span>
+                {ex.cycle && <span class="badge">{ex.cycle.niveaux}</span>}
+              </div>
+              <h3>{ex.titre}</h3>
+              <p>{ex.description}</p>
+
+              {(ex.organisation || ex.variable || ex.reussite) && (
+                <dl style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px 14px;margin-top:16px;font-size:.92rem">
+                  {ex.organisation && (<><dt style="font-family:var(--chrono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--encre-pale);padding-top:3px">Organisation</dt><dd style="margin:0;color:var(--encre-douce)">{ex.organisation}</dd></>)}
+                  {ex.variable && (<><dt style="font-family:var(--chrono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--encre-pale);padding-top:3px">Variable</dt><dd style="margin:0;color:var(--encre-douce)">{ex.variable}</dd></>)}
+                  {ex.reussite && (<><dt style="font-family:var(--chrono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--encre-pale);padding-top:3px">Réussi si</dt><dd style="margin:0;font-weight:600">{ex.reussite}</dd></>)}
+                </dl>
+              )}
+
+              {ex.observer && ex.observer.length > 0 && (
+                <div class="observation">
+                  <h4>Ce qu'on regarde</h4>
+                  <ul>{ex.observer.map((o) => <li>{o}</li>)}</ul>
+                </div>
+              )}
+
+              <p style="margin-top:18px;font-family:var(--chrono);font-size:.72rem;color:var(--encre-pale)">
+                Extrait de <a href={lien('seances/' + ex.seance.id + '/')} style="color:var(--azur);text-decoration:underline">{ex.seance.titre}</a>
+              </p>
+            </div>
+
+            <div class="exercice-visuel">
+              {ex.schema
+                ? <SchemaTerrain schema={ex.schema} titre={ex.titre} />
+                : <p style="font-family:var(--chrono);font-size:.72rem;color:var(--encre-pale);text-align:center">Schéma à venir</p>}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <p class="vide" id="vide" hidden>Aucun exercice ne correspond.</p>
+    </div>
   </section>
 </Base>
 
 <script is:inline>
   (function () {
-    const champ = document.getElementById('recherche-ex');
-    const items = document.querySelectorAll('#liste-ex > article');
-    const aucun = document.getElementById('aucun-ex');
-    if (!champ) return;
-    champ.addEventListener('input', () => {
-      const q = champ.value.trim().toLowerCase();
-      let visibles = 0;
-      items.forEach((i) => {
-        const montrer = !q || i.dataset.recherche.includes(q);
-        i.hidden = !montrer;
-        if (montrer) visibles++;
+    var q = document.getElementById('q');
+    var vide = document.getElementById('vide');
+    var cartes = [].slice.call(document.querySelectorAll('#liste .exercice-carte'));
+    var boutons = [].slice.call(document.querySelectorAll('.filtre-barre button'));
+    var sport = '';
+
+    function filtrer() {
+      var mot = (q.value || '').trim().toLowerCase();
+      var visibles = 0;
+      cartes.forEach(function (c) {
+        var ok = (!sport || c.dataset.sport === sport) && (!mot || c.dataset.texte.indexOf(mot) !== -1);
+        c.hidden = !ok;
+        if (ok) visibles++;
       });
-      aucun.hidden = visibles > 0;
+      vide.hidden = visibles > 0;
+    }
+
+    q.addEventListener('input', filtrer);
+    boutons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        sport = b.dataset.sport;
+        boutons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        filtrer();
+      });
     });
   })();
 </script>

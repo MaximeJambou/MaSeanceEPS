@@ -1,57 +1,47 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CarteCycle from '../../components/CarteCycle.astro';
-import { cycles, seancesDuCycle } from '../../lib/donnees.js';
+import { cycles } from '../../lib/donnees.js';
 const sports = [...new Set(cycles.map((c) => c.sport))];
 ---
-<Base titre="Cycles" description="Tous les cycles disponibles, classés par activité." actif="cycles">
-  <section class="contenu" style="padding-block:44px 12px">
-    <h1 style="font-size:clamp(30px,4vw,44px);font-weight:800">Les cycles</h1>
-    <p style="color:var(--gris);font-size:19px;padding-top:10px;max-width:640px">
-      Chaque cycle regroupe des séances qui se suivent. Choisissez une activité, puis la séance du jour.
+<Base titre="Cycles" description="Tous les cycles publiés, filtrables par activité." actif="cycles">
+  <header class="panneau panneau--court">
+    <div class="panneau__lueur"></div>
+    <p class="eyebrow">Les progressions</p>
+    <h1>Cycles</h1>
+    <p style="color:rgba(255,255,255,.8);margin-top:20px;max-width:54ch">
+      Un cycle, c'est une suite de séances qui va quelque part. On y entre par une mesure, on en sort par la même.
     </p>
-    <div class="filtres sans-impression" role="group" aria-label="Filtrer par activité">
-      <button type="button" class="filtre est-actif" data-sport="tous">Tout</button>
-      {sports.map((s) => <button type="button" class="filtre" data-sport={s}>{s}</button>)}
-    </div>
-  </section>
+  </header>
 
-  <section class="contenu" style="padding-bottom:40px">
-    <div class="grille grille--3" id="liste-cycles">
-      {cycles.map((c) => (
-        <div data-sport={c.sport}>
-          <CarteCycle cycle={c} nbSeances={seancesDuCycle(c.id).length} />
-        </div>
-      ))}
+  <section class="section bande">
+    <div class="dedans">
+      <div class="filtre-barre" role="group" aria-label="Filtrer par activité">
+        <button type="button" data-sport="" aria-pressed="true">Toutes</button>
+        {sports.map((s) => <button type="button" data-sport={s} aria-pressed="false">{s}</button>)}
+      </div>
+      <div class="grille grille--cycles" id="liste">
+        {cycles.map((c) => <div data-sport={c.sport} class="apparait"><CarteCycle cycle={c} /></div>)}
+      </div>
+      <p class="vide" id="vide" hidden>Aucun cycle pour cette activité.</p>
     </div>
-    <p id="aucun" hidden style="color:var(--gris);padding-top:20px">Aucun cycle pour cette activité.</p>
   </section>
 </Base>
 
-<style>
-  .filtres { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 24px; }
-  .filtre { min-height: 44px; padding: 8px 16px; border: 1px solid var(--ligne); border-radius: 999px; background: var(--blanc); font-family: var(--texte); font-size: 15px; font-weight: 500; color: var(--gris); cursor: pointer; }
-  .filtre:hover { border-color: var(--azur); color: var(--encre); }
-  .filtre.est-actif { background: var(--azur); border-color: var(--azur); color: #fff; font-weight: 600; }
-</style>
-
 <script is:inline>
   (function () {
-    const boutons = document.querySelectorAll('.filtre');
-    const cartes = document.querySelectorAll('#liste-cycles > div');
-    const aucun = document.getElementById('aucun');
-    boutons.forEach((b) => {
-      b.addEventListener('click', () => {
-        boutons.forEach((x) => x.classList.remove('est-actif'));
-        b.classList.add('est-actif');
-        const choix = b.dataset.sport;
-        let visibles = 0;
-        cartes.forEach((c) => {
-          const montrer = choix === 'tous' || c.dataset.sport === choix;
-          c.hidden = !montrer;
-          if (montrer) visibles++;
+    var items = [].slice.call(document.querySelectorAll('#liste > [data-sport]'));
+    var boutons = [].slice.call(document.querySelectorAll('.filtre-barre button'));
+    var vide = document.getElementById('vide');
+    boutons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        boutons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        var n = 0;
+        items.forEach(function (i) {
+          var ok = !b.dataset.sport || i.dataset.sport === b.dataset.sport;
+          i.hidden = !ok; if (ok) n++;
         });
-        aucun.hidden = visibles > 0;
+        vide.hidden = n > 0;
       });
     });
   })();

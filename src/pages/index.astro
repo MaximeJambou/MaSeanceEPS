@@ -1,164 +1,186 @@
 ---
 import Base from '../layouts/Base.astro';
 import CarteCycle from '../components/CarteCycle.astro';
+import SchemaTerrain from '../components/SchemaTerrain.astro';
+import { config, cycles, seances, ressources, chiffres, cycleDe, blocsDe } from '../lib/donnees.js';
 import { lien } from '../lib/url.js';
-import { config, cycles, seances, ressources, seancesDuCycle, tousLesExercices } from '../lib/donnees.js';
 
-const nbExercices = tousLesExercices().length;
-const derniers = cycles.slice(0, 3);
-const seanceVitrine = seances.find((s) => s.exercices?.length) || seances[0];
+const n = chiffres();
+const activites = [...new Set(cycles.map((c) => c.sport))];
+const derniers = [...cycles].slice(0, 3);
+const vitrine = seances.find((s) => (s.exercices || []).some((e) => e.schema)) || seances[0];
+const blocs = vitrine ? blocsDe(vitrine) : [];
+const exVitrine = vitrine ? (vitrine.exercices || []).find((e) => e.schema) : null;
 ---
-<Base titre="Accueil" description={config.sousTitre} actif="">
+
+<Base titre="Accueil" description={config.sousTitre} actif="accueil">
+
   <section class="heros">
-    <div class="contenu heros__grille">
-      <div class="pile" style="gap:22px">
-        <span class="heros__surtitre">Éducation physique · cycle 2 &amp; cycle 3</span>
-        <h1>{config.accroche}</h1>
-        <p class="heros__texte">{config.sousTitre}</p>
-        <div class="heros__actions">
-          <a class="bouton bouton--or" href={lien('cycles/')}>
-            Parcourir les cycles
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"></path><path d="m12 5 7 7-7 7"></path></svg>
-          </a>
-          {seanceVitrine && (
-            <a class="bouton heros__secondaire" href={lien(`seances/${seanceVitrine.id}/`)}>Voir une fiche séance</a>
-          )}
-        </div>
-      </div>
+    <div class="terrain-halo"></div>
+    <div class="terrain-lignes" data-couche="1">
+      <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2">
+        <rect x="60" y="50" width="1080" height="600" rx="6" /><line x1="600" y1="50" x2="600" y2="650" />
+        <circle cx="600" cy="350" r="110" /><rect x="60" y="200" width="150" height="300" rx="4" /><rect x="990" y="200" width="150" height="300" rx="4" />
+      </svg>
+    </div>
+    <div class="terrain-lignes" data-couche="2" style="opacity:.28">
+      <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" fill="none" stroke="rgba(242,179,0,.7)" stroke-width="2" stroke-dasharray="14 12">
+        <line x1="0" y1="150" x2="1200" y2="150" /><line x1="0" y1="560" x2="1200" y2="560" />
+      </svg>
+    </div>
+    <span class="picto-flottant picto--cone" data-couche="3"><svg viewBox="0 0 64 68"><use href="#p-cone" /></svg></span>
+    <span class="picto-flottant picto--chrono" data-couche="4"><svg viewBox="0 0 64 64"><use href="#p-chrono" /></svg></span>
+    <span class="picto-flottant picto--sifflet" data-couche="5"><svg viewBox="0 0 64 60"><use href="#p-sifflet" /></svg></span>
 
-      {seanceVitrine && (
-        <div class="apercu">
-          <div class="apercu__entete">
-            <span class="surtitre">Séance {seanceVitrine.numero}</span>
-            <span class="etiquette">{seanceVitrine.duree} min</span>
+    <div class="dedans">
+      <span class="eyebrow">Éducation physique · cycle 2 &amp; cycle 3</span>
+      <h1 class="affiche">Des séances prêtes à <em><span class="marque">emmener sur le terrain</span></em></h1>
+      <p class="heros__texte">{config.sousTitre}</p>
+      <div class="heros__actions">
+        <a class="bouton bouton--or" href={lien('seances/')}>Trouver une séance →</a>
+        <a class="bouton bouton--fantome" href={lien('cycles/')}>Parcourir les cycles</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="defilant" aria-hidden="true">
+    <div class="defilant__piste">{activites.map((a) => <span>{a}</span>)}{activites.map((a) => <span>{a}</span>)}</div>
+    <div class="defilant__piste">{activites.map((a) => <span>{a}</span>)}{activites.map((a) => <span>{a}</span>)}</div>
+  </div>
+
+  <section class="bande">
+    <div class="dedans">
+      <div class="compteurs">
+        <div><b>{n.cycles}</b><span>cycles publiés</span></div>
+        <div><b>{n.seances}</b><span>séances détaillées</span></div>
+        <div><b>{n.exercices}</b><span>exercices décrits</span></div>
+        <div><b>{n.moyenne}′</b><span>durée moyenne</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bande">
+    <div class="dedans">
+      <div class="section__tete apparait">
+        <span class="eyebrow">Ce qui change</span>
+        <h2 class="surtitre">Trois promesses, tenues séance après séance</h2>
+        <p>La plupart des ressources en EPS s'arrêtent à l'idée d'exercice. Ici, on descend jusqu'à la minute et jusqu'au plot.</p>
+      </div>
+      <div class="pile">
+        <article class="pile__carte">
+          <div class="pile__num">01</div>
+          <div>
+            <h3>Un cycle, une progression</h3>
+            <p>Les séances s'enchaînent dans un ordre réfléchi : découverte, structuration, réinvestissement, évaluation. La première et la dernière partagent le même parcours, pour que l'élève mesure lui-même ce qu'il a gagné.</p>
+            <div class="pile__detail"><span class="jetonn">même parcours en entrée et en sortie</span><span class="jetonn">mesure notée par l'élève</span></div>
           </div>
-          <h3 class="apercu__titre">{seanceVitrine.titre}</h3>
-          <div class="pile" style="gap:10px">
-            <div class="apercu__ligne"><span>{seanceVitrine.echauffement.duree}′</span><span>{seanceVitrine.echauffement.titre}</span></div>
-            {seanceVitrine.exercices.map((ex) => (
-              <div class="apercu__ligne"><span>{ex.duree}′</span><span>{ex.titre}</span></div>
+          <span class="pile__fantome" aria-hidden="true"><svg viewBox="0 0 64 68"><use href="#p-cone" /></svg></span>
+        </article>
+        <article class="pile__carte">
+          <div class="pile__num">02</div>
+          <div>
+            <h3>Une séance, une fiche</h3>
+            <p>Minutage, schéma de mise en place, organisation du groupe, variable de simplification, critère de réussite. Lisible d'une main sur un téléphone au bord du terrain, imprimable telle quelle.</p>
+            <div class="pile__detail"><span class="jetonn">déroulé minuté</span><span class="jetonn">schéma dessiné</span><span class="jetonn">impression propre</span></div>
+          </div>
+          <span class="pile__fantome" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#p-chrono" /></svg></span>
+        </article>
+        <article class="pile__carte">
+          <div class="pile__num">03</div>
+          <div>
+            <h3>Le matériel, annoncé</h3>
+            <p>Ce qu'il faut sortir du local, listé séance par séance, en quantités. Dix plots numérotés, pas « des plots ». Rien à improviser cinq minutes avant que la classe arrive.</p>
+            <div class="pile__detail"><span class="jetonn">quantités exactes</span><span class="jetonn">cumul par cycle</span></div>
+          </div>
+          <span class="pile__fantome" aria-hidden="true"><svg viewBox="0 0 64 60"><use href="#p-sifflet" /></svg></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {vitrine && (
+    <section class="panneau" style="margin-block-start:0">
+      <div class="panneau__lueur"></div>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,52px);align-items:center" class="vitrine">
+        <div>
+          <span class="eyebrow">La pièce maîtresse</span>
+          <h2 class="affiche" style="font-size:clamp(1.9rem,4.6vw,3.4rem);margin-top:14px">La fiche séance</h2>
+          <p style="color:rgba(255,255,255,.8);margin-top:18px;max-width:46ch">
+            Le document qu'on tient à la main pendant toute la séance. Il se lit dans l'ordre du déroulé,
+            du premier trottinement au dernier résultat noté — et chaque exercice montre sa mise en place dessinée.
+          </p>
+          <ul style="list-style:none;padding:0;margin:24px 0 0;display:grid;gap:11px">
+            {blocs.map((b) => (
+              <li style="display:flex;gap:14px;align-items:baseline;color:rgba(255,255,255,.86);font-size:.95rem">
+                <b style="font-family:var(--chrono);font-size:.7rem;color:var(--or-chaud);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:3px 9px;flex:none">{b.debut}′–{b.fin}′</b>
+                <span>{b.titre}</span>
+              </li>
             ))}
-            <div class="apercu__ligne"><span>{seanceVitrine.retour.duree}′</span><span>Retour au calme</span></div>
-          </div>
-          <div class="encart-materiel" style="margin-top:16px">
-            <div class="surtitre" style="color:var(--or-fonce)">Matériel</div>
-            <div style="padding-top:4px">{seanceVitrine.materiel.join(' · ')}</div>
+          </ul>
+          <div style="margin-top:30px">
+            <a class="bouton bouton--or" href={lien('seances/' + vitrine.id + '/')}>Ouvrir la fiche en entier →</a>
           </div>
         </div>
-      )}
-    </div>
-  </section>
-
-  <section class="chiffres">
-    <div class="contenu chiffres__grille">
-      <div><strong>{cycles.length}</strong><span>cycle{cycles.length > 1 ? 's' : ''} publié{cycles.length > 1 ? 's' : ''}</span></div>
-      <div><strong>{seances.length}</strong><span>séances détaillées</span></div>
-      <div><strong>{nbExercices}</strong><span>exercices décrits</span></div>
-    </div>
-  </section>
-
-  <section class="contenu" style="padding-top:56px">
-    <h2 class="surtitre">Activités couvertes</h2>
-    <div class="puces">
-      {config.sports.map((s) => <span class="puce">{s}</span>)}
-    </div>
-  </section>
-
-  <section class="contenu" style="padding-top:56px">
-    <div class="titre-section">
-      <div class="pile" style="gap:8px">
-        <h2>Les cycles les plus récents</h2>
-        <p style="color:var(--gris)">Une progression complète, de la première séance à l'évaluation.</p>
+        <div style="background:var(--papier);border-radius:var(--arrondi-petit);padding:16px;box-shadow:10px 12px 0 rgba(4,26,48,.5)">
+          {exVitrine && <SchemaTerrain schema={exVitrine.schema} titre={exVitrine.titre} />}
+        </div>
       </div>
-      <a href={lien('cycles/')} style="font-weight:600;white-space:nowrap">Tous les cycles →</a>
-    </div>
-    <div class="grille grille--3" style="padding-top:26px">
-      {derniers.map((c) => <CarteCycle cycle={c} nbSeances={seancesDuCycle(c.id).length} />)}
-    </div>
-  </section>
+    </section>
+  )}
 
-  <section class="contenu" style="padding-top:64px">
-    <div class="carte grille grille--3" style="padding:36px">
-      <div class="pile" style="gap:10px">
-        <span class="pastille-num">1</span>
-        <h3 style="font-size:20px">Un cycle, une progression</h3>
-        <p style="color:var(--gris)">Les séances s'enchaînent dans un ordre réfléchi, de la découverte à l'évaluation.</p>
+  <section class="section bande">
+    <div class="dedans">
+      <div class="section__tete apparait">
+        <span class="eyebrow">Les cycles</span>
+        <h2 class="surtitre">Ce qui est en ligne</h2>
+        <p>Chaque cycle annonce son niveau, sa période et ce que les élèves doivent avoir appris à la fin.</p>
       </div>
-      <div class="pile" style="gap:10px">
-        <span class="pastille-num">2</span>
-        <h3 style="font-size:20px">Une séance, une fiche</h3>
-        <p style="color:var(--gris)">Minutage, consignes, organisation du groupe, critère de réussite. Imprimable en une page.</p>
-      </div>
-      <div class="pile" style="gap:10px">
-        <span class="pastille-num pastille-num--or">3</span>
-        <h3 style="font-size:20px">Le matériel, annoncé</h3>
-        <p style="color:var(--gris)">Ce qu'il faut sortir du local, listé séance par séance. Rien à improviser.</p>
+      <div class="grille grille--cycles">
+        {derniers.map((c) => <CarteCycle cycle={c} />)}
       </div>
     </div>
   </section>
 
-  <section class="contenu" style="padding-top:64px">
-    <div class="titre-section">
-      <h2>Ressources à télécharger</h2>
-      <a href={lien('ressources/')} style="font-weight:600;white-space:nowrap">Toutes les ressources →</a>
-    </div>
-    <div class="grille grille--2" style="padding-top:24px">
-      {ressources.slice(0, 2).map((r) => (
-        <a class="carte ressource" href={lien('ressources/')}>
-          <span class="ressource__icone">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path>
-            </svg>
-          </span>
-          <span class="pile" style="gap:3px">
-            <strong style="font-size:18px">{r.titre}</strong>
-            <span style="color:var(--gris);font-size:15px">{r.description}</span>
-          </span>
-        </a>
-      ))}
+  <section class="section section--creuse bande">
+    <div class="dedans">
+      <div class="section__tete apparait">
+        <span class="eyebrow">Le principe</span>
+        <h2 class="surtitre">Comment une séance arrive sur le terrain</h2>
+      </div>
+      <div class="parcours">
+        <article class="apparait"><em>01 — La veille</em><h3>On ouvre la fiche</h3><p>Sur le téléphone ou imprimée. On lit le déroulé, on regarde le schéma, on note le critère de réussite à annoncer.</p></article>
+        <article class="apparait"><em>02 — Avant la classe</em><h3>On sort le matériel</h3><p>La liste est dans la marge, avec les quantités. Dix plots numérotés, un chronomètre, les fiches d'observation. Cinq minutes.</p></article>
+        <article class="apparait"><em>03 — Pendant</em><h3>On suit le minutage</h3><p>Chaque bloc affiche son horaire de début et de fin. Si un exercice prend l'eau, la variable est écrite juste en dessous.</p></article>
+        <article class="apparait"><em>04 — Après</em><h3>Les élèves notent</h3><p>Chaque séance se termine par une mesure que l'élève inscrit lui-même. À la fin du cycle, il relit sa propre progression.</p></article>
+      </div>
     </div>
   </section>
+
+  {ressources.length > 0 && (
+    <section class="section bande">
+      <div class="dedans">
+        <div class="section__tete apparait">
+          <span class="eyebrow">Ressources</span>
+          <h2 class="surtitre">À imprimer, à garder</h2>
+        </div>
+        <div class="grille grille--deux">
+          {ressources.slice(0, 3).map((r) => (
+            <article class="carte apparait">
+              <div class="carte__haut">
+                <span class="badge">{r.type || 'Document'}</span>
+                {r.categorie && <span class="carte__sport" style="margin:0">{r.categorie}</span>}
+              </div>
+              <h3>{r.titre}</h3>
+              <p>{r.description}</p>
+            </article>
+          ))}
+        </div>
+        <div style="margin-top:26px"><a class="bouton bouton--trait" href={lien('ressources/')}>Toutes les ressources →</a></div>
+      </div>
+    </section>
+  )}
 </Base>
 
 <style>
-  .heros { background: var(--azur-fonce); color: #fff; position: relative; overflow: hidden; border-bottom: 6px solid var(--or); }
-  .heros__grille { display: grid; grid-template-columns: 1fr 380px; gap: 56px; align-items: center; padding-block: 72px; }
-  .heros__surtitre { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--or); }
-  .heros h1 { font-size: clamp(34px, 5vw, 58px); font-weight: 800; }
-  .heros__texte { font-size: 19px; color: #C9DEF4; max-width: 520px; }
-  .heros__actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .heros__secondaire { background: transparent; border: 1.5px solid rgba(255,255,255,.45); color: #fff; }
-  .heros__secondaire:hover { background: rgba(255,255,255,.12); color: #fff; }
-
-  .apercu { background: var(--blanc); color: var(--encre); border-radius: 16px; padding: 24px; box-shadow: 0 26px 60px rgba(3,26,50,.38); }
-  .apercu__entete { display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--ligne); }
-  .apercu__titre { font-size: 22px; font-weight: 700; padding: 14px 0 12px; }
-  .apercu__ligne { display: flex; gap: 12px; align-items: baseline; font-size: 15px; }
-  .apercu__ligne span:first-child { width: 40px; flex-shrink: 0; color: var(--gris); font-variant-numeric: tabular-nums; }
-
-  .chiffres { background: var(--blanc); border-bottom: 1px solid var(--ligne); }
-  .chiffres__grille { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 32px; padding-block: 36px; }
-  .chiffres__grille div { display: flex; flex-direction: column; }
-  .chiffres__grille div + div { border-left: 1px solid var(--ligne); padding-left: 32px; }
-  .chiffres__grille strong { font-family: var(--titre); font-size: 42px; font-weight: 800; color: var(--azur); line-height: 1; }
-  .chiffres__grille span { color: var(--gris); padding-top: 6px; }
-
-  .puces { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 16px; }
-  .puce { background: var(--blanc); border: 1px solid var(--ligne); border-radius: 999px; padding: 9px 16px; font-size: 15px; font-weight: 500; }
-
-  .titre-section { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-  .titre-section h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 700; }
-
-  .pastille-num { width: 40px; height: 40px; border-radius: 10px; background: var(--azur-clair); color: var(--azur-fonce); display: flex; align-items: center; justify-content: center; font-family: var(--titre); font-weight: 800; }
-  .pastille-num--or { background: #FFF3D1; color: var(--or-fonce); }
-
-  .ressource { display: flex; gap: 16px; align-items: center; color: inherit; }
-  .ressource:hover { border-color: var(--azur); text-decoration: none; }
-  .ressource__icone { width: 46px; height: 46px; flex-shrink: 0; border-radius: 10px; background: var(--azur-clair); color: var(--azur-fonce); display: flex; align-items: center; justify-content: center; }
-
-  @media (max-width: 900px) {
-    .heros__grille { grid-template-columns: 1fr; gap: 36px; padding-block: 48px; }
-    .chiffres__grille { grid-template-columns: 1fr; gap: 18px; }
-    .chiffres__grille div + div { border-left: 0; padding-left: 0; border-top: 1px solid var(--ligne); padding-top: 18px; }
-  }
+  @media (max-width: 900px) { .vitrine { grid-template-columns: 1fr !important; } }
 </style>

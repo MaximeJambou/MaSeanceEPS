@@ -1,7 +1,7 @@
 [
   {
     "id": "athletisme-courir-sauter-lancer",
-    "titre": "Courir, sauter, lancer test 1",
+    "titre": "Courir, sauter, lancer",
     "sport": "Athlétisme",
     "niveaux": "CM1 · CM2",
     "periode": "Période 3",
@@ -15,7 +15,7 @@
       "Enchaîner course et franchissement",
       "Lancer en respectant la sécurité"
     ],
-    "remarque": "Les premières et dernières séances utilisent le même parcours : installez-le une fois, photographiez-le, réinstallez-le à l'identique."
+    "remarque": "La séance 1 et la séance 5 utilisent le même parcours : installez-le une fois, photographiez-le, réinstallez-le à l'identique. C'est cette comparaison qui donne son sens au cycle."
   },
   {
     "id": "jeux-collectifs-attaquer-defendre",
@@ -31,9 +31,9 @@
       "Se démarquer pour recevoir",
       "Passer vers un partenaire libre",
       "Défendre sans contact",
-      "Respecter une règle commune"
+      "Arbitrer et accepter l'arbitrage"
     ],
-    "remarque": "Constituez les équipes à l'avance et gardez-les tout le cycle : le temps gagné sert au jeu."
+    "remarque": "Constituez les équipes à l'avance et gardez-les tout le cycle : le temps gagné sert au jeu. Prévoyez trois couleurs de chasubles, la troisième équipe arbitre."
   },
   {
     "id": "aisance-aquatique",
@@ -47,10 +47,10 @@
     "objectif": "Apprivoiser le milieu aquatique : accepter l'eau sur le visage, s'immerger, se déplacer avec puis sans appui.",
     "apprentissages": [
       "Entrer dans l'eau de différentes façons",
-      "Souffler sous l'eau",
-      "Se déplacer avec un appui",
-      "Se laisser flotter"
+      "Souffler sous l'eau, yeux ouverts",
+      "Se déplacer avec puis sans appui",
+      "Se laisser flotter et se remettre debout"
     ],
-    "remarque": "Effectif réduit obligatoire et surveillance permanente : ces séances se déroulent en présence du personnel du bassin."
+    "remarque": "Effectif réduit obligatoire et surveillance permanente : ces séances se déroulent en présence du personnel du bassin, dans une profondeur où tous les élèves ont pied."
   }
 ]

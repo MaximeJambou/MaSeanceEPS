@@ -1,0 +1,177 @@
+---
+/*
+  Schéma de terrain — dessine la mise en place d'un exercice.
+
+  Le schéma est décrit en JSON dans la séance, ce qui permet de le modifier
+  depuis l'administration sans dessiner. Le repère va de 0 à 100 en largeur
+  et de 0 à 62 en hauteur : (0,0) en haut à gauche du terrain.
+
+  {
+    "terrain": "rectangle | demi | piste | bassin | libre",
+    "legende": "Une phrase qui explique la mise en place",
+    "elements": [
+      { "type":"plot",   "x":10, "y":20, "n":"1" },
+      { "type":"zone",   "x":5,"y":5,"l":40,"h":30, "texte":"Zone d'attaque", "ton":"azur" },
+      { "type":"joueur", "x":15,"y":40, "ton":"azur", "texte":"A" },
+      { "type":"ballon", "x":50,"y":31 },
+      { "type":"cible",  "x":95,"y":31, "texte":"But" },
+      { "type":"fleche", "de":[20,50], "a":[60,20], "allure":"course|passe|regard", "texte":"" },
+      { "type":"courbe", "points":"10,50 30,20 70,20 90,50", "allure":"course" },
+      { "type":"texte",  "x":50,"y":58, "texte":"Départ", "ancre":"middle" }
+    ]
+  }
+*/
+const { schema, titre = '' } = Astro.props;
+const s = schema || {};
+const els = s.elements || [];
+const id = 'sch' + Math.random().toString(36).slice(2, 8);
+
+const TON = { azur: '#0A6FD0', or: '#F2B300', encre: '#0B1A24', blanc: '#FFFFFF', pale: '#7B8E9C' };
+const ton = (t) => TON[t] || TON.azur;
+
+// clés de lecture, déduites de ce qui est réellement dessiné
+const cles = [];
+if (els.some((e) => e.type === 'plot')) cles.push({ f: 'plot', t: 'Plot' });
+if (els.some((e) => e.type === 'joueur' && (e.ton || 'azur') === 'azur')) cles.push({ f: 'rond azur', t: 'Élève en action' });
+if (els.some((e) => e.type === 'joueur' && e.ton === 'or')) cles.push({ f: 'rond or', t: 'Observateur' });
+if (els.some((e) => e.type === 'joueur' && e.ton === 'blanc')) cles.push({ f: 'rond blanc', t: 'En attente' });
+if (els.some((e) => e.type === 'ballon')) cles.push({ f: 'rond blanc', t: 'Ballon' });
+if (els.some((e) => (e.type === 'fleche' || e.type === 'courbe') && (e.allure || 'course') === 'course')) cles.push({ f: 'trait', t: 'Déplacement' });
+if (els.some((e) => (e.type === 'fleche' || e.type === 'courbe') && e.allure === 'passe')) cles.push({ f: 'trait', t: 'Passe' });
+if (els.some((e) => e.type === 'zone')) cles.push({ f: 'azur', t: 'Zone délimitée' });
+---
+
+{schema && (
+<figure class="schema">
+  <svg class="schema__toile" viewBox="0 0 100 70" role="img"
+       aria-label={s.legende || titre || 'Schéma de mise en place'}>
+    <defs>
+      <marker id={id + '-p'} viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" fill="#0A6FD0" />
+      </marker>
+      <marker id={id + '-o'} viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" fill="#7A5A00" />
+      </marker>
+      <pattern id={id + '-eau'} width="6" height="6" patternUnits="userSpaceOnUse">
+        <rect width="6" height="6" fill="#E4F0FC" />
+        <path d="M0 4.5 q1.5 -1.6 3 0 t3 0" fill="none" stroke="#BBD9F2" stroke-width=".7" />
+      </pattern>
+    </defs>
+
+    {/* ---- le fond : le terrain ---- */}
+    {s.terrain === 'rectangle' && (
+      <g fill="none" stroke="#C9D6E2" stroke-width=".8">
+        <rect x="3" y="3" width="94" height="56" rx="1.5" fill="#F7FAFD" />
+        <line x1="50" y1="3" x2="50" y2="59" />
+        <circle cx="50" cy="31" r="9" />
+        <rect x="3" y="16" width="12" height="30" />
+        <rect x="85" y="16" width="12" height="30" />
+      </g>
+    )}
+    {s.terrain === 'demi' && (
+      <g fill="none" stroke="#C9D6E2" stroke-width=".8">
+        <rect x="3" y="3" width="94" height="56" rx="1.5" fill="#F7FAFD" />
+        <rect x="82" y="14" width="15" height="34" />
+        <path d="M82 20 a12 11 0 0 0 0 22" />
+        <line x1="20" y1="3" x2="20" y2="59" stroke-dasharray="2 2" />
+      </g>
+    )}
+    {s.terrain === 'piste' && (
+      <g fill="none" stroke="#C9D6E2" stroke-width=".8">
+        <rect x="2" y="2" width="96" height="58" rx="28" fill="#F7F4EA" />
+        <rect x="9" y="9" width="82" height="44" rx="21" />
+        <rect x="17" y="17" width="66" height="28" rx="14" fill="#EFF6EC" stroke="#D7E4D2" />
+      </g>
+    )}
+    {s.terrain === 'bassin' && (
+      <g>
+        <rect x="3" y="6" width="94" height="50" rx="1.5" fill={`url(#${id}-eau)`} stroke="#9FBFDD" stroke-width=".8" />
+        <g stroke="#9FBFDD" stroke-width=".6" stroke-dasharray="3 2">
+          <line x1="3" y1="18.5" x2="97" y2="18.5" /><line x1="3" y1="31" x2="97" y2="31" /><line x1="3" y1="43.5" x2="97" y2="43.5" />
+        </g>
+        <rect x="3" y="2" width="94" height="4" fill="#E8E2D2" stroke="#C9C0AA" stroke-width=".5" />
+        <rect x="3" y="56" width="94" height="4" fill="#E8E2D2" stroke="#C9C0AA" stroke-width=".5" />
+        <g stroke="#8A99A6" stroke-width=".9" fill="none">
+          <path d="M8 56 v-5 M12 56 v-5 M8 53.5 h4" />
+        </g>
+      </g>
+    )}
+    {(!s.terrain || s.terrain === 'libre') && (
+      <rect x="2" y="2" width="96" height="58" rx="2" fill="#F9F7F1" stroke="#DFD7C4" stroke-width=".8" />
+    )}
+
+    {/* ---- les éléments ---- */}
+    {els.map((e) => {
+      if (e.type === 'zone') return (
+        <g>
+          <rect x={e.x} y={e.y} width={e.l} height={e.h} rx="1.5"
+                fill={ton(e.ton)} fill-opacity=".09" stroke={ton(e.ton)} stroke-width=".7" stroke-dasharray="2.4 1.8" />
+          {e.texte && (String(e.texte).length * 1.55 <= e.l
+            ? <text x={e.x + 1.8} y={e.y + 4} font-size="2.6" fill={ton(e.ton)} style="font-family:'IBM Plex Mono',monospace;font-weight:600">{e.texte}</text>
+            : <text x={e.x + e.l / 2} y={e.y - 1.4} font-size="2.6" text-anchor="middle" fill={ton(e.ton)} style="font-family:'IBM Plex Mono',monospace;font-weight:600">{e.texte}</text>)}
+        </g>
+      );
+      if (e.type === 'courbe') return (
+        <polyline points={e.points} fill="none" stroke={e.allure === 'passe' ? '#7A5A00' : '#0A6FD0'}
+                  stroke-width="1.1" stroke-linecap="round"
+                  stroke-dasharray={e.allure === 'passe' ? '2.4 1.8' : '0'}
+                  marker-end={`url(#${id}-${e.allure === 'passe' ? 'o' : 'p'})`} />
+      );
+      if (e.type === 'fleche') return (
+        <g>
+          <line x1={e.de[0]} y1={e.de[1]} x2={e.a[0]} y2={e.a[1]}
+                stroke={e.allure === 'passe' ? '#7A5A00' : '#0A6FD0'} stroke-width="1.1" stroke-linecap="round"
+                stroke-dasharray={e.allure === 'passe' ? '2.4 1.8' : e.allure === 'regard' ? '1 1.6' : '0'}
+                marker-end={`url(#${id}-${e.allure === 'passe' ? 'o' : 'p'})`} />
+          {e.texte && <text x={(e.de[0] + e.a[0]) / 2} y={(e.de[1] + e.a[1]) / 2 - 1.6} font-size="2.7"
+                            text-anchor="middle" fill="#4A6072" style="font-family:'IBM Plex Mono',monospace">{e.texte}</text>}
+        </g>
+      );
+      if (e.type === 'plot') return (
+        <g>
+          <path d={`M${e.x} ${e.y - 3.2} L${e.x + 2.8} ${e.y + 1.8} L${e.x - 2.8} ${e.y + 1.8} Z`} fill="#F2B300" stroke="#0B1A24" stroke-width=".6" stroke-linejoin="round" />
+          {e.n && <text x={e.x} y={e.y + 5.6} font-size="2.7" text-anchor="middle" fill="#0B1A24" style="font-family:'IBM Plex Mono',monospace;font-weight:600">{e.n}</text>}
+        </g>
+      );
+      if (e.type === 'joueur') return (
+        <g>
+          <circle cx={e.x} cy={e.y} r="2.6" fill={ton(e.ton)} stroke="#0B1A24" stroke-width=".6" />
+          {e.texte && <text x={e.x} y={e.y + 1} font-size="2.4" text-anchor="middle"
+                            fill={(e.ton === 'or' || e.ton === 'blanc') ? '#0B1A24' : '#fff'}
+                            style="font-family:'IBM Plex Mono',monospace;font-weight:600">{e.texte}</text>}
+        </g>
+      );
+      if (e.type === 'ballon') return (
+        <g>
+          <circle cx={e.x} cy={e.y} r="1.9" fill="#fff" stroke="#0B1A24" stroke-width=".6" />
+          <path d={`M${e.x - 1.9} ${e.y} h3.8 M${e.x} ${e.y - 1.9} v3.8`} stroke="#0B1A24" stroke-width=".4" />
+        </g>
+      );
+      if (e.type === 'cible') return (
+        <g>
+          <rect x={e.x - 1.6} y={e.y - 6} width="3.2" height="12" rx=".8" fill="#fff" stroke="#0B1A24" stroke-width=".7" />
+          <path d={`M${e.x - 1.6} ${e.y - 6} v12`} stroke="#0A6FD0" stroke-width="1.2" />
+          {e.texte && <text x={e.x} y={e.y + 9.6} font-size="2.6" text-anchor="middle" fill="#4A6072" style="font-family:'IBM Plex Mono',monospace">{e.texte}</text>}
+        </g>
+      );
+      if (e.type === 'texte') return (
+        <text x={e.x} y={e.y} font-size="3" text-anchor={e.ancre || 'middle'} fill="#4A6072"
+              style="font-family:'IBM Plex Mono',monospace;font-weight:600">{e.texte}</text>
+      );
+      return null;
+    })}
+  </svg>
+
+  {cles.length > 0 && (
+    <div class="schema__cles">
+      {cles.map((c) => (
+        <span class="schema__cle"><i class={c.f}></i>{c.t}</span>
+      ))}
+    </div>
+  )}
+
+  {s.legende && (
+    <figcaption class="schema__legende"><b>Mise en place</b><span>{s.legende}</span></figcaption>
+  )}
+</figure>
+)}
