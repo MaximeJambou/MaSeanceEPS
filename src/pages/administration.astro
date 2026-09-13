@@ -1,85 +1,54 @@
 ---
 import Base from '../layouts/Base.astro';
+import '../styles/admin.css';
 import { lien } from '../lib/url.js';
 ---
 <Base titre="Administration" nu={true}>
-  <div id="garde" class="garde">Vérification de l'accès…</div>
+  <div class="adm">
+    <div id="garde" class="adm-garde">Vérification de l'accès…</div>
 
-  <div id="appli" hidden>
-    <header class="barre">
-      <div class="barre__marque">
-        <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" rx="9" fill="#0A6FD0"></rect>
-          <path d="M6 23C10 13 17.5 8.5 26 9" stroke="#F2B300" stroke-width="3" fill="none" stroke-linecap="round"></path>
-          <circle cx="10.5" cy="12" r="3" fill="#ffffff"></circle>
-        </svg>
-        <span>Administration</span>
+    <div id="appli" hidden>
+      <header class="adm-haut">
+        <span class="adm-haut__marque"><i></i>Administration</span>
+        <div class="adm-haut__droite">
+          <span id="etat-publication" class="pastille pastille--attente" hidden></span>
+          <span id="etat-depot" class="pastille">Dépôt : non connecté</span>
+          <a class="b b--fin b--trait" style="border-color:rgba(255,255,255,.34);color:#fff" href={lien()} id="quitter">Quitter</a>
+        </div>
+      </header>
+
+      <div class="adm-corps">
+        <nav class="adm-flanc" aria-label="Sections">
+          <span class="adm-flanc__titre">Contenu</span>
+          <button type="button" class="adm-onglet" data-vue="tableau" aria-current="page">Tableau de bord</button>
+          <button type="button" class="adm-onglet" data-vue="cycles">Cycles <b id="n-cycles"></b></button>
+          <button type="button" class="adm-onglet" data-vue="seances">Séances <b id="n-seances"></b></button>
+          <button type="button" class="adm-onglet" data-vue="exercices">Exercices <b id="n-exercices"></b></button>
+          <button type="button" class="adm-onglet" data-vue="ressources">Ressources <b id="n-ressources"></b></button>
+          <span class="adm-flanc__titre">Réglages</span>
+          <button type="button" class="adm-onglet" data-vue="reglages">Clé, code et textes</button>
+          <div class="adm-flanc__pied">
+            <a id="lien-site" href={lien()} target="_blank" rel="noopener">Voir le site public ↗</a>
+          </div>
+        </nav>
+
+        <main>
+          <section class="adm-vue actif" id="vue-tableau"></section>
+          <section class="adm-vue" id="vue-cycles"></section>
+          <section class="adm-vue" id="vue-seances"></section>
+          <section class="adm-vue" id="vue-exercices"></section>
+          <section class="adm-vue" id="vue-ressources"></section>
+          <section class="adm-vue" id="vue-reglages"></section>
+        </main>
       </div>
-      <div class="barre__etat">
-        <span id="etat-depot" class="jeton jeton--gris">Dépôt : non connecté</span>
-        <span id="etat-publication" class="jeton" hidden></span>
-        <a class="bouton bouton--fantome" href={lien()} id="quitter">Quitter</a>
-      </div>
-    </header>
 
-    <div class="cadre">
-      <nav class="onglets" aria-label="Sections">
-        <button type="button" class="onglet est-actif" data-vue="tableau">Tableau de bord</button>
-        <button type="button" class="onglet" data-vue="cycles">Cycles</button>
-        <button type="button" class="onglet" data-vue="seances">Séances</button>
-        <button type="button" class="onglet" data-vue="ressources">Ressources</button>
-        <button type="button" class="onglet" data-vue="reglages">Réglages</button>
-      </nav>
-
-      <main class="vues">
-        <section class="vue est-visible" id="vue-tableau"></section>
-        <section class="vue" id="vue-cycles"></section>
-        <section class="vue" id="vue-seances"></section>
-        <section class="vue" id="vue-ressources"></section>
-        <section class="vue" id="vue-reglages"></section>
-      </main>
+      <div id="messages" class="adm-messages" aria-live="polite"></div>
     </div>
-
-    <div id="messages" class="messages" aria-live="polite"></div>
   </div>
 </Base>
-
-<style>
-  .garde { padding: 80px 24px; text-align: center; color: var(--gris); }
-
-  .barre { position: sticky; top: 0; z-index: 10; background: var(--azur-fonce); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 24px; flex-wrap: wrap; }
-  .barre__marque { display: flex; align-items: center; gap: 10px; font-family: var(--titre); font-weight: 700; font-size: 18px; }
-  .barre__etat { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .barre .bouton--fantome { background: transparent; border-color: rgba(255,255,255,.4); color: #fff; min-height: 40px; padding: 8px 16px; font-size: 15px; }
-  .barre .bouton--fantome:hover { background: rgba(255,255,255,.12); color: #fff; }
-
-  .jeton { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.14); }
-  .jeton--gris { color: #C9DEF4; }
-  .jeton--ok { background: #1B7F4B; color: #fff; }
-  .jeton--attente { background: var(--or); color: #2A1E00; }
-  .jeton--erreur { background: #B3261E; color: #fff; }
-
-  .cadre { display: grid; grid-template-columns: 220px 1fr; gap: 28px; max-width: 1240px; margin: 0 auto; padding: 28px 24px 80px; align-items: start; }
-  .onglets { display: flex; flex-direction: column; gap: 4px; position: sticky; top: 86px; }
-  .onglet { text-align: left; min-height: 44px; padding: 10px 14px; border: 0; border-radius: 10px; background: transparent; font-family: var(--texte); font-size: 16px; font-weight: 600; color: var(--gris); cursor: pointer; }
-  .onglet:hover { background: var(--azur-clair); color: var(--azur-fonce); }
-  .onglet.est-actif { background: var(--azur); color: #fff; }
-
-  .vue { display: none; }
-  .vue.est-visible { display: block; }
-
-  .messages { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 60; }
-  .message { background: var(--encre); color: #fff; padding: 12px 18px; border-radius: 10px; font-size: 15px; max-width: 380px; box-shadow: 0 12px 30px rgba(0,0,0,.25); }
-  .message--erreur { background: #B3261E; }
-  .message--ok { background: #1B7F4B; }
-
-  @media (max-width: 860px) {
-    .cadre { grid-template-columns: 1fr; }
-    .onglets { position: static; flex-direction: row; overflow-x: auto; }
-  }
-</style>
 
 <script is:inline define:vars={{ racine: lien() }}>
   window.MSE_BASE = racine;
 </script>
+<script is:inline type="module" src={lien('admin/schema.js')}></script>
 <script is:inline type="module" src={lien('admin/app.js')}></script>
