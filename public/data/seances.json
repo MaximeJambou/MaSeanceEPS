@@ -2790,5 +2790,130 @@
       "1 sifflet"
     ],
     "publiee": true
+  },
+  {
+    "id": "seance-de-test",
+    "cycle": "athletisme-courir-sauter-lancer",
+    "numero": 6,
+    "titre": "Séance de test",
+    "duree": 60,
+    "lieu": "Stade",
+    "objectif": "Tester le site",
+    "critere": "Le site marche",
+    "echauffement": {
+      "titre": "",
+      "duree": 15,
+      "contenu": "Faire des roulés boulés"
+    },
+    "exercices": [
+      {
+        "titre": "Main Event",
+        "duree": 35,
+        "description": "On fait des tourne et retourne",
+        "organisation": "",
+        "variable": "",
+        "schema": {
+          "modele": "couloirs",
+          "params": {
+            "nb": 3,
+            "distance": 20,
+            "depart": "accroupi",
+            "arrivee": "zone",
+            "observateurs": false
+          },
+          "terrain": "libre",
+          "legende": "3 couloirs de 20 m, départ accroupi.",
+          "elements": [
+            {
+              "type": "zone",
+              "x": 6,
+              "y": 6,
+              "l": 8,
+              "h": 50,
+              "texte": "Départ",
+              "ton": "or"
+            },
+            {
+              "type": "zone",
+              "x": 78,
+              "y": 6,
+              "l": 16,
+              "h": 50,
+              "texte": "Arrivée",
+              "ton": "azur"
+            },
+            {
+              "type": "joueur",
+              "x": 10,
+              "y": 13,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                13
+              ],
+              "a": [
+                76,
+                13
+              ],
+              "allure": "course",
+              "texte": "20 m"
+            },
+            {
+              "type": "joueur",
+              "x": 10,
+              "y": 33,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                33
+              ],
+              "a": [
+                76,
+                33
+              ],
+              "allure": "course",
+              "texte": ""
+            },
+            {
+              "type": "joueur",
+              "x": 10,
+              "y": 53,
+              "ton": "azur",
+              "texte": "A"
+            },
+            {
+              "type": "fleche",
+              "de": [
+                16,
+                53
+              ],
+              "a": [
+                76,
+                53
+              ],
+              "allure": "course",
+              "texte": ""
+            }
+          ]
+        }
+      }
+    ],
+    "retour": {
+      "titre": "Retour au calme",
+      "duree": 10,
+      "contenu": "Ecouter de la musique de babos"
+    },
+    "materiel": [
+      "Une poele à frire"
+    ],
+    "publiee": true
   }
 ]
