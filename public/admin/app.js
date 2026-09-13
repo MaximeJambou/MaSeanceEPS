@@ -7,6 +7,7 @@
 
 const BASE = window.MSE_BASE || '/';
 const CLE_JETON = 'mse-jeton-github';
+const ITERATIONS_COFFRE = 600000;
 
 const etat = {
   config: null,
@@ -15,6 +16,7 @@ const etat = {
   ressources: [],
   sha: {},          // empreinte GitHub de chaque fichier (nécessaire pour écrire)
   connecte: false,  // vrai quand un jeton valide est enregistré
+  coffre: null,     // clé chiffrée rangée dans le dépôt, si elle existe
 };
 
 /* ------------------------------ outils ------------------------------ */
@@ -54,6 +56,69 @@ function enBase64(texte) {
     binaire += String.fromCharCode.apply(null, octets.subarray(i, i + 0x8000));
   }
   return btoa(binaire);
+}
+
+/* ------------------- coffre : clé chiffrée partagée -------------------
+   Le site est statique : il ne peut cacher aucun secret. La clé de dépôt
+   est donc chiffrée avec une phrase de passe (PBKDF2 600 000 tours puis
+   AES-GCM 256) avant d'être rangée dans le dépôt. Sans la phrase, le
+   fichier ne vaut rien. La phrase, elle, n'est écrite nulle part.
+   -------------------------------------------------------------------- */
+
+function octetsEnBase64(octets) {
+  let binaire = '';
+  octets.forEach((o) => { binaire += String.fromCharCode(o); });
+  return btoa(binaire);
+}
+
+function base64EnOctets(texte) {
+  return Uint8Array.from(atob(texte), (c) => c.charCodeAt(0));
+}
+
+async function deriverCle(phrase, sel, iterations) {
+  const base = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(phrase), 'PBKDF2', false, ['deriveKey']
+  );
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: sel, iterations: iterations || ITERATIONS_COFFRE, hash: 'SHA-256' },
+    base,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+async function fabriquerCoffre(phrase, valeur) {
+  const sel = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const cle = await deriverCle(phrase, sel, ITERATIONS_COFFRE);
+  const chiffre = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, cle, new TextEncoder().encode(valeur));
+  return {
+    version: 1,
+    iterations: ITERATIONS_COFFRE,
+    sel: octetsEnBase64(sel),
+    iv: octetsEnBase64(iv),
+    donnee: octetsEnBase64(new Uint8Array(chiffre)),
+  };
+}
+
+async function ouvrirCoffre(phrase, coffre) {
+  const cle = await deriverCle(phrase, base64EnOctets(coffre.sel), coffre.iterations);
+  const clair = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: base64EnOctets(coffre.iv) }, cle, base64EnOctets(coffre.donnee)
+  );
+  return new TextDecoder().decode(clair);
+}
+
+async function chargerCoffre() {
+  try {
+    const reponse = await fetch(BASE + 'data/cle.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!reponse.ok) { etat.coffre = null; return; }
+    const contenu = await reponse.json();
+    etat.coffre = contenu && contenu.donnee ? contenu : null;
+  } catch (_) {
+    etat.coffre = null;
+  }
 }
 
 /* --------------------------- accès GitHub --------------------------- */
@@ -568,6 +633,60 @@ function vueRessources() {
   });
 }
 
+function blocCoffre() {
+  const aCoffre = !!(etat.coffre && etat.coffre.donnee);
+  const aJeton = !!jeton();
+
+  if (!aCoffre) {
+    return `
+    <form class="carte formulaire" id="form-coffre" style="margin-top:20px">
+      <h2 class="titre-bloc">Retrouver sa clé sur n'importe quel appareil</h2>
+      <p style="color:var(--gris)">
+        La clé peut être rangée dans le dépôt sous forme chiffrée. Il suffira alors d'une phrase de passe
+        pour la récupérer sur un autre ordinateur, un autre navigateur ou un téléphone.
+        <strong>Cette phrase est la seule protection</strong> : prends quatre ou cinq mots sans rapport entre eux,
+        du genre « bassin cerise tortue lampadaire ». Pas le code d'accès du site, pas un mot de passe déjà utilisé ailleurs.
+        Elle n'est enregistrée nulle part : perdue, il faudra refaire une clé sur GitHub.
+      </p>
+      ${aJeton ? '' : '<p style="color:var(--gris)"><em>Enregistre d’abord une clé ci-dessus.</em></p>'}
+      <div class="grille grille--2">
+        <div><label for="g-phrase1">Phrase de passe</label><input id="g-phrase1" type="password" autocomplete="new-password"${aJeton ? '' : ' disabled'}></div>
+        <div><label for="g-phrase2">Confirmer</label><input id="g-phrase2" type="password" autocomplete="new-password"${aJeton ? '' : ' disabled'}></div>
+      </div>
+      <div class="formulaire__actions"><button type="submit" class="bouton"${aJeton ? '' : ' disabled'}>Ranger la clé dans le dépôt</button></div>
+    </form>`;
+  }
+
+  if (!aJeton) {
+    return `
+    <form class="carte formulaire" id="form-ouvrir" style="margin-top:20px">
+      <h2 class="titre-bloc">Déverrouiller la clé</h2>
+      <p style="color:var(--gris)">
+        Une clé chiffrée est rangée dans le dépôt. Saisis la phrase de passe pour la récupérer sur cet appareil.
+      </p>
+      <div><label for="g-ouvrir">Phrase de passe</label><input id="g-ouvrir" type="password" autocomplete="off"></div>
+      <div class="formulaire__actions"><button type="submit" class="bouton">Déverrouiller</button></div>
+    </form>`;
+  }
+
+  return `
+    <form class="carte formulaire" id="form-coffre" style="margin-top:20px">
+      <h2 class="titre-bloc">Clé rangée dans le dépôt</h2>
+      <p style="color:var(--gris)">
+        Elle est disponible sur tous les appareils, à condition de connaître la phrase de passe.
+        Après avoir remplacé la clé ci-dessus, ou pour changer de phrase, range-la à nouveau.
+      </p>
+      <div class="grille grille--2">
+        <div><label for="g-phrase1">Nouvelle phrase de passe</label><input id="g-phrase1" type="password" autocomplete="new-password"></div>
+        <div><label for="g-phrase2">Confirmer</label><input id="g-phrase2" type="password" autocomplete="new-password"></div>
+      </div>
+      <div class="formulaire__actions">
+        <button type="submit" class="bouton">Ranger à nouveau</button>
+        <button type="button" class="bouton bouton--fantome bouton--danger" id="vider-coffre">Retirer du dépôt</button>
+      </div>
+    </form>`;
+}
+
 function vueReglages() {
   const d = etat.config.depot;
   $('#vue-reglages').innerHTML = `
@@ -596,6 +715,8 @@ function vueReglages() {
       </div>
       <div class="formulaire__actions"><button type="submit" class="bouton">Changer le code</button></div>
     </form>
+
+    ${blocCoffre()}
 
     <div class="carte" style="margin-top:20px">
       <h2 class="titre-bloc">Textes du site</h2>
@@ -637,6 +758,57 @@ function vueReglages() {
       vueReglages();
     }
   });
+
+
+  const formCoffre = $('#form-coffre');
+  if (formCoffre) {
+    formCoffre.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const a = $('#g-phrase1').value, b = $('#g-phrase2').value;
+      if (a.length < 16) { message('Phrase trop courte : seize caractères au minimum, quatre mots font l’affaire.', 'erreur'); return; }
+      if (a !== b) { message('Les deux phrases ne correspondent pas.', 'erreur'); return; }
+      if (!jeton()) { message('Aucune clé à ranger.', 'erreur'); return; }
+      try {
+        const coffre = await fabriquerCoffre(a, jeton());
+        if (await publier('cle.json', coffre, 'Clé chiffrée rangée dans le dépôt')) {
+          etat.coffre = coffre;
+          message('Clé rangée. Elle sera récupérable partout dans une à deux minutes.', 'ok');
+          vueReglages();
+        }
+      } catch (err) {
+        message('Chiffrement impossible : ' + err.message, 'erreur');
+      }
+    });
+  }
+
+  const viderCoffre = $('#vider-coffre');
+  if (viderCoffre) {
+    viderCoffre.addEventListener('click', async () => {
+      if (await publier('cle.json', { version: 1, vide: true }, 'Retrait de la clé chiffrée')) {
+        etat.coffre = null;
+        message('Clé retirée du dépôt. Il faudra la recoller sur chaque appareil.');
+        vueReglages();
+      }
+    });
+  }
+
+  const formOuvrir = $('#form-ouvrir');
+  if (formOuvrir) {
+    formOuvrir.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const phrase = $('#g-ouvrir').value;
+      if (!phrase) { message('Saisis la phrase de passe.', 'erreur'); return; }
+      try {
+        const valeur = await ouvrirCoffre(phrase, etat.coffre);
+        try { localStorage.setItem(CLE_JETON, valeur); } catch (_) {}
+        message('Clé récupérée sur cet appareil.', 'ok');
+        await verifierConnexion(true);
+        vueReglages();
+      } catch (_) {
+        message('Phrase de passe incorrecte.', 'erreur');
+      }
+    });
+  }
 
   $('#form-textes').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -690,12 +862,18 @@ async function depart() {
   $('#appli').hidden = false;
 
   await chargerLocal();
+  await chargerCoffre();
   await verifierConnexion(false);
 
   $$('.onglet').forEach((o) => o.addEventListener('click', () => montrer(o.dataset.vue)));
   $('#quitter').addEventListener('click', () => sessionStorage.removeItem('mse-acces'));
 
-  montrer('tableau');
+  if (!jeton() && etat.coffre) {
+    montrer('reglages');
+    message('Clé absente de cet appareil : saisis la phrase de passe pour la récupérer.');
+  } else {
+    montrer('tableau');
+  }
 }
 
 depart().catch((e) => {
