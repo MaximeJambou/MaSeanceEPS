@@ -670,12 +670,12 @@
     "cycle": "athletisme-courir-sauter-lancer",
     "numero": 1,
     "titre": "Courir sans s'arrêter",
-    "duree": 45,
+    "duree": 50,
     "lieu": "Cour ou stade",
     "objectif": "Repérer son allure sur six minutes et apprendre à doser son effort.",
     "critere": "Courir six minutes sans marcher, en gardant la même allure.",
     "echauffement": {
-      "duree": 10,
+      "duree": 15,
       "titre": "Mise en train progressive",
       "contenu": "Trottinement autour du terrain, mobilisation des chevilles et des épaules, deux accélérations de 20 m."
     },
